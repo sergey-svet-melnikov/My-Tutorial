@@ -1,11 +1,13 @@
-Задание №1 - Подготовка рабочей среды
+### Задание №1 - Подготовка рабочей среды
 
-https://github.com/sergey-svet-melnikov/desktop-tutorial/blob/c5c574fb1b305be2caeba1b680ec3a4d89906156/DevOps-22/Home_Work/01-intro-01/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%E2%84%961%20-%20%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B9%20%D1%81%D1%80%D0%B5%D0%B4%D1%8B/%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%20%D0%9C%D0%B5%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2%20netology.jsonnet.jpg
-https://github.com/sergey-svet-melnikov/desktop-tutorial/blob/c5c574fb1b305be2caeba1b680ec3a4d89906156/DevOps-22/Home_Work/01-intro-01/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%E2%84%961%20-%20%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B9%20%D1%81%D1%80%D0%B5%D0%B4%D1%8B/%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%20%D0%9C%D0%B5%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2%20netology.md.jpg
-https://github.com/sergey-svet-melnikov/desktop-tutorial/blob/c5c574fb1b305be2caeba1b680ec3a4d89906156/DevOps-22/Home_Work/01-intro-01/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%E2%84%961%20-%20%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B9%20%D1%81%D1%80%D0%B5%D0%B4%D1%8B/%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%20%D0%9C%D0%B5%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2%20netology.sh.jpg
-https://github.com/sergey-svet-melnikov/desktop-tutorial/blob/c5c574fb1b305be2caeba1b680ec3a4d89906156/DevOps-22/Home_Work/01-intro-01/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%E2%84%961%20-%20%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B9%20%D1%81%D1%80%D0%B5%D0%B4%D1%8B/%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%20%D0%9C%D0%B5%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2%20netology.tf.jpg
-https://github.com/sergey-svet-melnikov/desktop-tutorial/blob/c5c574fb1b305be2caeba1b680ec3a4d89906156/DevOps-22/Home_Work/01-intro-01/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%E2%84%961%20-%20%D0%9F%D0%BE%D0%B4%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B9%20%D1%81%D1%80%D0%B5%D0%B4%D1%8B/%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%20%D0%9C%D0%B5%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2%20netology.yaml.jpg
+ - Teraform ![](N1/Sergey Melnikov netology.tf.jpg)
+ - SH ![](N1/Sergey Melnikov netology.sh.jpg)
+ - MD ![](N1/Sergey Melnikov netology.md.jpg)
+ - Yaml ![](N1/Sergey Melnikov netology.yaml.jpg)
+ - Jsonnet ![](N1/Sergey Melnikov netology.yaml.jpg)
 
-Задание №2 - Описание жизненного цикла задачи
+### Задание №2 - Описание жизненного цикла задачи
 
-https://github.com/sergey-svet-melnikov/desktop-tutorial/blob/c5c574fb1b305be2caeba1b680ec3a4d89906156/DevOps-22/Home_Work/01-intro-01/%D0%97%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%E2%84%962%20-%20%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B6%D0%B8%D0%B7%D0%BD%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE%20%D1%86%D0%B8%D0%BA%D0%BB%D0%B0%20%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D0%B8/readme.md
+
+
+
