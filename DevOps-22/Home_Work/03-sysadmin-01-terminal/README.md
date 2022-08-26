@@ -24,7 +24,48 @@
 * Сетевая Intel PRO / 1000 MT Desktop (8254OEM) в режиме NAT
 * Назначена общая папка, совпадающая с папкой vagrant
 
-### 
-### 
-### 
-### 
+### 6. Ознакомьтесь с возможностями конфигурации VirtualBox через Vagrantfile: документация. Как добавить оперативной памяти или ресурсов процессора виртуальной машине?
+
+* https://www.vagrantup.com/docs/providers/virtualbox/configuration
+
+### 7. Команда vagrant ssh из директории, в которой содержится Vagrantfile, позволит вам оказаться внутри виртуальной машины без каких-либо дополнительных настроек. Попрактикуйтесь в выполнении обсуждаемых команд в терминале Ubuntu.
+
+* vagrant@vagrant:~$ uname -a 
+Linux vagrant 5.4.0-110-generic #124-Ubuntu SMP Thu Apr 14 19:46:19 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+
+### 8. Ознакомиться с разделами man bash, почитать о настройках самого bash:
+
+> Какой переменной можно задать длину журнала history, и на какой строчке manual это описывается?
+ 
+* HISTSIZE, по умолчанию этоn файл ~/.bash_history (строка мануала по bash 843, если я корректно расположил саму команду на первой горизонтальной строке терминал)
+
+> что делает директива ignoreboth в bash?
+
+* HISTCONTROL
+              A  colon-separated  list of values controlling how commands are saved on the history list.  If the list
+              of values includes ignorespace, lines which begin with a space character are not saved in  the  history
+              list.  A value of ignoredups causes lines matching the previous history entry to not be saved.  A value
+              of ignoreboth is shorthand for ignorespace and ignoredups.  A value of erasedups  causes  all  previous
+              lines  matching  the  current  line to be removed from the history list before that line is saved.  Any
+              value not in the above list is ignored.  If HISTCONTROL is unset, or does not include  a  valid  value,
+              all  lines  read by the shell parser are saved on the history list, subject to the value of HISTIGNORE.
+              The second and subsequent lines of a multi-line compound command are not tested, and are added  to  the
+              history regardless of the value of HISTCONTROL.
+>>>Не знаю как вам правильно описать что делает эта директива, надеюсь нашел верно, перевел в переводчике...
+
+### 9. В каких сценариях использования применимы скобки {} и на какой строчке man bash это описано? 
+
+* Показывет строку 174 мануала по bash (man bash):
+  * RESERVED WORDS
+        Reserved  words are words that have a special meaning to the shell.  The following words are recognized as re‐
+        served when unquoted and either the first word of a simple command (see SHELL GRAMMAR below) or the third word
+        of a case or for command:         ! case  coproc  do done elif else esac fi for function if in select then until while { } time [[ ]]
+
+### 10. Основываясь на предыдущем вопросе, как создать однократным вызовом touch 100000 файлов?
+
+* touch my_file_nomber_{1..100000} - ОК
+* touch file{1..300000} - Ошибка "Слишком много аргументов" - превышено количество симфолов вводимых для 1 команды (длинна команды в строке превышена) 
+
+
+###
+###
