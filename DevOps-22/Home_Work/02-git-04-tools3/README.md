@@ -91,7 +91,7 @@ P.s. Сам коммит, затем родитель 1, затем родите
 
 ### 4. Перечислите хеши и комментарии всех коммитов которые были сделаны между тегами v0.12.23 и v0.12.24.
 
-***Решение: Выполнить командру git log  v0.12.23..v0.12.24  --oneline***
+***Выполнить командру git log  v0.12.23..v0.12.24  --oneline***
 
 33ff1c03bb (tag: v0.12.24) v0.12.24  
 b14b74c493 [Website] vmc provider links  
@@ -103,6 +103,49 @@ d5f9411f51 command: Fix bug when using terraform login on Windows
 4b6d06cc5d Update CHANGELOG.md  
 dd01a35078 Update CHANGELOG.md  
 225466bc3e Cleanup after v0.12.23 release  
+
+### 5. Найдите коммит в котором была создана функция func providerSource, ее определение в коде выглядит так func providerSource(...) (вместо троеточего перечислены аргументы).
+
+***Выполнить команду git log -S 'func providerSource' --oneline***
+
+5af1e6234a main: Honor explicit provider_installation CLI config when present  
+8c928e8358 main: Consult local directories as potential mirrors of providers  
+
+### 6. Найдите все коммиты в которых была изменена функция globalPluginDirs.
+
+***Выполнить команду git log -S 'func globalPluginDirs'***
+  
+commit 8364383c359a6b738a436d1b7745ccdce178df47  
+Author: Martin Atkins <mart@degeneration.co.uk>  
+Date:   Thu Apr 13 18:05:58 2017 -0700  
+
+    Push plugin discovery down into command package
+
+    Previously we did plugin discovery in the main package, but as we move
+    towards versioned plugins we need more information available in order to
+    resolve plugins, so we move this responsibility into the command package
+    itself.
+
+    For the moment this is just preserving the existing behavior as long as
+    there are only internal and unversioned plugins present. This is the
+    final state for provisioners in 0.10, since we don't want to support
+    versioned provisioners yet. For providers this is just a checkpoint along
+    the way, since further work is required to apply version constraints from
+    configuration and support additional plugin search directories.
+
+    The automatic plugin discovery behavior is not desirable for tests because
+    we want to mock the plugins there, so we add a new backdoor for the tests
+    to use to skip the plugin discovery and just provide their own mock
+    implementations. Most of this diff is thus noisy rework of the tests to
+    use this new mechanism.
+
+### 7. Кто автор функции synchronizedWriters?
+
+***Выполнить команду git log -S 'func synchronizedWriters' --pretty=format:'%h - %an %ae'***
+
+bdfea50cc8 - James Bardin j.bardin@gmail.com  
+5ac311e2a9 - Martin Atkins mart@degeneration.co.uk  
+
 
 
   
