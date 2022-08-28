@@ -130,31 +130,19 @@ dd01a35078 Update CHANGELOG.md
 
 ### 6. Найдите все коммиты в которых была изменена функция globalPluginDirs.
 
-***Сначала сделал так: Выполнить команду git log -S 'func globalPluginDirs'***
+***Сначала сделал так: Выполнить команду git log -S "globalPluginDirs" --oneline***
 
-Нашлось много коммитов, где упомянута функция.
+Но результат не тот!
 
-125eb51dc4 Remove accidentally-committed binary  
-22c121df86 Bump compatibility version to 1.3.0 for terraform core release (#30988)  
-35a058fb3d main: configure credentials from the CLI config file  
-c0b1761096 prevent log output during init  
-8364383c35 Push plugin discovery down into command package  
+***ИЛИ Потом делал так: git grep globalPluginDirs***
 
-Затем можно просмотреть коммиты глазами через git show
-
-***Потом делал так: git grep "globalPluginDirs"***
-
-commands.go=func initCommands(  
 commands.go:            GlobalPluginDirs: globalPluginDirs(),  
-commands.go=func credentialsSource(config *cliconfig.Config) (auth.CredentialsSource, error) {  
 commands.go:    helperPlugins := pluginDiscovery.FindPlugins("credentials", globalPluginDirs())  
-internal/command/cliconfig/config_unix.go=func homeDir() (string, error) {  
-internal/command/cliconfig/config_unix.go:              // FIXME: homeDir gets called from globalPluginDirs during init, before    
-plugins.go=import (    
-plugins.go:// globalPluginDirs returns directories that should be searched for    
-plugins.go:func globalPluginDirs() []string {    
+internal/command/cliconfig/config_unix.go:              // FIXME: homeDir gets called from globalPluginDirs during init, before  
+plugins.go:// globalPluginDirs returns directories that should be searched for  
+plugins.go:func globalPluginDirs() []string {   
 
-***затем искать в каждом файле через git log -L :globalPluginDirs:plugins.go и глазами смотреть создание функции (ее определение)***
+***затем искать в каждом файле через git log -L :globalPluginDirs:plugins.go и глазами смотреть изменения***
 
 ### 7. Кто автор функции synchronizedWriters?
 
