@@ -74,32 +74,22 @@ Linux vagrant 5.4.0-110-generic #124-Ubuntu SMP Thu Apr 14 19:46:19 UTC 2022 x86
 
 ### 12. Основываясь на знаниях о просмотре текущих (например, PATH) и установке новых переменных; командах, которые мы рассматривали, добейтесь в выводе type -a bash в виртуальной машине наличия первым пунктом в списке: 
 
-vagrant@vagrant:/$ mkdir /tmp/ttt
-
-vagrant@vagrant:/$ PATH=/tmp/ttt:$PATH
-
-vagrant@vagrant:/$ type -a bash
-
-bash is /usr/bin/bash
-
-bash is /bin/bash
-
-vagrant@vagrant:/$ cp /bin/bash /tmp/ttt/
-
-vagrant@vagrant:/$ type -a bash
-
-bash is /tmp/ttt/bash
-
-bash is /usr/bin/bash
-
-bash is /bin/bash
-
+vagrant@vagrant:/$ mkdir /tmp/ttt  
+vagrant@vagrant:/$ PATH=/tmp/ttt:$PATH  
+vagrant@vagrant:/$ type -a bash  
+bash is /usr/bin/bash  
+bash is /bin/bash  
+vagrant@vagrant:/$ cp /bin/bash /tmp/ttt/ 
+vagrant@vagrant:/$ type -a bash  
+bash is /tmp/ttt/bash  
+bash is /usr/bin/bash  
+bash is /bin/bash  
 
 ### 13. Чем отличается планирование команд с помощью batch и at?
 
 Судя по ману:
 at запускает в определенное время команду (отложенный старт типа)
-batch запускает компанду когда производительность (загруженность спадет ниже 1.5)
+batch запускает компанду когда производительность (загруженность спадет ниже 1.5 - 1.5 чего?)
 
 ### 14. Завершите работу виртуальной машины чтобы не расходовать ресурсы компьютера и/или батарею ноутбука.
 
