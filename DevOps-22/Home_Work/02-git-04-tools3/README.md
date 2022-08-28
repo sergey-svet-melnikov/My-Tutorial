@@ -36,35 +36,35 @@ Date:   Thu Mar 5 20:56:10 2020 +0000
 
 ***Решение 2: Выполнил команду git show 85024d3***
 
-commit 85024d3100126de36331c6982bfaac02cdab9e76 (tag: v0.12.23)
-Author: tf-release-bot <terraform@hashicorp.com>
-Date:   Thu Mar 5 20:56:10 2020 +0000
+commit 85024d3100126de36331c6982bfaac02cdab9e76 (tag: v0.12.23)  
+Author: tf-release-bot <terraform@hashicorp.com>  
+Date:   Thu Mar 5 20:56:10 2020 +0000  
 
     v0.12.23
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 1a9dcd0f9b..faedc8bf4e 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -1,4 +1,4 @@
--## 0.12.23 (Unreleased)
-+## 0.12.23 (March 05, 2020)
- ##0.12.22 (March 05, 2020)
-
- ENHANCEMENTS:
-diff --git a/version/version.go b/version/version.go  
-index 33ac86f5dd..bcb6394d2e 100644  
---- a/version/version.go  
-+++ b/version/version.go  
-@@ -16,7 +16,7 @@ var Version = "0.12.23"  
- // A pre-release marker for the version. If this is "" (empty string)  
- // then it means that it is a final release. Otherwise, this is a pre-release  
+diff --git a/CHANGELOG.md b/CHANGELOG.md  
+index 1a9dcd0f9b..faedc8bf4e 100644  
+--- a/CHANGELOG.md  
++++ b/CHANGELOG.md  
+@@ -1,4 +1,4 @@  
+-## 0.12.23 (Unreleased)  
++## 0.12.23 (March 05, 2020)  
+ ##0.12.22 (March 05, 2020)  
+  
+ ENHANCEMENTS:  
+diff --git a/version/version.go b/version/version.go    
+index 33ac86f5dd..bcb6394d2e 100644    
+--- a/version/version.go    
++++ b/version/version.go    
+@@ -16,7 +16,7 @@ var Version = "0.12.23"    
+ // A pre-release marker for the version. If this is "" (empty string)    
+ // then it means that it is a final release. Otherwise, this is a pre-release    
  // such as "dev" (in development), "beta", "rc1", etc.  
 -var Prerelease = "dev"  
 +var Prerelease = ""  
   
- // SemVer is an instance of version.Version. This has the secondary  
- // benefit of verifying during tests and init time that our version is a  
+ // SemVer is an instance of version.Version. This has the secondary    
+ // benefit of verifying during tests and init time that our version is a    
  
 ### 3. Сколько родителей у коммита b8d720? Напишите их хеши.
 
@@ -146,6 +146,7 @@ Date:   Thu Apr 13 18:05:58 2017 -0700
 bdfea50cc8 - James Bardin j.bardin@gmail.com  
 5ac311e2a9 - Martin Atkins mart@degeneration.co.uk  
 
+P.S. автор скорее всего тот, кто первым в списке поиска (первый кто использвал func synchronizedWriters ее в коде)
 
 
   
