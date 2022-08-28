@@ -131,32 +131,18 @@ dd01a35078 Update CHANGELOG.md
 ### 6. Найдите все коммиты в которых была изменена функция globalPluginDirs.
 
 ***Сначала сделал так: Выполнить команду git log -S 'func globalPluginDirs'***
-  
-commit 8364383c359a6b738a436d1b7745ccdce178df47  
-Author: Martin Atkins <mart@degeneration.co.uk>  
-Date:   Thu Apr 13 18:05:58 2017 -0700  
 
-    Push plugin discovery down into command package
+Нашлось много коммитов, где упомянута функция.
 
-    Previously we did plugin discovery in the main package, but as we move
-    towards versioned plugins we need more information available in order to
-    resolve plugins, so we move this responsibility into the command package
-    itself.
+125eb51dc4 Remove accidentally-committed binary  
+22c121df86 Bump compatibility version to 1.3.0 for terraform core release (#30988)  
+35a058fb3d main: configure credentials from the CLI config file  
+c0b1761096 prevent log output during init  
+8364383c35 Push plugin discovery down into command package  
 
-    For the moment this is just preserving the existing behavior as long as
-    there are only internal and unversioned plugins present. This is the
-    final state for provisioners in 0.10, since we don't want to support
-    versioned provisioners yet. For providers this is just a checkpoint along
-    the way, since further work is required to apply version constraints from
-    configuration and support additional plugin search directories.
+Затем можно просмотреть коммиты глазами через git show
 
-    The automatic plugin discovery behavior is not desirable for tests because
-    we want to mock the plugins there, so we add a new backdoor for the tests
-    to use to skip the plugin discovery and just provide their own mock
-    implementations. Most of this diff is thus noisy rework of the tests to
-    use this new mechanism.
-
-***Потом делал так: git grep -p "globalPluginDirs(" ...***
+***Потом делал так: git grep "globalPluginDirs"***
 
 commands.go=func initCommands(  
 commands.go:            GlobalPluginDirs: globalPluginDirs(),  
@@ -169,59 +155,6 @@ plugins.go:// globalPluginDirs returns directories that should be searched for
 plugins.go:func globalPluginDirs() []string {    
 
 ***затем искать в каждом файле через git log -L :globalPluginDirs:plugins.go и глазами смотреть создание функции (ее определение)***
-
-commit 8364383c359a6b738a436d1b7745ccdce178df47
-Author: Martin Atkins <mart@degeneration.co.uk>
-Date:   Thu Apr 13 18:05:58 2017 -0700
-
-    Push plugin discovery down into command package
-
-    Previously we did plugin discovery in the main package, but as we move
-    towards versioned plugins we need more information available in order to
-    resolve plugins, so we move this responsibility into the command package
-    itself.
-
-    For the moment this is just preserving the existing behavior as long as
-    there are only internal and unversioned plugins present. This is the
-    final state for provisioners in 0.10, since we don't want to support
-    versioned provisioners yet. For providers this is just a checkpoint along
-    the way, since further work is required to apply version constraints from
-    configuration and support additional plugin search directories.
-
-    The automatic plugin discovery behavior is not desirable for tests because
-    we want to mock the plugins there, so we add a new backdoor for the tests
-    to use to skip the plugin discovery and just provide their own mock
-    implementations. Most of this diff is thus noisy rework of the tests to
-    use this new mechanism.
-
-diff --git a/plugins.go b/plugins.go
---- /dev/null
-+++ b/plugins.go
-@@ -0,0 +16,22 @@
-+func globalPluginDirs() []string {
-+       var ret []string
-+
-+       // Look in the same directory as the Terraform executable.
-+       // If found, this replaces what we found in the config path.
-+       exePath, err := osext.Executable()
-+       if err != nil {
-+               log.Printf("[ERROR] Error discovering exe directory: %s", err)
-+       } else {
-+               ret = append(ret, filepath.Dir(exePath))
-+       }
-+
-+       // Look in ~/.terraform.d/plugins/ , or its equivalent on non-UNIX
-+       dir, err := ConfigDir()
-+       if err != nil {
-+               log.Printf("[ERROR] Error finding global config directory: %s", err)
-+       } else {
-+               ret = append(ret, filepath.Join(dir, "plugins"))
-+       }
-+
-+       return ret
-+}
-
- 
 
 ### 7. Кто автор функции synchronizedWriters?
 
