@@ -79,8 +79,8 @@ vagrant@vagrant:/$ PATH=/tmp/ttt:$PATH
 vagrant@vagrant:/$ type -a bash  
 bash is /usr/bin/bash  
 bash is /bin/bash  
-vagrant@vagrant:/$ cp /bin/bash /tmp/ttt/ 
-vagrant@vagrant:/$ type -a bash  
+vagrant@vagrant:/$ cp /bin/bash /tmp/ttt/  
+vagrant@vagrant:/$ type -a bash   
 bash is /tmp/ttt/bash  
 bash is /usr/bin/bash  
 bash is /bin/bash  
