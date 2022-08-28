@@ -121,18 +121,26 @@ dd01a35078 Update CHANGELOG.md
 
 ### 5. Найдите коммит в котором была создана функция func providerSource, ее определение в коде выглядит так func providerSource(...) (вместо троеточего перечислены аргументы).
 
-***Выполнить команду git log -S 'func providerSource' --oneline***
+***Выполнить команду git log -S "func providerSource" --oneline***
 
 5af1e6234a main: Honor explicit provider_installation CLI config when present  
 8c928e8358 main: Consult local directories as potential mirrors of providers
 
 ***После командо git show просмотрел коммиты и нашел в котором добавляется функция***
 
+commit 8c928e83589d90a031f811fae52a81be7153e82f
+
 ### 6. Найдите все коммиты в которых была изменена функция globalPluginDirs.
 
 ***Сначала сделал так: Выполнить команду git log -S "globalPluginDirs" --oneline***
 
-Но результат не тот!
+125eb51dc4 Remove accidentally-committed binary
+22c121df86 Bump compatibility version to 1.3.0 for terraform core release (#30988)
+35a058fb3d main: configure credentials from the CLI config file
+c0b1761096 prevent log output during init
+8364383c35 Push plugin discovery down into command package
+
+Но результат был другой! или я путаюсь.
 
 ***ИЛИ Потом делал так: git grep globalPluginDirs***
 
