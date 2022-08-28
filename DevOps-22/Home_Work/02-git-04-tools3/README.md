@@ -146,7 +146,7 @@ Date:   Thu Apr 13 18:05:58 2017 -0700
 bdfea50cc8 - James Bardin j.bardin@gmail.com  
 5ac311e2a9 - Martin Atkins mart@degeneration.co.uk  
 
-P.S. автор скорее всего тот, кто первым в списке поиска (первый кто использвал func synchronizedWriters ее в коде)
+P.S. автор скорее всего тот, кто первым в списке поиска (первый кто использвал func synchronizedWriters в коде)
 
 
   
