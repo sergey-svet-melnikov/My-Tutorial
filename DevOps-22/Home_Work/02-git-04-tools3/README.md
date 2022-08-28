@@ -154,12 +154,16 @@ plugins.go:func globalPluginDirs() []string {
 
 ### 7. Кто автор функции synchronizedWriters?
 
-***Выполнить команду git log -S 'func synchronizedWriters' --pretty=format:'%h - %an %ae'***
+***Выполнить команду git log -S "func synchronizedWriters" --pretty=format:'%h - %an %ae'***
 
 bdfea50cc8 - James Bardin j.bardin@gmail.com  
 5ac311e2a9 - Martin Atkins mart@degeneration.co.uk  
 
-P.S. автор скорее всего тот, кто первым в списке поиска (первый кто использвал func synchronizedWriters в коде)
+P.S. автор скорее всего тот, кто первым в списке поиска (первый кто использвал func synchronizedWriters в коде или git show для просмотра)
+
+commit 5ac311e2a91e381e2f52234668b49ba670aa0fe5   
+Author: Martin Atkins <mart@degeneration.co.uk>   
+Date:   Wed May 3 16:25:41 2017 -0700   
 
 
   
