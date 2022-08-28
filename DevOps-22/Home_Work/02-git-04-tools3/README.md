@@ -91,7 +91,7 @@ P.s. Сам коммит, затем родитель 1, затем родите
 
 ### 4. Перечислите хеши и комментарии всех коммитов которые были сделаны между тегами v0.12.23 и v0.12.24.
 
-***Выполнить командру git log  v0.12.23..v0.12.24  --oneline***
+***Выполнить командру git log  v0.12.23...v0.12.24  --oneline***
 
 33ff1c03bb (tag: v0.12.24) v0.12.24  
 b14b74c493 [Website] vmc provider links  
@@ -104,16 +104,33 @@ d5f9411f51 command: Fix bug when using terraform login on Windows
 dd01a35078 Update CHANGELOG.md  
 225466bc3e Cleanup after v0.12.23 release  
 
+>P.S. Прочел в подсказках, можно сделать командой:  
+> git log v0.12.24 -11 --oneline  
+33ff1c03bb (tag: v0.12.24) v0.12.24  
+b14b74c493 [Website] vmc provider links  
+3f235065b9 Update CHANGELOG.md  
+6ae64e247b registry: Fix panic when server is unreachable  
+5c619ca1ba website: Remove links to the getting started guide's old location  
+06275647e2 Update CHANGELOG.md  
+d5f9411f51 command: Fix bug when using terraform login on Windows  
+4b6d06cc5d Update CHANGELOG.md  
+dd01a35078 Update CHANGELOG.md  
+225466bc3e Cleanup after v0.12.23 release  
+85024d3100 (tag: v0.12.23) v0.12.23  
+>>Хотя скорее так деаль неверно, я же не знаю заранее сколько строк (коммитов) прошло с момента от (tag: v0.12.24) и до (tag: v0.12.23)
+
 ### 5. Найдите коммит в котором была создана функция func providerSource, ее определение в коде выглядит так func providerSource(...) (вместо троеточего перечислены аргументы).
 
 ***Выполнить команду git log -S 'func providerSource' --oneline***
 
 5af1e6234a main: Honor explicit provider_installation CLI config when present  
-8c928e8358 main: Consult local directories as potential mirrors of providers  
+8c928e8358 main: Consult local directories as potential mirrors of providers
+
+***После командо git show просмотрел коммиты и нашел в котором добавляется функция***
 
 ### 6. Найдите все коммиты в которых была изменена функция globalPluginDirs.
 
-***Выполнить команду git log -S 'func globalPluginDirs'***
+***Сначала сделал так: Выполнить команду git log -S 'func globalPluginDirs'***
   
 commit 8364383c359a6b738a436d1b7745ccdce178df47  
 Author: Martin Atkins <mart@degeneration.co.uk>  
@@ -138,6 +155,73 @@ Date:   Thu Apr 13 18:05:58 2017 -0700
     to use to skip the plugin discovery and just provide their own mock
     implementations. Most of this diff is thus noisy rework of the tests to
     use this new mechanism.
+
+***Потом делал так: git grep -p "globalPluginDirs(" ...***
+
+commands.go=func initCommands(  
+commands.go:            GlobalPluginDirs: globalPluginDirs(),  
+commands.go=func credentialsSource(config *cliconfig.Config) (auth.CredentialsSource, error) {  
+commands.go:    helperPlugins := pluginDiscovery.FindPlugins("credentials", globalPluginDirs())  
+internal/command/cliconfig/config_unix.go=func homeDir() (string, error) {  
+internal/command/cliconfig/config_unix.go:              // FIXME: homeDir gets called from globalPluginDirs during init, before    
+plugins.go=import (    
+plugins.go:// globalPluginDirs returns directories that should be searched for    
+plugins.go:func globalPluginDirs() []string {    
+
+***затем искать в каждом файле через git log -L :globalPluginDirs:plugins.go и глазами смотреть создание функции (ее определение)***
+
+commit 8364383c359a6b738a436d1b7745ccdce178df47
+Author: Martin Atkins <mart@degeneration.co.uk>
+Date:   Thu Apr 13 18:05:58 2017 -0700
+
+    Push plugin discovery down into command package
+
+    Previously we did plugin discovery in the main package, but as we move
+    towards versioned plugins we need more information available in order to
+    resolve plugins, so we move this responsibility into the command package
+    itself.
+
+    For the moment this is just preserving the existing behavior as long as
+    there are only internal and unversioned plugins present. This is the
+    final state for provisioners in 0.10, since we don't want to support
+    versioned provisioners yet. For providers this is just a checkpoint along
+    the way, since further work is required to apply version constraints from
+    configuration and support additional plugin search directories.
+
+    The automatic plugin discovery behavior is not desirable for tests because
+    we want to mock the plugins there, so we add a new backdoor for the tests
+    to use to skip the plugin discovery and just provide their own mock
+    implementations. Most of this diff is thus noisy rework of the tests to
+    use this new mechanism.
+
+diff --git a/plugins.go b/plugins.go
+--- /dev/null
++++ b/plugins.go
+@@ -0,0 +16,22 @@
++func globalPluginDirs() []string {
++       var ret []string
++
++       // Look in the same directory as the Terraform executable.
++       // If found, this replaces what we found in the config path.
++       exePath, err := osext.Executable()
++       if err != nil {
++               log.Printf("[ERROR] Error discovering exe directory: %s", err)
++       } else {
++               ret = append(ret, filepath.Dir(exePath))
++       }
++
++       // Look in ~/.terraform.d/plugins/ , or its equivalent on non-UNIX
++       dir, err := ConfigDir()
++       if err != nil {
++               log.Printf("[ERROR] Error finding global config directory: %s", err)
++       } else {
++               ret = append(ret, filepath.Join(dir, "plugins"))
++       }
++
++       return ret
++}
+
+ 
 
 ### 7. Кто автор функции synchronizedWriters?
 
