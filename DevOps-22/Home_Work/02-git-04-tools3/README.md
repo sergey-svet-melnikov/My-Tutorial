@@ -159,7 +159,7 @@ plugins.go:func globalPluginDirs() []string {
 bdfea50cc8 - James Bardin j.bardin@gmail.com  
 5ac311e2a9 - Martin Atkins mart@degeneration.co.uk  
 
-P.S. автор скорее всего тот, кто первым в списке поиска (первый кто использвал func synchronizedWriters в коде или git show для просмотра)
+git show для просмотра коммитов
 
 commit 5ac311e2a91e381e2f52234668b49ba670aa0fe5   
 Author: Martin Atkins <mart@degeneration.co.uk>   
