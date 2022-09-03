@@ -179,7 +179,27 @@ Connection to localhost closed.
 
 ### 13. Бывает, что есть необходимость переместить запущенный процесс из одной сессии в другую. Попробуйте сделать это, воспользовавшись reptyr. Например, так можно перенести в screen процесс, который вы запустили по ошибке в обычной SSH-сессии.
 
+* Устанавливаем reptyr    
 
+vagrant@vagrant:~$ sudo apt install reptyr  
+
+vagrant@vagrant:~$ tty  
+/dev/pts/0  
+vagrant@vagrant:~$ ps -ax | grep pts  
+    778 ?        S      0:00 sshd: vagrant@pts/0  
+    780 pts/0    Ss     0:00 -bash  
+   1989 ?        S      0:00 sshd: vagrant@pts/1  
+   1990 pts/1    Ss     0:00 -bash  
+   2044 pts/1    S+     0:01 top  
+   2224 pts/0    R+     0:00 ps -ax  
+   2225 pts/0    S+     0:00 grep --color=auto pts  
+vagrant@vagrant:~$ reptyr 2044  
+Unable to attach to pid 2044: Operation not permitted  
+The kernel denied permission while attaching. If your uid matches  
+the target's, check the value of /proc/sys/kernel/yama/ptrace_scope.  
+For more information, see /etc/sysctl.d/10-ptrace.conf  
+
+* При исправлении ошибки (разрешаем системе приаттачивать к себе в сессию другие процессы) процесс приаттачивается к своей сессии, но под именем reptyr
 
 ### 14. sudo echo string > /root/new_file не даст выполнить перенаправление под обычным пользователем, так как перенаправлением занимается процесс shell'а, который запущен без sudo под вашим пользователем. Для решения данной проблемы можно использовать конструкцию echo string | sudo tee /root/new_file. Узнайте что делает команда tee и почему в отличие от sudo echo команда с sudo tee будет работать. 
 
