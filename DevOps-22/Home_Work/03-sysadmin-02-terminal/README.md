@@ -105,19 +105,19 @@ root@vagrant:/home/vagrant# echo Message From PTS0 to TTY1 > /dev/tty1
 ### 7. Выполните команду bash 5>&1. К чему она приведет? Что будет, если вы выполните echo netology > /proc/$$/fd/5? Почему так происходит?
 
 vagrant@vagrant:~$ pstree -p 647  
-sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───pstree(1324)  
-          └─sshd(1268)───sshd(1293)───bash(1294)  
-vagrant@vagrant:~$ bash 5>&1  
-vagrant@vagrant:~$ pstree -p 647  
-sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───bash(1399)───pstree(1348)  
-          └─sshd(1268)───sshd(1293)───bash(1294)
+sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───pstree(1324)    
+        
+vagrant@vagrant:~$ bash 5>&1    
+vagrant@vagrant:~$ pstree -p 647    
+sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───bash(1399)───pstree(1348)    
+          
 vagrant@vagrant:~$ ls /dev/fd  
 0  1  2  3  5  
 vagrant@vagrant:~$ exit  
 exit  
 vagrant@vagrant:~$ pstree -p 647  
 sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───pstree(1360)  
-          └─sshd(1268)───sshd(1293)───bash(1294)
+          
 vagrant@vagrant:~$ ls /dev/fd  
 0  1  2  3  
 
@@ -130,8 +130,8 @@ vagrant@vagrant:~$ ls /dev/fd
 vagrant@vagrant:~$ ls /proc/self/fd  
 0  1  2  3  5  
 vagrant@vagrant:~$ pstree -p 647  
-sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───bash(1399)───pstree(1423)  
-          └─sshd(1268)───sshd(1293)───bash(1294)  
+sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───bash(1399)───pstree(1423)    
+            
 vagrant@vagrant:~$ echo netology-cool > /proc/$$/fd/5  
 netology-cool  
 vagrant@vagrant:~$ echo netology-cool > /dev/fd/5  
