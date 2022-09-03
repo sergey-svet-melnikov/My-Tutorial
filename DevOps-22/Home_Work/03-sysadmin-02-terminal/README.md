@@ -158,7 +158,9 @@ printenv
 
 ### 11. Узнайте, какую наиболее старшую версию набора инструкций SSE поддерживает ваш процессор с помощью /proc/cpuin
 
-* 
+vagrant@vagrant:/proc$ cat cpuinfo | grep sse  
+
+flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc rep_good nopl cpuid tsc_known_freq pni monitor ssse3 cx16 sse4_1 x2apic hypervisor lahf_lm pti  
 
 ### 12. При открытии нового окна терминала и vagrant ssh создается новая сессия и выделяется pty. Это можно подтвердить командой tty, которая упоминалась в лекции 3.2. Однако:
 
