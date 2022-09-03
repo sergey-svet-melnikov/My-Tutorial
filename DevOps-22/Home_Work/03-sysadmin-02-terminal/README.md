@@ -6,8 +6,20 @@
     
 ### 2.  Какая альтернатива без pipe команде grep <some_string> <some_file> | wc -l? man grep поможет в ответе на этот вопрос. Ознакомьтесь с документом о других подобных некорректных вариантах использования pipe.
 
-grep <some_string> <some_file> | wc -l?  
-> 
+vagrant@vagrant:~$ cat 11.sh
+if [[ -d /tmp ]]
+then
+    echo "каталог существует"
+
+else
+    echo "такого каталога нет"
+
+fi
+vagrant@vagrant:~$ grep echo 11.sh | wc -l
+2
+vagrant@vagrant:~$ grep echo 11.sh -c
+2
+
  
 ### 3. Какой процесс с PID 1 является родителем для всех процессов в вашей виртуальной машине Ubuntu 20.04?
 
