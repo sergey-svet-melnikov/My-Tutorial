@@ -164,14 +164,22 @@ flags           : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov 
 
 ### 12. При открытии нового окна терминала и vagrant ssh создается новая сессия и выделяется pty. Это можно подтвердить командой tty, которая упоминалась в лекции 3.2. Однако:
 
-vagrant@netology1:~$ ssh localhost 'tty'
+vagrant@vagrant:/proc$ ssh localhost "tty"  
+vagrant@localhost's password:  
 not a tty  
 
-*
+ПОТОМУ, ЧТО МЫ НЕ ИМЕЕМ TTY СЕССИИ (нету графического окружения), а если спользовать -t , тип терминала сменится на подходящий (адаптируется)
+
+vagrant@vagrant:/proc$ ssh -t localhost "tty"  
+vagrant@localhost's password:  
+/dev/pts/2  
+Connection to localhost closed.  
+
+... и судя по сообщению сессия pts/2 закрывается сразу.
 
 ### 13. Бывает, что есть необходимость переместить запущенный процесс из одной сессии в другую. Попробуйте сделать это, воспользовавшись reptyr. Например, так можно перенести в screen процесс, который вы запустили по ошибке в обычной SSH-сессии.
 
-*
+
 
 ### 14. sudo echo string > /root/new_file не даст выполнить перенаправление под обычным пользователем, так как перенаправлением занимается процесс shell'а, который запущен без sudo под вашим пользователем. Для решения данной проблемы можно использовать конструкцию echo string | sudo tee /root/new_file. Узнайте что делает команда tee и почему в отличие от sudo echo команда с sudo tee будет работать. 
 
