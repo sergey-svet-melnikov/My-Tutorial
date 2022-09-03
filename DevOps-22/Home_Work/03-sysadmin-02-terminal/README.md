@@ -102,10 +102,40 @@ root@vagrant:/home/vagrant# echo Message From PTS0 to TTY1 > /dev/tty1
 ![TTY1](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-02-terminal/VagrantTTY1.png)  
 
 
-
 ### 7. Выполните команду bash 5>&1. К чему она приведет? Что будет, если вы выполните echo netology > /proc/$$/fd/5? Почему так происходит?
 
-*  
+vagrant@vagrant:~$ pstree -p 647  
+sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───pstree(1324)  
+          └─sshd(1268)───sshd(1293)───bash(1294)  
+vagrant@vagrant:~$ bash 5>&1  
+vagrant@vagrant:~$ pstree -p 647  
+sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───bash(1399)───pstree(1348)  
+          └─sshd(1268)───sshd(1293)───bash(1294)
+vagrant@vagrant:~$ ls /dev/fd  
+0  1  2  3  5  
+vagrant@vagrant:~$ exit  
+exit  
+vagrant@vagrant:~$ pstree -p 647  
+sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───pstree(1360)  
+          └─sshd(1268)───sshd(1293)───bash(1294)
+vagrant@vagrant:~$ ls /dev/fd  
+0  1  2  3  
+
+* Мы находились в командном интерпретаторе bash (PID 780), выполнив "bash 5<&1" мы фактически создали форк bash (PID 1399)  
+* А так же мы созадли файловый дескриптор "5" stdout'a , который соотносится c stdout'ом bash (PID1399)
+* Выполнив команду echo netology > /proc/$$/fd/5 (находясь в форке bash PID1399, созданный командой "bash 5<&1"), мы передали stdout команыды echo в файловый дескриптор "5" своего же (self) процесса, а так как мы в нем же и находимся, то получили тот же результат, что если бы делали "echo netology", находясь тут же в bash PID1399
+
+vagrant@vagrant:~$ ls /dev/fd  
+0  1  2  3  5  
+vagrant@vagrant:~$ ls /proc/self/fd  
+0  1  2  3  5  
+vagrant@vagrant:~$ pstree -p 647  
+sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───bash(1399)───pstree(1423)  
+          └─sshd(1268)───sshd(1293)───bash(1294)  
+vagrant@vagrant:~$ echo netology-cool > /proc/$$/fd/5  
+netology-cool  
+vagrant@vagrant:~$ echo netology-cool > /dev/fd/5  
+netology-cool  
 
 ### 8. Получится ли в качестве входного потока для pipe использовать только stderr команды, не потеряв при этом отображение stdout на pty? Напоминаем: по умолчанию через pipe передается только stdout команды слева от | на stdin команды справа. Это можно сделать, поменяв стандартные потоки местами через промежуточный новый дескриптор, который вы научились создавать в предыдущем вопросе.
 
