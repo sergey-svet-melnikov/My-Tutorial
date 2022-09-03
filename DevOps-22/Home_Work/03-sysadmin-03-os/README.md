@@ -23,6 +23,56 @@ openat(AT_FDCWD, "/usr/share/misc/magic.mgc", O_RDONLY) = 3
 
 ### 3.Предположим, приложение пишет лог в текстовый файл. Этот файл оказался удален (deleted в lsof), однако возможности сигналом сказать приложению переоткрыть файлы или просто перезапустить приложение – нет. Так как приложение продолжает писать в удаленный файл, место на диске постепенно заканчивается. Основываясь на знаниях о перенаправлении потоков предложите способ обнуления открытого удаленного файла (чтобы освободить место на файловой системе).
 
+
+
+1. Найти в ps процесс работающий (пишущий) в файла
+2. Посмотреть lsof информацию о процессе, увидеть каким дескриптором пользуется процесс пишуший в файл
+3. Направить в дескриптор любое значение (или пустоту) через ">" , а не через ">>"
+
+* Видим файл лога log_file:   
+vagrant@vagrant:~$ cat log_file   
+Log_DAta   
+Log_DAta   
+Log_DAta  
+Log_DAta  
+Log_DAta  
+Log_DAta  
+Log_DAta  
+Log_DAta  
+Log_DAta  
+Log_DAta  
+
+* Открываем файл на редактирование: 
+vagrant@vagrant:~$ vi log_file  
+
+* В другой сессии ищем процесс нашего vi или файла log_file (лучше по имени лога log_file) и Видим PID 5969 процесса, пишушщего в файл log_file
+
+vagrant@vagrant:~$ ps -aux | grep log_file  
+vagrant     5969  0.7  0.9  21840  9740 pts/1    S+   11:36   0:00 vi log_file  
+vagrant     5971  0.0  0.0   6432   720 pts/0    S+   11:36   0:00 grep --color=auto log_file  
+vagrant@vagrant:~$ ps -aux | grep vi
+root         594  0.0  0.9 239288  9260 ?        Ssl  08:24   0:00 /usr/lib/accountsservice/accounts-daemon  
+root        1251  0.0  0.2 292816  2984 ?        Sl   08:25   0:03 /usr/sbin/VBoxService --pidfile /var/run/vboxadd-service.sh  
+vagrant     5969  0.2  0.9  21840  9740 pts/1    S+   11:36   0:00 vi log_file  
+vagrant     5973  0.0  0.0   6432   660 pts/0    S+   11:37   0:00 grep --color=auto vi  
+
+* Удалим log_file
+
+vagrant@vagrant:~$ rm log_file  
+vagrant@vagrant:~$ ls  
+11.sh  backup  log_file2  
+
+* Ищем lsof номер дискриптора процесса, пишущего до сих пор в удаленный файл
+
+vagrant@vagrant:~$ lsof -p 5969 | grep log_file  
+vi      5969 vagrant    4u   REG  253,0    12288 1311799 /home/vagrant/.log_file.swp  
+
+* Затем отправляем в поток файла пустоту
+
+vagrant@vagrant:~$ echo /dev/nul > /proc/5969/fd/4  
+
+
+
 ### 4.Занимают ли зомби-процессы какие-то ресурсы в ОС (CPU, RAM, IO)?
 
 ### 5.В iovisor BCC есть утилита opensnoop: 
