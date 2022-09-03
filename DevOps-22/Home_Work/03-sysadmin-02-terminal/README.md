@@ -23,63 +23,37 @@ vagrant@vagrant:~$ grep echo 11.sh -c
  
 ### 3. Какой процесс с PID 1 является родителем для всех процессов в вашей виртуальной машине Ubuntu 20.04?
 
-vagrant@vagrant:~$ pstree -g
-systemd(1)─┬─ModemManager(670)─┬─{ModemManager}(670)
-           │                   └─{ModemManager}(670)
-           ├─VBoxService(1226)─┬─{VBoxService}(1226)
-           │                   ├─{VBoxService}(1226)
-           │                   ├─{VBoxService}(1226)
-           │                   ├─{VBoxService}(1226)
-           │                   ├─{VBoxService}(1226)
-           │                   ├─{VBoxService}(1226)
-           │                   ├─{VBoxService}(1226)
-           │                   └─{VBoxService}(1226)
-           ├─accounts-daemon(598)─┬─{accounts-daemon}(598)
-           │                      └─{accounts-daemon}(598)
-           ├─agetty(651)
-           ├─atd(627)
-           ├─cron(619)
-           ├─dbus-daemon(599)
-           ├─multipathd(499)─┬─{multipathd}(499)
-           │                 ├─{multipathd}(499)
-           │                 ├─{multipathd}(499)
-           │                 ├─{multipathd}(499)
-           │                 ├─{multipathd}(499)
-           │                 └─{multipathd}(499)
-           ├─networkd-dispat(606)
-           ├─polkitd(607)─┬─{polkitd}(607)
-           │              └─{polkitd}(607)
-           ├─rsyslogd(608)─┬─{rsyslogd}(608)
-           │               ├─{rsyslogd}(608)
-           │               └─{rsyslogd}(608)
-           ├─snapd(610)─┬─{snapd}(610)
-           │            ├─{snapd}(610)
-           │            ├─{snapd}(610)
-           │            ├─{snapd}(610)
-           │            ├─{snapd}(610)
-           │            ├─{snapd}(610)
-           │            ├─{snapd}(610)
-           │            ├─{snapd}(610)
-           │            └─{snapd}(610)
-           ├─sshd(649)───sshd(1255)───sshd(1255)───bash(1298)───pstree(1403)
-           ├─systemd(1262)───(sd-pam)(1262)
-           ├─systemd-journal(326)
-           ├─systemd-logind(612)
-           ├─systemd-network(583)
-           ├─systemd-resolve(585)
-           ├─systemd-udevd(360)
-           └─udisksd(613)─┬─{udisksd}(613)
-                          ├─{udisksd}(613)
-                          ├─{udisksd}(613)
-                          └─{udisksd}(613)
-
+vagrant@vagrant:~$ pstree -g  
+systemd(1)─┬─ModemManager(670)─┬─{ModemManager}(670)    
+            
 ### 4. Как будет выглядеть команда, которая перенаправит вывод stderr ls на другую сессию терминала?
 
- *  
+
+vagrant@vagrant:~$ who  
+vagrant  pts/0        2022-09-03 06:39 (10.0.2.2)  
+vagrant  pts/1        2022-09-03 07:04 (10.0.2.2)  
+vagrant@vagrant:~$ w  
+ 07:06:27 up 30 min,  2 users,  load average: 0.01, 0.02, 0.08  
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT  
+vagrant  pts/0    10.0.2.2         06:39    1.00s  0.21s  0.02s w  
+vagrant  pts/1    10.0.2.2         07:04    1:47   0.03s  0.03s -bash  
+vagrant@vagrant:~$ ls /root 2>/dev/pts/1  
+
+
+vagrant@vagrant:~$ who  
+vagrant  pts/0        2022-09-03 06:39 (10.0.2.2)  
+vagrant  pts/1        2022-09-03 07:04 (10.0.2.2)  
+vagrant@vagrant:~$ w  
+ 07:06:49 up 30 min,  2 users,  load average: 0.01, 0.02, 0.08  
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT  
+vagrant  pts/0    10.0.2.2         06:39   23.00s  0.19s  0.19s -bash  
+vagrant  pts/1    10.0.2.2         07:04    0.00s  0.05s  0.01s w  
+vagrant@vagrant:~$ ls: cannot open directory '/root': Permission denied  
+
 
 ### 5. Получится ли одновременно передать команде файл на stdin и вывести ее stdout в другой файл? Приведите работающий пример.
 
-* 
+ 
 
 ### 6. Получится ли вывести находясь в графическом режиме данные из PTY в какой-либо из эмуляторов TTY? Сможете ли вы наблюдать выводимые данные?
 
