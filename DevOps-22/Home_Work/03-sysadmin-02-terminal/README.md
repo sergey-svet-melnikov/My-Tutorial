@@ -53,8 +53,44 @@ vagrant@vagrant:~$ ls: cannot open directory '/root': Permission denied
 
 ### 5. Получится ли одновременно передать команде файл на stdin и вывести ее stdout в другой файл? Приведите работающий пример.
 
- 
+ vagrant@vagrant:~$ ls  
+11.sh  backup  
+vagrant@vagrant:~$ cat 11.sh  
+if [[ -d /tmp ]]  
+then  
+    echo "каталог существует"  
+  
+else  
+    echo "такого каталога нет"  
+  
+fi  
+vagrant@vagrant:~$ cat 11.sh > 22.sh  
+vagrant@vagrant:~$ cat 22.sh  
+if [[ -d /tmp ]]  
+then  
+    echo "каталог существует"  
+  
+else  
+    echo "такого каталога нет"  
+  
+fi  
 
+---
+
+vagrant@vagrant:~$ ls  
+11.sh  22.sh  backup  
+vagrant@vagrant:~$ cat 0<22.sh >33.sh    
+vagrant@vagrant:~$ cat 33.sh    
+if [[ -d /tmp ]]  
+then  
+    echo "каталог существует"  
+  
+else  
+    echo "такого каталога нет"  
+  
+fi  
+
+  
 ### 6. Получится ли вывести находясь в графическом режиме данные из PTY в какой-либо из эмуляторов TTY? Сможете ли вы наблюдать выводимые данные?
 
 * 
