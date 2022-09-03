@@ -93,7 +93,15 @@ fi
   
 ### 6. Получится ли вывести находясь в графическом режиме данные из PTY в какой-либо из эмуляторов TTY? Сможете ли вы наблюдать выводимые данные?
 
-* 
+Да, получится, если будет достаточно прав у pts для вывода на tty
+
+root@vagrant:/home/vagrant# tty  
+/dev/pts/0  
+root@vagrant:/home/vagrant# echo Message From PTS0 to TTY1 > /dev/tty1  
+
+![TTY1](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-02-terminal/VagrantTTY1.png)  
+
+
 
 ### 7. Выполните команду bash 5>&1. К чему она приведет? Что будет, если вы выполните echo netology > /proc/$$/fd/5? Почему так происходит?
 
