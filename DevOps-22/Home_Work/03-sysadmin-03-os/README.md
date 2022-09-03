@@ -88,9 +88,31 @@ vagrant@vagrant:~$ echo /dev/nul > /proc/5969/fd/4
 /usr/sbin/opensnoop-bpfcc  
 На какие файлы вы увидели вызовы группы open за первую секунду работы утилиты? Воспользуйтесь пакетом bpfcc-tools для Ubuntu 20.04. Дополнительные сведения по установке.  
 
+1. Ставим пакет bpfcc-tools vagrant@vagrant:~$ sudo apt install bpfcc-tools  
 
+2. Видимо при запуске sudo dpkg -L bpfcc-tools | grep sbin/opensnoop:  
+
+vagrant@vagrant:~$ dpkg -L bpfcc-tools | grep sbin/opensnoop  
+/usr/sbin/opensnoop-bpfcc  
+
+3. Запускаем утилиту sudo /usr/sbin/opensnoop-bpfcc  
+
+vagrant@vagrant:~$ sudo /usr/sbin/opensnoop-bpfcc  
+PID    COMM               FD ERR PATH  
+1251   vminfo              4   0 /var/run/utmp  
+595    dbus-daemon        -1   2 /usr/local/share/dbus-1/system-services  
+595    dbus-daemon        20   0 /usr/share/dbus-1/system-services  
+595    dbus-daemon        -1   2 /lib/dbus-1/system-services  
+595    dbus-daemon        20   0 /var/lib/snapd/dbus-1/system-services/  
+356    systemd-udevd      14   0 /sys/fs/cgroup/unified/system.slice/systemd-udevd.service/cgroup.procs  
+356    systemd-udevd      14   0 /sys/fs/cgroup/unified/system.slice/systemd-udevd.service/cgroup.threads  
 
 ### 6.Какой системный вызов использует uname -a? Приведите цитату из man по этому системному вызову, где описывается альтернативное местоположение в /proc, где можно узнать версию ядра и релиз ОС.
+
+Делаем man uname - не видим там информации, однако видим второй раздел man по uname - uname(2).  
+Ищем man 2 uname , внутри ищем по //proc/ и находим ответ:  
+
+Part of the utsname information is also accessible via /proc/sys/kernel/{ostype, hostname, osrelease, version, domainname}.  
 
 ### 7.Чем отличается последовательность команд через ; и через && в bash? Например:
 
