@@ -106,18 +106,15 @@ root@vagrant:/home/vagrant# echo Message From PTS0 to TTY1 > /dev/tty1
 
 vagrant@vagrant:~$ pstree -p 647  
 sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───pstree(1324)    
-        
 vagrant@vagrant:~$ bash 5>&1    
 vagrant@vagrant:~$ pstree -p 647    
 sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───bash(1399)───pstree(1348)    
-          
 vagrant@vagrant:~$ ls /dev/fd  
 0  1  2  3  5  
 vagrant@vagrant:~$ exit  
 exit  
 vagrant@vagrant:~$ pstree -p 647  
 sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───pstree(1360)  
-          
 vagrant@vagrant:~$ ls /dev/fd  
 0  1  2  3  
 
@@ -135,6 +132,8 @@ sshd(647)─┬─sshd(667)───sshd(778)───bash(780)───bash(139
 vagrant@vagrant:~$ echo netology-cool > /proc/$$/fd/5  
 netology-cool  
 vagrant@vagrant:~$ echo netology-cool > /dev/fd/5  
+netology-cool   
+vagrant@vagrant:~$ echo netology-cool  
 netology-cool  
 
 ### 8. Получится ли в качестве входного потока для pipe использовать только stderr команды, не потеряв при этом отображение stdout на pty? Напоминаем: по умолчанию через pipe передается только stdout команды слева от | на stdin команды справа. Это можно сделать, поменяв стандартные потоки местами через промежуточный новый дескриптор, который вы научились создавать в предыдущем вопросе.
