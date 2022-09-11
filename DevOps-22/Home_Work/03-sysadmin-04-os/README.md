@@ -66,6 +66,7 @@ vagrant@vagrant:~$ cat /etc/netdata/netdata.conf
 
 ![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-04-os/netdata.png)
 
+
 ### 4.
 ### 5.
 ### 6.
