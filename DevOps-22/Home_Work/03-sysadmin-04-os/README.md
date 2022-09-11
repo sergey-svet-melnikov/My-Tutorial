@@ -67,7 +67,15 @@ vagrant@vagrant:~$ cat /etc/netdata/netdata.conf
 ![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-04-os/netdata.png)
 
 
-### 4.
-### 5.
+### 4. Можно ли по выводу dmesg понять, осознает ли ОС, что загружена не на настоящем оборудовании, а на системе виртуализации?
+
+vagrant@vagrant:~$ dmesg | grep virt  
+[    0.004865] CPU MTRRs all blank - virtualized system.  
+[    0.140272] Booting paravirtualized kernel on KVM  
+[    5.821062] systemd[1]: Detected virtualization oracle.  
+
+### 5.  
+
+
 ### 6.
 ### 7.
