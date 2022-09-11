@@ -123,7 +123,7 @@ vagrant@vagrant:~$ dmesg | grep fork
 [ 3281.349584] cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-3.scope  
 [ 3300.898423] cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-6.scope  
 
-Было ограничение по создаваемому количеству форков в количестве 1000 для пользователя, система заблокировала дальнейшее их создание.  
+Было ограничение по создаваемому количеству форков  для пользователя, система заблокировала дальнейшее их создание.  
 
 ulimit --help
 
