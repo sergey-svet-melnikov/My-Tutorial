@@ -55,16 +55,16 @@ vagrant@vagrant:~$ sudo apt install -y netdata
 vagrant@vagrant:~$ cat /etc/netdata/netdata.conf
 
 [global]
-        run as user = netdata
-        web files owner = root
-        web files group = root
-        # Netdata is not designed to be exposed to potentially hostile
-        # networks. See https://github.com/netdata/netdata/issues/164
-        bind socket to IP = 0.0.0.0
+        run as user = netdata  
+        web files owner = root  
+        web files group = root  
+        # Netdata is not designed to be exposed to potentially hostile  
+        # networks. See https://github.com/netdata/netdata/issues/164    
+        bind socket to IP = 0.0.0.0  
 
-* добавьте в Vagrantfile проброс порта Netdata на свой локальный компьютер и сделайте vagrant reload: config.vm.network "forwarded_port", guest: 19999, host: 19999    
+* добавьте в Vagrantfile проброс порта Netdata на свой локальный компьютер и сделайте vagrant reload: config.vm.network "forwarded_port", guest: 19999, host: 19999      
 
-![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-04-os/netdata.png)
+![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-04-os/netdata.png)  
 
 
 ### 4. Можно ли по выводу dmesg понять, осознает ли ОС, что загружена не на настоящем оборудовании, а на системе виртуализации?
@@ -115,4 +115,20 @@ root@vagrant:~# ps -aux | grep sleep
 root           1  0.0  0.0   5476   516 pts/0    S+   17:24   0:00 sleep 1h  
 root          14  0.0  0.0   6432   720 pts/1    S+   17:27   0:00 grep --color=auto sleep  
 
-### 7.
+### 7. (){ :|:& };
+
+Это функция, которая вызывает сама себя циклично (пренаправляет результат себя на себя же, что ли)  
+
+vagrant@vagrant:~$ dmesg | grep fork  
+[ 3281.349584] cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-3.scope  
+[ 3300.898423] cgroup: fork rejected by pids controller in /user.slice/user-1000.slice/session-6.scope  
+
+Было ограничение по создаваемому количеству форков в количестве 1000 для пользователя, система заблокировала дальнейшее их создание.  
+
+ulimit --help
+
+-u        the maximum number of user processes - ограничивает количество пользовательских процессорв.  
+
+vagrant@vagrant:~$ ulimit -u 100 
+
+Ограничит до 100 процессов пользователя.
