@@ -52,11 +52,11 @@ vagrant@vagrant:~$ sudo apt install -y netdata
 
 * в конфигурационном файле /etc/netdata/netdata.conf в секции [web] замените значение с localhost на bind to = 0.0.0.0,  
 
-vagrant@vagrant:~$ cat /etc/netdata/netdata.conf
+vagrant@vagrant:~$ cat /etc/netdata/netdata.conf  
 
-[global]
-        run as user = netdata  
-        web files owner = root  
+[global]  
+        run as user = netdata    
+        web files owner = root    
         web files group = root  
         # Netdata is not designed to be exposed to potentially hostile  
         # networks. See https://github.com/netdata/netdata/issues/164    
@@ -115,7 +115,7 @@ root@vagrant:~# ps -aux | grep sleep
 root           1  0.0  0.0   5476   516 pts/0    S+   17:24   0:00 sleep 1h  
 root          14  0.0  0.0   6432   720 pts/1    S+   17:27   0:00 grep --color=auto sleep  
 
-### 7. (){ :|:& };
+### 7. :(){ :|:& };
 
 Это функция, которая вызывает сама себя циклично (пренаправляет результат себя на себя же, что ли)  
 
