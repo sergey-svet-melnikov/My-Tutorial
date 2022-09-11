@@ -64,7 +64,7 @@ vagrant@vagrant:~$ cat /etc/netdata/netdata.conf
 
 * добавьте в Vagrantfile проброс порта Netdata на свой локальный компьютер и сделайте vagrant reload: config.vm.network "forwarded_port", guest: 19999, host: 19999    
 
-
+![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-04-os/netdata.png)
 
 ### 4.
 ### 5.
