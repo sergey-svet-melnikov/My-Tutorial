@@ -11,20 +11,20 @@ vagrant@vagrant:/$ cd node_exporter-*.linux-amd64
 vagrant@vagrant:/$ cp node_exporter /usr/local/bin/node_exporter
 
 vagrant@vagrant:/$ cat /etc/systemd/system/node_exporter.service
-
->[Unit]  
-Description=Node Exporter GovorinAO (ByMe Edition)
-After=multi-user.target
->
->[Service]  
-EnvironmentFile=-/etc/default/node_exporter
-ExecStart=/usr/local/bin/node_exporter $OPTIONS
-IgnoreSIGPIPE=false
-KillMode=process
-Restart=on-failure
->
->[Install]  
-WantedBy=multi-user.target
+  
+>[Unit]    
+Description=Node Exporter GovorinAO (ByMe Edition)  
+After=multi-user.target  
+>  
+>[Service]    
+EnvironmentFile=-/etc/default/node_exporter  
+ExecStart=/usr/local/bin/node_exporter $OPTIONS  
+IgnoreSIGPIPE=false  
+KillMode=process  
+Restart=on-failure  
+>  
+>[Install]    
+WantedBy=multi-user.target  
 
 * поместите его в автозагрузку
 
