@@ -46,7 +46,26 @@ config.vm.network  "forwarded_port", guest: 9100, host: 9100, auto_correct: true
 
 ![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-04-os/node_exporter.png)
 
-### 3.
+### 3. Установите в свою виртуальную машину Netdata. Воспользуйтесь готовыми пакетами для установки (sudo apt install -y netdata). После успешной установки:
+
+vagrant@vagrant:~$ sudo apt install -y netdata
+
+* в конфигурационном файле /etc/netdata/netdata.conf в секции [web] замените значение с localhost на bind to = 0.0.0.0,  
+
+vagrant@vagrant:~$ cat /etc/netdata/netdata.conf
+
+[global]
+        run as user = netdata
+        web files owner = root
+        web files group = root
+        # Netdata is not designed to be exposed to potentially hostile
+        # networks. See https://github.com/netdata/netdata/issues/164
+        bind socket to IP = 0.0.0.0
+
+* добавьте в Vagrantfile проброс порта Netdata на свой локальный компьютер и сделайте vagrant reload: config.vm.network "forwarded_port", guest: 19999, host: 19999    
+
+
+
 ### 4.
 ### 5.
 ### 6.
