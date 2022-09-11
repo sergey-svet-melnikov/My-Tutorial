@@ -44,7 +44,7 @@ root        1235  0.0  1.2 716296 12052 ?        Ssl  13:06   0:00 /usr/local/bi
 
 config.vm.network  "forwarded_port", guest: 9100, host: 9100, auto_correct: true
 
-
+![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-04-os/node_exporter.png)
 
 ### 3.
 ### 4.
