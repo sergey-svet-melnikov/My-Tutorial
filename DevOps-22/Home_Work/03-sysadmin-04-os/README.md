@@ -74,8 +74,23 @@ vagrant@vagrant:~$ dmesg | grep virt
 [    0.140272] Booting paravirtualized kernel on KVM  
 [    5.821062] systemd[1]: Detected virtualization oracle.  
 
-### 5.  
+### 5.  Как настроен sysctl fs.nr_open на системе по-умолчанию? Узнайте, что означает этот параметр. Какой другой существующий лимит не позволит достичь такого числа (ulimit --help)?
 
+vagrant@vagrant:~$ sysctl fs.nr_open
+fs.nr_open = 1048576
 
-### 6.
+fs.nr_open показывает максимальное число открытых дескрипторов
+
+vagrant@vagrant:~$ ulimit -n
+1024
+
+ulimit -Sn - меняет мягкий лимит (можно увеличить количество открытых дескрипторов)  
+ulimit -Hn - меняет жесткий лимит, можно только уменьшить число открытых дескрипторов. Но максимальное число не может быть больше чем параметр fs.nr_open  
+
+vagrant@vagrant:~$ ulimit -Sn
+1024
+vagrant@vagrant:~$ ulimit -Hn
+1048576
+
+### 6. 
 ### 7.
