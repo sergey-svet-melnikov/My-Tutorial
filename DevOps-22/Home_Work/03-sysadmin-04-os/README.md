@@ -38,7 +38,14 @@ Reboot
 vagrant@vagrant:~$ ps -aux | grep node  
 root        1235  0.0  1.2 716296 12052 ?        Ssl  13:06   0:00 /usr/local/bin/node_exporter
 
-### 2.
+### 2. Ознакомьтесь с опциями node_exporter и выводом /metrics по-умолчанию. Приведите несколько опций, которые вы бы выбрали для базового мониторинга хоста по CPU, памяти, диску и сети.
+
+Пробрасываем порт 9100 на хость через конфиг Vagrant (vagrantfile):  
+
+config.vm.network  "forwarded_port", guest: 9100, host: 9100, auto_correct: true
+
+
+
 ### 3.
 ### 4.
 ### 5.
