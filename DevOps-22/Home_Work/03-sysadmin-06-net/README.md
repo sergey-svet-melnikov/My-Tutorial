@@ -199,7 +199,30 @@ dns.google.             742     IN      A       8.8.4.4
 
 Серверы, отвечающие за dns.google:  
 
-dns.google.             742     IN      A       8.8.8.8  
-dns.google.             742     IN      A       8.8.4.4  
+vagrant@vagrant:~$ dig NS dns.google  
+  
+; <<>> DiG 9.16.1-Ubuntu <<>> NS dns.google  
+;; global options: +cmd  
+;; Got answer:  
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 53720  
+;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1  
+  
+;; OPT PSEUDOSECTION:  
+; EDNS: version: 0, flags:; udp: 65494   
+;; QUESTION SECTION:  
+;dns.google.                    IN      NS  
+  
+;; ANSWER SECTION:  
+dns.google.             21600   IN      NS      ns3.zdns.google.  
+dns.google.             21600   IN      NS      ns2.zdns.google.  
+dns.google.             21600   IN      NS      ns4.zdns.google.  
+dns.google.             21600   IN      NS      ns1.zdns.google.  
+  
+;; Query time: 56 msec  
+;; SERVER: 127.0.0.53#53(127.0.0.53)  
+;; WHEN: Wed Sep 14 19:25:36 UTC 2022  
+;; MSG SIZE  rcvd: 116  
 
-### 8.
+
+### 8.Проверьте PTR записи для IP адресов из задания 7. Какое доменное имя привязано к IP? воспользуйтесь утилитой dig
+
