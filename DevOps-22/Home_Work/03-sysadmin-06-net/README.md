@@ -55,6 +55,20 @@ JS-скрипт грузился 344,5 мс из 386 мс, которые был
 
 2ip.ru, myip: 95.29.99.176
 
+ wget -qO- eth0.me
+
+ wget -qO- ipinfo.io/ip
+
+ wget -qO- ipecho.net/plain
+
+ wget -qO- icanhazip.com
+
+ wget -qO- ipecho.net
+
+ wget -qO- ident.me
+
+ wget -qO- myip.gelma.net
+
 ### 4.  
 
 ### 5. 
