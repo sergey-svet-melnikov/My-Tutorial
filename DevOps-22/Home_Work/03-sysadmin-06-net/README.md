@@ -141,7 +141,37 @@ source:         RIPE # Filtered
 
 Но команда, которой можно посмотреть и сети и AS можно смотреть traceroute -An 8.8.8.8 
 
-### 6. 
+### 6. Повторите задание 5 в утилите mtr. На каком участке наибольшая задержка - delay?
+
+                                             My traceroute  [v0.93]
+vagrant (10.0.2.15)                                                                            2022-09-14T19:18:55+0000
+Keys:  Help   Display mode   Restart statistics   Order of fields   quit
+                                                                               Packets               Pings
+ Host                                                                        Loss%   Snt   Last   Avg  Best  Wrst StDev
+ 1. _gateway                                                                  0.0%    50    0.2   0.3   0.1   0.5   0.1
+ 2. bras252.perm.corbina.net                                                  0.0%    50    4.9   6.5   1.9  11.6   3.0
+ 3. bras252.perm.corbina.net                                                  0.0%    50    6.7   6.6   1.6  11.8   2.9
+ 4. 10.2.247.244                                                              0.0%    50    1.3   2.7   1.3  40.2   5.5
+ 5. 79.104.24.193                                                             0.0%    50    2.0   2.2   1.5   3.7   0.3
+ 6. pe03.KK12.Moscow.gldn.net                                                 0.0%    50   23.0  23.3  22.8  24.5   0.3
+ 7. 72.14.213.116                                                             0.0%    49   31.3  30.8  30.3  33.6   0.7
+ 8. 108.170.250.34                                                            0.0%    49   32.6  31.7  31.2  33.9   0.5
+ 9. 142.251.49.24                                                             0.0%    49   35.9  36.3  35.8  37.5   0.4
+10. 172.253.65.82                                                             0.0%    49   36.2  38.8  35.0  83.9   9.2
+11. 142.250.233.27                                                            0.0%    49   36.1  36.3  35.7  39.2   0.5
+12. (waiting for reply)
+13. (waiting for reply)
+14. (waiting for reply)
+15. (waiting for reply)
+16. (waiting for reply)
+17. (waiting for reply)
+18. (waiting for reply)
+19. (waiting for reply)
+20. (waiting for reply)
+21. dns.google                                                                0.0%    49   42.8  42.8  42.5  45.8   0.6
+
+Наиудший: 
+10. 172.253.65.82                                                             0.0%    49   36.2  38.8  35.0  83.9   9.2
 
 ### 7.
 
