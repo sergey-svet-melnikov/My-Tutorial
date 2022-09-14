@@ -40,10 +40,13 @@ X-DNS-Prefetch-Control: off
 * найдите первый ответ HTTP сервера, откройте вкладку Headers
 * укажите в ответе полученный HTTP код.
 
-![]
+![https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-06-net/First_answer.jpg]
 
 * проверьте время загрузки страницы, какой запрос обрабатывался дольше всего? 
 * приложите скриншот консоли браузера в ответ.
+
+![https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-06-net/Long_request.jpg]
+
 
 ### 3.  
 ### 4. 
