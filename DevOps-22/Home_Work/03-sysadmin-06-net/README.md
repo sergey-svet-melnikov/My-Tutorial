@@ -125,9 +125,9 @@ source:         RIPE # Filtered
 % Information related to '95.29.99.0/24AS8402'  
 
 route:          95.29.99.0/24  
-<span style="color:red">descr:          RU-CORBINA-BROADBAND-POOL2  ****</span>
-<span style="color:red">****origin:         AS8402****</span>  
-mnt-by:         RU-CORBINA-MNT  
+<span style="color:red">****descr:          RU-CORBINA-BROADBAND-POOL2****</span>   
+<span style="color:red">****origin:         AS8402****</span>    
+mnt-by:         RU-CORBINA-MNT   
 created:        2011-09-16T23:52:08Z  
 last-modified:  2011-09-16T23:52:08Z  
 source:         RIPE # Filtered  
