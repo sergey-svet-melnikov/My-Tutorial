@@ -12,21 +12,21 @@ HOST: stackoverflow.com
 
 * В ответе укажите полученный HTTP код, что он означает?
 
- HTTP/1.1 301 Moved Permanently
-Server: Varnish
-Retry-After: 0
-Location: https://stackoverflow.com/questions
-Content-Length: 0
-Accept-Ranges: bytes
-Date: Wed, 14 Sep 2022 16:12:37 GMT
-Via: 1.1 varnish
-Connection: close
-X-Served-By: cache-bma1632-BMA
-X-Cache: HIT
-X-Cache-Hits: 0
-X-Timer: S1663171957.297951,VS0,VE0
-Strict-Transport-Security: max-age=300
-X-DNS-Prefetch-Control: off
+>HTTP/1.1 301 Moved Permanently  
+Server: Varnish  
+Retry-After: 0  
+Location: https://stackoverflow.com/questions  
+Content-Length: 0  
+Accept-Ranges: bytes  
+Date: Wed, 14 Sep 2022 16:12:37 GMT  
+Via: 1.1 varnish  
+Connection: close  
+X-Served-By: cache-bma1632-BMA  
+X-Cache: HIT  
+X-Cache-Hits: 0  
+X-Timer: S1663171957.297951,VS0,VE0  
+Strict-Transport-Security: max-age=300  
+X-DNS-Prefetch-Control: off  
 
 Мы запросили (GET) у сайта stackoverflow.com содержимое директории (/questions) по ротоколу HTTP (HTTP версии 1.0).
 Сайт автоматом нас переключил на протокол HTTPS (HTTP версии 1.1).
