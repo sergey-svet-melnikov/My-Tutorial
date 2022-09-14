@@ -173,6 +173,34 @@ Keys:  Help   Display mode   Restart statistics   Order of fields   quit
 Наиудший: 
 10. 172.253.65.82                                                             0.0%    49   36.2  38.8  35.0  83.9   9.2
 
-### 7.
+### 7.Какие DNS сервера отвечают за доменное имя dns.google? Какие A записи? воспользуйтесь утилитой dig
+
+vagrant@vagrant:~$ dig dns.google
+
+; <<>> DiG 9.16.1-Ubuntu <<>> dns.google
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 56170
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;dns.google.                    IN      A
+
+;; ANSWER SECTION:
+dns.google.             742     IN      A       8.8.8.8
+dns.google.             742     IN      A       8.8.4.4
+
+;; Query time: 32 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Wed Sep 14 19:21:50 UTC 2022
+;; MSG SIZE  rcvd: 71
+
+Серверы, отвечающие за dns.google:
+
+dns.google.             742     IN      A       8.8.8.8
+dns.google.             742     IN      A       8.8.4.4
+
 
 ### 8.
