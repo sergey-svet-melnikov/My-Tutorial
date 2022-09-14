@@ -267,4 +267,3 @@ vagrant@vagrant:~$ dig -x 8.8.4.4
 ;; SERVER: 127.0.0.53#53(127.0.0.53)
 ;; WHEN: Wed Sep 14 19:28:04 UTC 2022
 ;; MSG SIZE  rcvd: 73
-
