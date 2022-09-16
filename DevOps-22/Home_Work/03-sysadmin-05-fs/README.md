@@ -422,7 +422,23 @@ vagrant@vagrant:~$ sudo mount /dev/vg_md1_md2/logical_vol1 /tmp/logical_vol1/
 
 ### 13.Поместите туда тестовый файл, например wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new/test.gz.
 
+vagrant@vagrant:~$ sudo wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/logical_vol1/test.gz
+--2022-09-16 08:17:11--  https://mirror.yandex.ru/ubuntu/ls-lR.gz
+Resolving mirror.yandex.ru (mirror.yandex.ru)... 213.180.204.183, 2a02:6b8::183
+Connecting to mirror.yandex.ru (mirror.yandex.ru)|213.180.204.183|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 22381690 (21M) [application/octet-stream]
+Saving to: ‘/tmp/logical_vol1/test.gz’
+
+/tmp/logical_vol1/test.gz     100%[=================================================>]  21.34M  1.16MB/s    in 19s
+
+2022-09-16 08:17:30 (1.14 MB/s) - ‘/tmp/logical_vol1/test.gz’ saved [22381690/22381690]
+
+vagrant@vagrant:~$
+
 ### 14.Прикрепите вывод lsblk.
+
+
 
 ### 15.Протестируйте целостность файла:
 
