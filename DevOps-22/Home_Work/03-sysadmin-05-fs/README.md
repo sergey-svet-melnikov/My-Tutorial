@@ -179,7 +179,110 @@ sdc                         8:32   0  2.5G  0 disk
 
 ### 7. Соберите mdadm RAID0 на второй паре маленьких разделов.
 
+* забыл сразу сделать второй раздел на 500 перед копированием sdb на sdc, прийдется сейчас создать эти два раздела:
+
+vagrant@vagrant:~$ sudo fdisk /dev/sdb
+
+Welcome to fdisk (util-linux 2.34).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): n
+Partition type
+   p   primary (1 primary, 0 extended, 3 free)
+   e   extended (container for logical partitions)
+Select (default p): p
+Partition number (2-4, default 2):
+First sector (4196352-5242879, default 4196352):
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (4196352-5242879, default 5242879):
+
+Created a new partition 2 of type 'Linux' and of size 511 MiB.
+
+Command (m for help): w
+The partition table has been altered.
+Syncing disks.
+
+vagrant@vagrant:~$ sudo fdisk /dev/sdc
+
+Welcome to fdisk (util-linux 2.34).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): n
+Partition type
+   p   primary (1 primary, 0 extended, 3 free)
+   e   extended (container for logical partitions)
+Select (default p): p
+Partition number (2-4, default 2):
+First sector (4196352-5242879, default 4196352):
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (4196352-5242879, default 5242879):
+
+Created a new partition 2 of type 'Linux' and of size 511 MiB.
+
+Command (m for help): w
+The partition table has been altered.
+Syncing disks.
+
+* Просмотрим, все ли корректно
+
+vagrant@vagrant:~$ lsblk
+NAME                      MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
+loop0                       7:0    0 43.6M  1 loop  /snap/snapd/14978
+loop1                       7:1    0 67.2M  1 loop  /snap/lxd/21835
+loop2                       7:2    0 61.9M  1 loop  /snap/core20/1328
+loop3                       7:3    0 63.2M  1 loop  /snap/core20/1623
+loop4                       7:4    0   48M  1 loop  /snap/snapd/16778
+loop5                       7:5    0 67.8M  1 loop  /snap/lxd/22753
+sda                         8:0    0   64G  0 disk
+├─sda1                      8:1    0    1M  0 part
+├─sda2                      8:2    0  1.5G  0 part  /boot
+└─sda3                      8:3    0 62.5G  0 part
+  └─ubuntu--vg-ubuntu--lv 253:0    0 31.3G  0 lvm   /
+sdb                         8:16   0  2.5G  0 disk
+├─sdb1                      8:17   0    2G  0 part
+│ └─md1                     9:1    0    2G  0 raid1
+└─sdb2                      8:18   0  511M  0 part
+sdc                         8:32   0  2.5G  0 disk
+├─sdc1                      8:33   0    2G  0 part
+│ └─md1                     9:1    0    2G  0 raid1
+└─sdc2                      8:34   0  511M  0 part
+
+* Создаем RAID0 мз двух разделов по 500
+
+vagrant@vagrant:~$ sudo mdadm --create --verbose /dev/md2 -l 0 -n 2 /dev/sd{b2,c2}
+mdadm: chunk size defaults to 512K
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md2 started.
+
+vagrant@vagrant:~$ lsblk
+NAME                      MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
+loop0                       7:0    0 43.6M  1 loop  /snap/snapd/14978
+loop1                       7:1    0 67.2M  1 loop  /snap/lxd/21835
+loop2                       7:2    0 61.9M  1 loop  /snap/core20/1328
+loop3                       7:3    0 63.2M  1 loop  /snap/core20/1623
+loop4                       7:4    0   48M  1 loop  /snap/snapd/16778
+loop5                       7:5    0 67.8M  1 loop  /snap/lxd/22753
+sda                         8:0    0   64G  0 disk
+├─sda1                      8:1    0    1M  0 part
+├─sda2                      8:2    0  1.5G  0 part  /boot
+└─sda3                      8:3    0 62.5G  0 part
+  └─ubuntu--vg-ubuntu--lv 253:0    0 31.3G  0 lvm   /
+sdb                         8:16   0  2.5G  0 disk
+├─sdb1                      8:17   0    2G  0 part
+│ └─md1                     9:1    0    2G  0 raid1
+└─sdb2                      8:18   0  511M  0 part
+  └─md2                     9:2    0 1018M  0 raid0
+sdc                         8:32   0  2.5G  0 disk
+├─sdc1                      8:33   0    2G  0 part
+│ └─md1                     9:1    0    2G  0 raid1
+└─sdc2                      8:34   0  511M  0 part
+  └─md2                     9:2    0 1018M  0 raid0
+
 ### 8.Создайте 2 независимых PV на получившихся md-устройствах.
+
+
 
 ### 9.Создайте общую volume-group на этих двух PV.
 
