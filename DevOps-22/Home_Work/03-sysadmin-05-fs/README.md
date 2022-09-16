@@ -483,6 +483,6 @@ root@vagrant:~# echo $?
 >root@vagrant:~# gzip -t /tmp/new/test.gz
 root@vagrant:~# echo $?
 0
-
+ 
 ### 20.Погасите тестовый хост, vagrant destroy.
 
