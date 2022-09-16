@@ -288,11 +288,59 @@ vagrant@vagrant:~$ sudo pvscan
 
 ### 8.Создайте 2 независимых PV на получившихся md-устройствах.
 
-
+vagrant@vagrant:~ $ sudo pvcreate /dev/md0
+vagrant@vagrant:~ $ sudo pvcreate /dev/md1 
 
 ### 9.Создайте общую volume-group на этих двух PV.
 
+vagrant@vagrant:~$ sudo vgcreate vg_md1_md2 /dev/md1 /dev/md2
+  Volume group "vg_md1_md2" successfully created
+vagrant@vagrant:~$ sudo vgdisplay
+  --- Volume group ---
+  VG Name               ubuntu-vg
+  System ID
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  2
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                1
+  Open LV               1
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               <62.50 GiB
+  PE Size               4.00 MiB
+  Total PE              15999
+  Alloc PE / Size       7999 / <31.25 GiB
+  Free  PE / Size       8000 / 31.25 GiB
+  VG UUID               4HbbNB-kISH-fXeQ-qzbV-XeNd-At34-cCUUuJ
+
+  --- Volume group ---
+  VG Name               vg_md1_md2
+  System ID
+  Format                lvm2
+  Metadata Areas        2
+  Metadata Sequence No  1
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                0
+  Open LV               0
+  Max PV                0
+  Cur PV                2
+  Act PV                2
+  VG Size               <2.99 GiB
+  PE Size               4.00 MiB
+  Total PE              765
+  Alloc PE / Size       0 / 0
+  Free  PE / Size       765 / <2.99 GiB
+  VG UUID               HoCHE5-wx5D-H7br-BE1d-Botv-AK9a-zmL5P9
+
 ### 10.Создайте LV размером 100 Мб, указав его расположение на PV с RAID0.
+
+
 
 ### 11.Создайте mkfs.ext4 ФС на получившемся LV.
 
