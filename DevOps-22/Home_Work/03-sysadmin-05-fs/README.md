@@ -438,7 +438,31 @@ vagrant@vagrant:~$
 
 ### 14.Прикрепите вывод lsblk.
 
-
+vagrant@vagrant:~$ lsblk
+NAME                          MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
+loop0                           7:0    0 43.6M  1 loop  /snap/snapd/14978
+loop1                           7:1    0 67.2M  1 loop  /snap/lxd/21835
+loop2                           7:2    0 61.9M  1 loop  /snap/core20/1328
+loop3                           7:3    0 63.2M  1 loop  /snap/core20/1623
+loop4                           7:4    0   48M  1 loop  /snap/snapd/16778
+loop5                           7:5    0 67.8M  1 loop  /snap/lxd/22753
+sda                             8:0    0   64G  0 disk
+├─sda1                          8:1    0    1M  0 part
+├─sda2                          8:2    0  1.5G  0 part  /boot
+└─sda3                          8:3    0 62.5G  0 part
+  └─ubuntu--vg-ubuntu--lv     253:0    0 31.3G  0 lvm   /
+sdb                             8:16   0  2.5G  0 disk
+├─sdb1                          8:17   0    2G  0 part
+│ └─md1                         9:1    0    2G  0 raid1
+│   └─vg_md1_md2-logical_vol1 253:1    0  100M  0 lvm   /tmp/logical_vol1
+└─sdb2                          8:18   0  511M  0 part
+  └─md2                         9:2    0 1018M  0 raid0
+sdc                             8:32   0  2.5G  0 disk
+├─sdc1                          8:33   0    2G  0 part
+│ └─md1                         9:1    0    2G  0 raid1
+│   └─vg_md1_md2-logical_vol1 253:1    0  100M  0 lvm   /tmp/logical_vol1
+└─sdc2                          8:34   0  511M  0 part
+  └─md2                         9:2    0 1018M  0 raid0
 
 ### 15.Протестируйте целостность файла:
 
