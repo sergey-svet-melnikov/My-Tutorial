@@ -341,7 +341,7 @@ vagrant@vagrant:~$ sudo vgdisplay
 ### 10.Создайте LV размером 100 Мб, указав его расположение на PV с RAID0.
 
 
-vagrant@vagrant:~$ sudo lvcreate -L 100M -n logical_vol1 vg_md1_md2 /dev/md1
+vagrant@vagrant:~$ sudo lvcreate -L 100M -n logical_vol1 vg_md1_md2 /dev/md1 - здесь нужно было указать md2
   Logical volume "logical_vol1" created.
 vagrant@vagrant:~$ sudo lvdisplay
   --- Logical volume ---
@@ -470,9 +470,9 @@ sdc                             8:32   0  2.5G  0 disk
 root@vagrant:~# echo $?
 0
 
+Выполнено.
 
 ### 16.Используя pvmove, переместите содержимое PV с RAID0 на RAID1.
-
 
 ### 17.Сделайте --fail на устройство в вашем RAID1 md.
 
