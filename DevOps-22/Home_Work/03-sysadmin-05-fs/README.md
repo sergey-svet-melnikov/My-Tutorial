@@ -280,6 +280,12 @@ sdc                         8:32   0  2.5G  0 disk
 └─sdc2                      8:34   0  511M  0 part
   └─md2                     9:2    0 1018M  0 raid0
 
+vagrant@vagrant:~$ sudo pvscan
+  PV /dev/sda3   VG ubuntu-vg       lvm2 [<62.50 GiB / 31.25 GiB free]
+  PV /dev/md1                       lvm2 [<2.00 GiB]
+  PV /dev/md2                       lvm2 [1018.00 MiB]
+  Total: 3 [<65.49 GiB] / in use: 1 [<62.50 GiB] / in no VG: 2 [2.99 GiB]
+
 ### 8.Создайте 2 независимых PV на получившихся md-устройствах.
 
 
