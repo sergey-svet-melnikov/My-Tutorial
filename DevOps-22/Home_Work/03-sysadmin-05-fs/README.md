@@ -417,7 +417,8 @@ sdc                             8:32   0  2.5G  0 disk
 
 ### 12.Смонтируйте этот раздел в любую директорию, например, /tmp/new
 
-
+vagrant@vagrant:~$ mkdir /tmp/logical_vol1
+vagrant@vagrant:~$ sudo mount /dev/vg_md1_md2/logical_vol1 /tmp/logical_vol1/
 
 ### 13.Поместите туда тестовый файл, например wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new/test.gz.
 
