@@ -380,7 +380,14 @@ vagrant@vagrant:~$ sudo lvdisplay
 
 ### 11.Создайте mkfs.ext4 ФС на получившемся LV.
 
+ sudo mkfs.ext4 /dev/vg_md1_md2/logical_vol1
+mke2fs 1.45.5 (07-Jan-2020)
+Creating filesystem with 25600 4k blocks and 25600 inodes
 
+Allocating group tables: done
+Writing inode tables: done
+Creating journal (1024 blocks): done
+Writing superblocks and filesystem accounting information: done
 
 ### 12.Смонтируйте этот раздел в любую директорию, например, /tmp/new
 
