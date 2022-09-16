@@ -341,8 +341,46 @@ vagrant@vagrant:~$ sudo vgdisplay
 ### 10.Создайте LV размером 100 Мб, указав его расположение на PV с RAID0.
 
 
+vagrant@vagrant:~$ sudo lvcreate -L 100M -n logical_vol1 vg_md1_md2 /dev/md1
+  Logical volume "logical_vol1" created.
+vagrant@vagrant:~$ sudo lvdisplay
+  --- Logical volume ---
+  LV Path                /dev/ubuntu-vg/ubuntu-lv
+  LV Name                ubuntu-lv
+  VG Name                ubuntu-vg
+  LV UUID                mJ8K7e-F4uw-o8Sx-iwt0-JfLQ-Dpoh-E7lSU1
+  LV Write Access        read/write
+  LV Creation host, time ubuntu-server, 2022-06-07 11:41:15 +0000
+  LV Status              available
+  # open                 1
+  LV Size                <31.25 GiB
+  Current LE             7999
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     256
+  Block device           253:0
+
+  --- Logical volume ---
+  LV Path                /dev/vg_md1_md2/logical_vol1
+  LV Name                logical_vol1
+  VG Name                vg_md1_md2
+  LV UUID                tAb0Zh-WKKO-H8yE-h9PC-RzOc-XjJh-z5K1tC
+  LV Write Access        read/write
+  LV Creation host, time vagrant, 2022-09-16 08:08:50 +0000
+  LV Status              available
+  # open                 0
+  LV Size                100.00 MiB
+  Current LE             25
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     256
+  Block device           253:1
 
 ### 11.Создайте mkfs.ext4 ФС на получившемся LV.
+
+
 
 ### 12.Смонтируйте этот раздел в любую директорию, например, /tmp/new
 
