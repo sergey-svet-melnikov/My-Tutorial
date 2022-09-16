@@ -146,6 +146,37 @@ sdc                         8:32   0  2.5G  0 disk
 
 ### 6. Соберите mdadm RAID1 на паре разделов 2 Гб.
 
+vagrant@vagrant:~$ sudo mdadm --create --verbose /dev/md1 -l 1 -n 2 /dev/sd{b1,c1}
+mdadm: Note: this array has metadata at the start and
+    may not be suitable as a boot device.  If you plan to
+    store '/boot' on this device please ensure that
+    your boot-loader understands md/v1.x metadata, or use
+    --metadata=0.90
+mdadm: size set to 2094080K
+Continue creating array? y
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md1 started.
+
+vagrant@vagrant:~$ lsblk
+NAME                      MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
+loop0                       7:0    0 43.6M  1 loop  /snap/snapd/14978
+loop1                       7:1    0 67.2M  1 loop  /snap/lxd/21835
+loop2                       7:2    0 61.9M  1 loop  /snap/core20/1328
+loop3                       7:3    0 63.2M  1 loop  /snap/core20/1623
+loop4                       7:4    0   48M  1 loop  /snap/snapd/16778
+loop5                       7:5    0 67.8M  1 loop  /snap/lxd/22753
+sda                         8:0    0   64G  0 disk
+├─sda1                      8:1    0    1M  0 part
+├─sda2                      8:2    0  1.5G  0 part  /boot
+└─sda3                      8:3    0 62.5G  0 part
+  └─ubuntu--vg-ubuntu--lv 253:0    0 31.3G  0 lvm   /
+sdb                         8:16   0  2.5G  0 disk
+└─sdb1                      8:17   0    2G  0 part
+  └─md1                     9:1    0    2G  0 raid1
+sdc                         8:32   0  2.5G  0 disk
+└─sdc1                      8:33   0    2G  0 part
+  └─md1                     9:1    0    2G  0 raid1
+
 ### 7. Соберите mdadm RAID0 на второй паре маленьких разделов.
 
 ### 8.Создайте 2 независимых PV на получившихся md-устройствах.
