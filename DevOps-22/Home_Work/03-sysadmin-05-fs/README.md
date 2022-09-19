@@ -288,14 +288,22 @@ vagrant@vagrant:~$ sudo pvscan
 
 ### 8.Создайте 2 независимых PV на получившихся md-устройствах.
 
-vagrant@vagrant:~ $ sudo pvcreate /dev/md0
-vagrant@vagrant:~ $ sudo pvcreate /dev/md1 
+vagrant@vagrant:/etc/mdadm$ sudo pvcreate /dev/md1 /dev/md2
+  Physical volume "/dev/md1" successfully created.
+  Physical volume "/dev/md2" successfully created.
 
 ### 9.Создайте общую volume-group на этих двух PV.
 
-vagrant@vagrant:~$ sudo vgcreate vg_md1_md2 /dev/md1 /dev/md2
-  Volume group "vg_md1_md2" successfully created
-vagrant@vagrant:~$ sudo vgdisplay
+vagrant@vagrant:/etc/mdadm$ sudo vgcreate vgroup /dev/md1 /dev/md2
+  Volume group "vgroup" successfully created
+
+vagrant@vagrant:/etc/mdadm$ sudo pvscan
+  PV /dev/sda3   VG ubuntu-vg       lvm2 [<62.50 GiB / 31.25 GiB free]
+  PV /dev/md1    VG vgroup          lvm2 [<2.00 GiB / <2.00 GiB free]
+  PV /dev/md2    VG vgroup          lvm2 [1016.00 MiB / 1016.00 MiB free]
+  Total: 3 [65.48 GiB] / in use: 3 [65.48 GiB] / in no VG: 0 [0   ]
+
+vagrant@vagrant:/etc/mdadm$ sudo vgdisplay
   --- Volume group ---
   VG Name               ubuntu-vg
   System ID
@@ -318,7 +326,7 @@ vagrant@vagrant:~$ sudo vgdisplay
   VG UUID               4HbbNB-kISH-fXeQ-qzbV-XeNd-At34-cCUUuJ
 
   --- Volume group ---
-  VG Name               vg_md1_md2
+  VG Name               vgroup
   System ID
   Format                lvm2
   Metadata Areas        2
@@ -336,14 +344,16 @@ vagrant@vagrant:~$ sudo vgdisplay
   Total PE              765
   Alloc PE / Size       0 / 0
   Free  PE / Size       765 / <2.99 GiB
-  VG UUID               HoCHE5-wx5D-H7br-BE1d-Botv-AK9a-zmL5P9
+  VG UUID               0el9Jq-RZlY-dIuw-wUnn-J7g2-hBjz-329zQh
 
 ### 10.Создайте LV размером 100 Мб, указав его расположение на PV с RAID0.
 
 
-vagrant@vagrant:~$ sudo lvcreate -L 100M -n logical_vol1 vg_md1_md2 /dev/md1
-  Logical volume "logical_vol1" created.
-vagrant@vagrant:~$ sudo lvdisplay
+vagrant@vagrant:/etc/mdadm$ sudo lvcreate -L 100M -n logical_vol vgroup /dev/md2
+  Logical volume "logical_vol" created.
+
+
+vagrant@vagrant:/etc/mdadm$ sudo lvdisplay
   --- Logical volume ---
   LV Path                /dev/ubuntu-vg/ubuntu-lv
   LV Name                ubuntu-lv
@@ -362,12 +372,12 @@ vagrant@vagrant:~$ sudo lvdisplay
   Block device           253:0
 
   --- Logical volume ---
-  LV Path                /dev/vg_md1_md2/logical_vol1
-  LV Name                logical_vol1
-  VG Name                vg_md1_md2
-  LV UUID                tAb0Zh-WKKO-H8yE-h9PC-RzOc-XjJh-z5K1tC
+  LV Path                /dev/vgroup/logical_vol
+  LV Name                logical_vol
+  VG Name                vgroup
+  LV UUID                YWOLon-4a1d-oO7E-FUoA-qMfj-dMPG-y9SrHB
   LV Write Access        read/write
-  LV Creation host, time vagrant, 2022-09-16 08:08:50 +0000
+  LV Creation host, time vagrant, 2022-09-19 07:11:23 +0000
   LV Status              available
   # open                 0
   LV Size                100.00 MiB
@@ -375,12 +385,12 @@ vagrant@vagrant:~$ sudo lvdisplay
   Segments               1
   Allocation             inherit
   Read ahead sectors     auto
-  - currently set to     256
+  - currently set to     4096
   Block device           253:1
 
 ### 11.Создайте mkfs.ext4 ФС на получившемся LV.
 
- sudo mkfs.ext4 /dev/vg_md1_md2/logical_vol1
+vagrant@vagrant:/etc/mdadm$ sudo mkfs.ext4 /dev/vgroup/logical_vol
 mke2fs 1.45.5 (07-Jan-2020)
 Creating filesystem with 25600 4k blocks and 25600 inodes
 
@@ -389,89 +399,94 @@ Writing inode tables: done
 Creating journal (1024 blocks): done
 Writing superblocks and filesystem accounting information: done
 
-vagrant@vagrant:~$ lsblk
-NAME                          MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
-loop0                           7:0    0 43.6M  1 loop  /snap/snapd/14978
-loop1                           7:1    0 67.2M  1 loop  /snap/lxd/21835
-loop2                           7:2    0 61.9M  1 loop  /snap/core20/1328
-loop3                           7:3    0 63.2M  1 loop  /snap/core20/1623
-loop4                           7:4    0   48M  1 loop  /snap/snapd/16778
-loop5                           7:5    0 67.8M  1 loop  /snap/lxd/22753
-sda                             8:0    0   64G  0 disk
-├─sda1                          8:1    0    1M  0 part
-├─sda2                          8:2    0  1.5G  0 part  /boot
-└─sda3                          8:3    0 62.5G  0 part
-  └─ubuntu--vg-ubuntu--lv     253:0    0 31.3G  0 lvm   /
-sdb                             8:16   0  2.5G  0 disk
-├─sdb1                          8:17   0    2G  0 part
-│ └─md1                         9:1    0    2G  0 raid1
-│   └─vg_md1_md2-logical_vol1 253:1    0  100M  0 lvm
-└─sdb2                          8:18   0  511M  0 part
-  └─md2                         9:2    0 1018M  0 raid0
-sdc                             8:32   0  2.5G  0 disk
-├─sdc1                          8:33   0    2G  0 part
-│ └─md1                         9:1    0    2G  0 raid1
-│   └─vg_md1_md2-logical_vol1 253:1    0  100M  0 lvm
-└─sdc2                          8:34   0  511M  0 part
-  └─md2                         9:2    0 1018M  0 raid0
+vagrant@vagrant:/etc/mdadm$ lsblk -o NAME,PATH,SIZE,FSTYPE
+NAME                      PATH                               SIZE FSTYPE
+loop0                     /dev/loop0                        61.9M squashfs
+loop1                     /dev/loop1                        67.8M squashfs
+loop2                     /dev/loop2                        67.2M squashfs
+loop3                     /dev/loop3                        63.2M squashfs
+loop4                     /dev/loop4                          48M squashfs
+loop5                     /dev/loop5                        43.6M squashfs
+sda                       /dev/sda                            64G
+├─sda1                    /dev/sda1                            1M
+├─sda2                    /dev/sda2                          1.5G ext4
+└─sda3                    /dev/sda3                         62.5G LVM2_member
+  └─ubuntu--vg-ubuntu--lv /dev/mapper/ubuntu--vg-ubuntu--lv 31.3G ext4
+sdb                       /dev/sdb                           2.5G
+├─sdb1                    /dev/sdb1                            2G linux_raid_member
+│ └─md1                   /dev/md1                             2G LVM2_member
+└─sdb2                    /dev/sdb2                          511M linux_raid_member
+  └─md2                   /dev/md2                          1018M LVM2_member
+    └─vgroup-logical_vol  /dev/mapper/vgroup-logical_vol     100M ext4
+sdc                       /dev/sdc                           2.5G
+├─sdc1                    /dev/sdc1                            2G linux_raid_member
+│ └─md1                   /dev/md1                             2G LVM2_member
+└─sdc2                    /dev/sdc2                          511M linux_raid_member
+  └─md2                   /dev/md2                          1018M LVM2_member
+    └─vgroup-logical_vol  /dev/mapper/vgroup-logical_vol     100M ext4
 
 ### 12.Смонтируйте этот раздел в любую директорию, например, /tmp/new
 
-vagrant@vagrant:~$ mkdir /tmp/logical_vol1
-vagrant@vagrant:~$ sudo mount /dev/vg_md1_md2/logical_vol1 /tmp/logical_vol1/
+vagrant@vagrant:/tmp$ mkdir new
+
+vagrant@vagrant:/tmp$ sudo mount /dev/vgroup/logical_vol /tmp/new
+
+vagrant@vagrant:/tmp/new$ ll
+total 24
+drwxr-xr-x  3 root root  4096 Sep 19 07:13 ./
+drwxrwxrwt 13 root root  4096 Sep 19 07:16 ../
+drwx------  2 root root 16384 Sep 19 07:13 lost+found/
 
 ### 13.Поместите туда тестовый файл, например wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new/test.gz.
 
-vagrant@vagrant:~$ sudo wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/logical_vol1/test.gz
---2022-09-16 08:17:11--  https://mirror.yandex.ru/ubuntu/ls-lR.gz
+vagrant@vagrant:/tmp/new$ sudo wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new/test.gz
+--2022-09-19 07:18:52--  https://mirror.yandex.ru/ubuntu/ls-lR.gz
 Resolving mirror.yandex.ru (mirror.yandex.ru)... 213.180.204.183, 2a02:6b8::183
 Connecting to mirror.yandex.ru (mirror.yandex.ru)|213.180.204.183|:443... connected.
 HTTP request sent, awaiting response... 200 OK
-Length: 22381690 (21M) [application/octet-stream]
-Saving to: ‘/tmp/logical_vol1/test.gz’
+Length: 22324708 (21M) [application/octet-stream]
+Saving to: ‘/tmp/new/test.gz’
 
-/tmp/logical_vol1/test.gz     100%[=================================================>]  21.34M  1.16MB/s    in 19s
+/tmp/new/test.gz                         100%[=================================================================================>]  21.29M  1.16MB/s    in 17s
 
-2022-09-16 08:17:30 (1.14 MB/s) - ‘/tmp/logical_vol1/test.gz’ saved [22381690/22381690]
+2022-09-19 07:19:10 (1.22 MB/s) - ‘/tmp/new/test.gz’ saved [22324708/22324708]
 
-vagrant@vagrant:~$
+### 14.Прикрепите вывод lsblk. (Поясняю: Не на том RAID создал, но в следующем задании подвигаю его с одного RAID на другой)
 
-### 14.Прикрепите вывод lsblk.
-
-vagrant@vagrant:~$ lsblk
-NAME                          MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
-loop0                           7:0    0 43.6M  1 loop  /snap/snapd/14978
-loop1                           7:1    0 67.2M  1 loop  /snap/lxd/21835
-loop2                           7:2    0 61.9M  1 loop  /snap/core20/1328
-loop3                           7:3    0 63.2M  1 loop  /snap/core20/1623
-loop4                           7:4    0   48M  1 loop  /snap/snapd/16778
-loop5                           7:5    0 67.8M  1 loop  /snap/lxd/22753
-sda                             8:0    0   64G  0 disk
-├─sda1                          8:1    0    1M  0 part
-├─sda2                          8:2    0  1.5G  0 part  /boot
-└─sda3                          8:3    0 62.5G  0 part
-  └─ubuntu--vg-ubuntu--lv     253:0    0 31.3G  0 lvm   /
-sdb                             8:16   0  2.5G  0 disk
-├─sdb1                          8:17   0    2G  0 part
-│ └─md1                         9:1    0    2G  0 raid1
-│   └─vg_md1_md2-logical_vol1 253:1    0  100M  0 lvm   /tmp/logical_vol1
-└─sdb2                          8:18   0  511M  0 part
-  └─md2                         9:2    0 1018M  0 raid0
-sdc                             8:32   0  2.5G  0 disk
-├─sdc1                          8:33   0    2G  0 part
-│ └─md1                         9:1    0    2G  0 raid1
-│   └─vg_md1_md2-logical_vol1 253:1    0  100M  0 lvm   /tmp/logical_vol1
-└─sdc2                          8:34   0  511M  0 part
-  └─md2                         9:2    0 1018M  0 raid0
+vagrant@vagrant:/tmp/new$ lsblk
+NAME                      MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
+loop0                       7:0    0 61.9M  1 loop  /snap/core20/1328
+loop1                       7:1    0 67.8M  1 loop  /snap/lxd/22753
+loop2                       7:2    0 67.2M  1 loop  /snap/lxd/21835
+loop3                       7:3    0 63.2M  1 loop  /snap/core20/1623
+loop4                       7:4    0   48M  1 loop  /snap/snapd/16778
+loop5                       7:5    0 43.6M  1 loop  /snap/snapd/14978
+sda                         8:0    0   64G  0 disk
+├─sda1                      8:1    0    1M  0 part
+├─sda2                      8:2    0  1.5G  0 part  /boot
+└─sda3                      8:3    0 62.5G  0 part
+  └─ubuntu--vg-ubuntu--lv 253:0    0 31.3G  0 lvm   /
+sdb                         8:16   0  2.5G  0 disk
+├─sdb1                      8:17   0    2G  0 part
+│ └─md1                     9:1    0    2G  0 raid1
+└─sdb2                      8:18   0  511M  0 part
+  └─md2                     9:2    0 1018M  0 raid0
+    └─vgroup-logical_vol  253:1    0  100M  0 lvm   /tmp/new
+sdc                         8:32   0  2.5G  0 disk
+├─sdc1                      8:33   0    2G  0 part
+│ └─md1                     9:1    0    2G  0 raid1
+└─sdc2                      8:34   0  511M  0 part
+  └─md2                     9:2    0 1018M  0 raid0
+    └─vgroup-logical_vol  253:1    0  100M  0 lvm   /tmp/new
 
 ### 15.Протестируйте целостность файла:
 
->root@vagrant:~# gzip -t /tmp/new/test.gz
-root@vagrant:~# echo $?
+vagrant@vagrant:/tmp/new$ gzip -t /tmp/new/test.gz
+vagrant@vagrant:/tmp/new$ echo $?
 0
 
-
 ### 16.Используя pvmove, переместите содержимое PV с RAID0 на RAID1.
+
 
 
 ### 17.Сделайте --fail на устройство в вашем RAID1 md.
