@@ -518,9 +518,46 @@ sdc                         8:32   0  2.5G  0 disk
 
 ### 17.Сделайте --fail на устройство в вашем RAID1 md.
 
+vagrant@vagrant:/tmp/new$ sudo mdadm /dev/md1 --fail /dev/sdb1
+mdadm: set /dev/sdb1 faulty in /dev/md1
 
+vagrant@vagrant:/tmp/new$ sudo mdadm --detail /dev/md1
+/dev/md1:
+           Version : 1.2
+     Creation Time : Fri Sep 16 06:09:09 2022
+        Raid Level : raid1
+        Array Size : 2094080 (2045.00 MiB 2144.34 MB)
+     Used Dev Size : 2094080 (2045.00 MiB 2144.34 MB)
+      Raid Devices : 2
+     Total Devices : 2
+       Persistence : Superblock is persistent
+
+       Update Time : Mon Sep 19 07:37:55 2022
+             State : clean, degraded
+    Active Devices : 1
+   Working Devices : 1
+    Failed Devices : 1
+     Spare Devices : 0
+
+Consistency Policy : resync
+
+              Name : vagrant:1  (local to host vagrant)
+              UUID : 352a3faf:48bfb7bc:054ef78b:0fe27201
+            Events : 21
+
+    Number   Major   Minor   RaidDevice State
+       -       0        0        0      removed
+       1       8       33        1      active sync   /dev/sdc1
+
+       0       8       17        -      faulty   /dev/sdb1
 
 ### 18.Подтвердите выводом dmesg, что RAID1 работает в деградированном состоянии.
+
+vagrant@vagrant:/tmp/new$ dmesg | grep fail
+[    0.329858] acpi PNP0A03:00: fail to add MMCONFIG information, can't access extended PCI configuration space under this bridge.
+[    3.568753] vboxvideo: module verification failed: signature and/or required key missing - tainting kernel
+[   10.376722] vboxsf: SHFL_FN_MAP_FOLDER failed for '/vagrant': share not found
+[ 6984.036256] md/raid1:md1: Disk failure on sdb1, disabling device.
 
 ### 19.Протестируйте целостность файла, несмотря на "сбойный" диск он должен продолжать быть доступен:
 
@@ -528,5 +565,11 @@ sdc                         8:32   0  2.5G  0 disk
 root@vagrant:~# echo $?
 0
 
+vagrant@vagrant:/tmp/new$ gzip -t /tmp/new/test.gz
+vagrant@vagrant:/tmp/new$ echo $?
+0
+
 ### 20.Погасите тестовый хост, vagrant destroy.
+
+Готово.
 
