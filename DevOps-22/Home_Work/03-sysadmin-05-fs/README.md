@@ -451,7 +451,7 @@ Saving to: ‘/tmp/new/test.gz’
 
 2022-09-19 07:19:10 (1.22 MB/s) - ‘/tmp/new/test.gz’ saved [22324708/22324708]
 
-### 14.Прикрепите вывод lsblk. (Поясняю: Не на том RAID создал, но в следующем задании подвигаю его с одного RAID на другой)
+### 14.Прикрепите вывод lsblk. 
 
 vagrant@vagrant:/tmp/new$ lsblk
 NAME                      MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
