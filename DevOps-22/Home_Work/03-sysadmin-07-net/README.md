@@ -2,6 +2,55 @@
 
 ### 1. Проверьте список доступных сетевых интерфейсов на вашем компьютере. Какие команды есть для этого в Linux и в Windows?
 
+vagrant@vagrant:~$ ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::a00:27ff:fea2:6bfd  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:a2:6b:fd  txqueuelen 1000  (Ethernet)
+        RX packets 44647  bytes 46911476 (46.9 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 21277  bytes 1799541 (1.7 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 440  bytes 30601 (30.6 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 440  bytes 30601 (30.6 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+PS C:\> ipconfig
+
+Настройка протокола IP для Windows
+
+
+Неизвестный адаптер OpenVPN Wintun:
+
+   Состояние среды. . . . . . . . : Среда передачи недоступна.
+   DNS-суффикс подключения . . . . . :
+
+Адаптер Ethernet VirtualBox Host-Only Network:
+
+   DNS-суффикс подключения . . . . . :
+   IPv4-адрес. . . . . . . . . . . . : 10.0.0.10
+   Маска подсети . . . . . . . . . . : 255.0.0.0
+   Основной шлюз. . . . . . . . . :
+
+Неизвестный адаптер OpenVPN TAP-Windows6:
+
+   Состояние среды. . . . . . . . : Среда передачи недоступна.
+   DNS-суффикс подключения . . . . . :
+
+Адаптер Ethernet Подключение по локальной сети:
+
+   DNS-суффикс подключения . . . . . : beeline
+   IPv4-адрес. . . . . . . . . . . . : 95.29.98.185
+   Маска подсети . . . . . . . . . . : 255.255.248.0
+   Основной шлюз. . . . . . . . . : 95.29.96.1
+
+
 
 ### 2. Какой протокол используется для распознавания соседа по сетевому интерфейсу? Какой пакет и команды есть в Linux для этого?
 
