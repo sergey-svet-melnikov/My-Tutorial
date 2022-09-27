@@ -226,3 +226,6 @@ netdata    607         netdata   19u  IPv4  27264      0t0  UDP localhost:8125
 
 ### 5. Используя diagrams.net, создайте L3 диаграмму вашей домашней сети или любой другой сети, с которой вы работали.
 
+Схема домашней сети:
+
+![https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-08-net/Home_Net.png]
