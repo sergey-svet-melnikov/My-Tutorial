@@ -160,7 +160,16 @@ lo               UNKNOWN        00:00:00:00:00:00 <LOOPBACK,UP,LOWER_UP>
 eth0             UP             08:00:27:a2:6b:fd <BROADCAST,MULTICAST,UP,LOWER_UP>  
 dummy0           UNKNOWN        6e:22:05:bf:e5:85 <BROADCAST,NOARP,UP,LOWER_UP>  
 dummy1           UNKNOWN        ea:7d:8c:aa:97:53 <BROADCAST,NOARP,UP,LOWER_UP>  
-eth0.99@eth0     UP             08:00:27:a2:6b:fd <BROADCAST,MULTICAST,UP,LOWER_UP>  
+eth0.99@eth0     UP             08:00:27:a2:6b:fd <BROADCAST,MULTICAST,UP,LOWER_UP> 
+
+Для netplan:
+
+>vlans:
+    vlan99:
+      id: 99
+      link: eth0
+      addresses:
+        - 192.168.1.100/24
 
 ### 4.  Какие типы агрегации интерфейсов есть в Linux? Какие опции есть для балансировки нагрузки? Приведите пример конфига.  
 
@@ -189,7 +198,15 @@ mode=5 (balance-tlb)
 mode=6 (balance-alb)  
 Адаптивная балансировка нагрузки (более совершенная). Обеспечивает балансировку нагрузки как исходящего (TLB, transmit load balancing), так и входящего трафика (для IPv4 через ARP). Не требует специальной поддержки коммутатором, но требует возможности изменять MAC-адрес устройства.
 
-
+>bonds:
+    bond0:
+      dhcp4: no
+      interfaces:
+              - dummy0
+              - dummy1
+      parameters:
+        mode: 802.3ad
+        mii-monitor-interval: 1
 
 
 
