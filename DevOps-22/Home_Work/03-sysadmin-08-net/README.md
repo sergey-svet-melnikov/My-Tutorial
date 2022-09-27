@@ -229,3 +229,78 @@ netdata    607         netdata   19u  IPv4  27264      0t0  UDP localhost:8125
 Схема домашней сети:  
 
 ![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-08-net/Home_Net.png)
+
+### 6. Установите Nginx, настройте в режиме балансировщика TCP или UDP. (взято из примера для понимания)
+
+Создаем 4 VM (клиент, балансировщик, 2 веб-сервера)
+
+vagrantfile
+
+boxes = {
+  'netology1' => '10',
+  'netology2' => '60',
+  'netology3' => '90',
+  'netology4' => '120'
+}
+
+Vagrant.configure("2") do |config|
+  config.vm.network "private_network", virtualbox__intnet: true, auto_config: false
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024
+    v.cpus = 1
+  end
+  config.vm.box = "bento/ubuntu-20.04"
+
+  boxes.each do |k, v|
+    config.vm.define k do |node|
+      node.vm.provision "shell" do |s|
+        s.inline = "hostname $1;"\
+          "ip addr add $2 dev eth1;"\
+          "ip link set dev eth1 up;"\
+          "apt -y update;"\
+          "apt -y install nginx;"\
+          "mkdir -p /data/www;"\
+          "echo Hello from $1 >> /data/www/index.html;"
+        s.args = [k, "172.28.128.#{v}/24"]
+      end
+    end
+  end
+end
+На балансировщике (VM2) добавляем конфиг
+
+$ sudo nano /etc/nginx/conf.d/proxyTCP.conf
+     upstream backend1 {
+         server 172.28.128.90:8080;
+         server 172.28.128.120:8080;
+     }
+     server {
+         listen 8080;
+         location / {
+             proxy_pass http://backend1;
+         }
+     }
+
+$ sudo nginx -s reload
+На веб-серверах (VM3, VM4) меняем конфиги
+
+$ sudo nano /etc/nginx/sites-enabled/default
+server {
+     listen 8080;
+     location / {
+             root /data/www;
+             index  index.html index.htm;
+     }
+}
+
+$ sudo nginx -s reload
+Отдаем запрос с VM1
+
+$ curl 172.28.128.60:8080
+Hello from netology3
+$ curl 172.28.128.60:8080
+Hello from netology4
+$ curl 172.28.128.60:8080
+Hello from netology3
+$ curl 172.28.128.60:8080
+Hello from netology4
+
