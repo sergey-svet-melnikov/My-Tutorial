@@ -64,13 +64,103 @@ P.S. Соседей у меня нет.
 
 ### 3. Какая технология используется для разделения L2 коммутатора на несколько виртуальных сетей? Какой пакет и команды есть в Linux для этого? Приведите пример конфига.  
 
-VLAN (аббр. от англ. Virtual Local Area Network) — виртуальная локальная компьютерная сеть. Представляет собой группу хостов с общим набором требований которые взаимодействуют так, как если бы они были подключены к широковещательному домену независимо от их физического местонахождения. VLAN имеет те же свойства, что и физическая локальная сеть, но позволяет конечным членам группироваться вместе, даже если они не находятся в одной физической сети. Такая реорганизация может быть сделана на основе программного обеспечения вместо физического перемещения устройств.  
+VLAN (аббр. от англ. Virtual Local Area Network) — виртуальная локальная компьютерная сеть. Представляет собой группу хостов с общим набором требований которые взаимодействуют так, как если бы они были подключены к широковещательному домену независимо от их физического местонахождения. VLAN имеет те же свойства, что и физическая локальная сеть, но позволяет конечным членам группироваться вместе, даже если они не находятся в одной физической сети. Такая реорганизация может быть сделана на основе программного обеспечения вместо физического перемещения устройств.
 
-vagrant@vagrant:~$ ip -br link   
+vagrant@vagrant:~$ ifconfig  
+dummy0: flags=195<UP,BROADCAST,RUNNING,NOARP>  mtu 1500  
+        inet 10.0.10.1  netmask 255.255.255.0  broadcast 0.0.0.0  
+        inet6 fe80::6c22:5ff:febf:e585  prefixlen 64  scopeid 0x20<link>  
+        ether 6e:22:05:bf:e5:85  txqueuelen 1000  (Ethernet)  
+        RX packets 0  bytes 0 (0.0 B)  
+        RX errors 0  dropped 0  overruns 0  frame 0  
+        TX packets 451  bytes 96832 (96.8 KB)  
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0  
+
+dummy1: flags=195<UP,BROADCAST,RUNNING,NOARP>  mtu 1500  
+        inet 10.1.10.1  netmask 255.255.255.0  broadcast 0.0.0.0  
+        inet6 fe80::e87d:8cff:feaa:9753  prefixlen 64  scopeid 0x20<link>  
+        ether ea:7d:8c:aa:97:53  txqueuelen 1000  (Ethernet)  
+        RX packets 0  bytes 0 (0.0 B)  
+        RX errors 0  dropped 0  overruns 0  frame 0  
+        TX packets 451  bytes 96832 (96.8 KB)  
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0  
+
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500  
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255  
+        inet6 fe80::a00:27ff:fea2:6bfd  prefixlen 64  scopeid 0x20<link>  
+        ether 08:00:27:a2:6b:fd  txqueuelen 1000  (Ethernet)  
+        RX packets 29444  bytes 33279901 (33.2 MB)  
+        RX errors 0  dropped 0  overruns 0  frame 0  
+        TX packets 8924  bytes 2673093 (2.6 MB)  
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0  
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536  
+        inet 127.0.0.1  netmask 255.0.0.0  
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>  
+        loop  txqueuelen 1000  (Local Loopback)   
+        RX packets 312  bytes 20462 (20.4 KB)  
+        RX errors 0  dropped 0  overruns 0  frame 0  
+        TX packets 312  bytes 20462 (20.4 KB)  
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0  
+
+vagrant@vagrant:~$ sudo vconfig add eth0 99  
+
+Warning: vconfig is deprecated and might be removed in the future, please migrate to ip(route2) as soon as possible!    
+
+vagrant@vagrant:~$ sudo ifconfig eth0.99 192.168.1.100 netmask 255.255.255.0 broadcast 192.168.1.255 up   
+vagrant@vagrant:~$ ifconfig  
+dummy0: flags=195<UP,BROADCAST,RUNNING,NOARP>  mtu 1500  
+        inet 10.0.10.1  netmask 255.255.255.0  broadcast 0.0.0.0  
+        inet6 fe80::6c22:5ff:febf:e585  prefixlen 64  scopeid 0x20<link>  
+        ether 6e:22:05:bf:e5:85  txqueuelen 1000  (Ethernet)  
+        RX packets 0  bytes 0 (0.0 B)  
+        RX errors 0  dropped 0  overruns 0  frame 0  
+        TX packets 453  bytes 97270 (97.2 KB)  
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0  
+
+dummy1: flags=195<UP,BROADCAST,RUNNING,NOARP>  mtu 1500   
+        inet 10.1.10.1  netmask 255.255.255.0  broadcast 0.0.0.0  
+        inet6 fe80::e87d:8cff:feaa:9753  prefixlen 64  scopeid 0x20<link>  
+        ether ea:7d:8c:aa:97:53  txqueuelen 1000  (Ethernet)  
+        RX packets 0  bytes 0 (0.0 B)  
+        RX errors 0  dropped 0  overruns 0  frame 0  
+        TX packets 453  bytes 97270 (97.2 KB)  
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0  
+
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500  
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255  
+        inet6 fe80::a00:27ff:fea2:6bfd  prefixlen 64  scopeid 0x20<link>  
+        ether 08:00:27:a2:6b:fd  txqueuelen 1000  (Ethernet)  
+        RX packets 29619  bytes 33292457 (33.2 MB)  
+        RX errors 0  dropped 0  overruns 0  frame 0  
+        TX packets 9051  bytes 2685348 (2.6 MB)   
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0  
+
+eth0.99: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500  
+        inet 192.168.1.100  netmask 255.255.255.0  broadcast 192.168.1.255  
+        inet6 fe80::a00:27ff:fea2:6bfd  prefixlen 64  scopeid 0x20<link>  
+        ether 08:00:27:a2:6b:fd  txqueuelen 1000  (Ethernet)  
+        RX packets 0  bytes 0 (0.0 B)  
+        RX errors 0  dropped 0  overruns 0  frame 0  
+        TX packets 7  bytes 586 (586.0 B)  
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0  
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536  
+        inet 127.0.0.1  netmask 255.0.0.0   
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>   
+        loop  txqueuelen 1000  (Local Loopback)  
+        RX packets 312  bytes 20462 (20.4 KB)  
+        RX errors 0  dropped 0  overruns 0  frame 0  
+        TX packets 312  bytes 20462 (20.4 KB)  
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0  
 
 
+vagrant@vagrant:~$ ip -br link  
 lo               UNKNOWN        00:00:00:00:00:00 <LOOPBACK,UP,LOWER_UP>  
 eth0             UP             08:00:27:a2:6b:fd <BROADCAST,MULTICAST,UP,LOWER_UP>  
+dummy0           UNKNOWN        6e:22:05:bf:e5:85 <BROADCAST,NOARP,UP,LOWER_UP>  
+dummy1           UNKNOWN        ea:7d:8c:aa:97:53 <BROADCAST,NOARP,UP,LOWER_UP>  
+eth0.99@eth0     UP             08:00:27:a2:6b:fd <BROADCAST,MULTICAST,UP,LOWER_UP>  
 
 ### 4.  Какие типы агрегации интерфейсов есть в Linux? Какие опции есть для балансировки нагрузки? Приведите пример конфига.  
 
@@ -97,7 +187,11 @@ mode=5 (balance-tlb)
 Адаптивная балансировка нагрузки. При balance-tlb входящий трафик получается только активным интерфейсом, исходящий - распределяется в зависимости от текущей загрузки каждого интерфейса. Обеспечивается отказоустойчивость и распределение нагрузки исходящего трафика. Не требует специальной поддержки коммутатора.  
 
 mode=6 (balance-alb)  
-Адаптивная балансировка нагрузки (более совершенная). Обеспечивает балансировку нагрузки как исходящего (TLB, transmit load balancing), так и входящего трафика (для IPv4 через ARP). Не требует специальной поддержки коммутатором, но требует возможности изменять MAC-адрес устройства.  
+Адаптивная балансировка нагрузки (более совершенная). Обеспечивает балансировку нагрузки как исходящего (TLB, transmit load balancing), так и входящего трафика (для IPv4 через ARP). Не требует специальной поддержки коммутатором, но требует возможности изменять MAC-адрес устройства.
+
+
+
+
 
 ### 5. Сколько IP адресов в сети с маской /29 ? Сколько /29 подсетей можно получить из сети с маской /24. Приведите несколько примеров /29 подсетей внутри сети 10.10.10.0/24.  
 
