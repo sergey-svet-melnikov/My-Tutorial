@@ -88,6 +88,60 @@ Paths: (23 available, best #15, table default)
 
 ### 2. Создайте dummy0 интерфейс в Ubuntu. Добавьте несколько статических маршрутов. Проверьте таблицу маршрутизации.  
 
+vagrant@vagrant:~$ sudo ip link add dummy0 type dummy    
+vagrant@vagrant:~$ sudo ip link add dummy1 type dummy    
+
+vagrant@vagrant:~$  sudo ip link set dummy0 up  
+vagrant@vagrant:~$  sudo ip link set dummy1 up  
+
+vagrant@vagrant:~$ sudo ip addr add 10.0.10.1/24 dev dummy0  
+vagrant@vagrant:~$ sudo ip addr add 10.1.10.1/24 dev dummy1  
+vagrant@vagrant:~$ ifconfig  
+dummy0: flags=195<UP,BROADCAST,RUNNING,NOARP>  mtu 1500  
+        inet 10.0.10.1  netmask 255.255.255.0  broadcast 0.0.0.0  
+        inet6 fe80::dc50:b5ff:fef3:78f6  prefixlen 64  scopeid 0x20<link>  
+        ether de:50:b5:f3:78:f6  txqueuelen 1000  (Ethernet)  
+        RX packets 0  bytes 0 (0.0 B)  
+        RX errors 0  dropped 0  overruns 0  frame 0  
+        TX packets 8  bytes 1007 (1.0 KB)  
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0  
+
+dummy1: flags=195<UP,BROADCAST,RUNNING,NOARP>  mtu 1500  
+        inet 10.1.10.1  netmask 255.255.255.0  broadcast 0.0.0.0  
+        inet6 fe80::d4b7:35ff:fe1f:c465  prefixlen 64  scopeid 0x20<link>  
+        ether d6:b7:35:1f:c4:65  txqueuelen 1000  (Ethernet)  
+        RX packets 0  bytes 0 (0.0 B)  
+        RX errors 0  dropped 0  overruns 0  frame 0  
+        TX packets 8  bytes 1007 (1.0 KB)  
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0  
+
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500  
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255  
+        inet6 fe80::a00:27ff:fea2:6bfd  prefixlen 64  scopeid 0x20<link>  
+        ether 08:00:27:a2:6b:fd  txqueuelen 1000  (Ethernet)  
+        RX packets 56569  bytes 60286188 (60.2 MB)  
+        RX errors 0  dropped 0  overruns 0  frame 0  
+        TX packets 28812  bytes 2445836 (2.4 MB)  
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0  
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536  
+        inet 127.0.0.1  netmask 255.0.0.0  
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>  
+        loop  txqueuelen 1000  (Local Loopback)  
+        RX packets 558  bytes 41677 (41.6 KB)  
+        RX errors 0  dropped 0  overruns 0  frame 0  
+        TX packets 558  bytes 41677 (41.6 KB)  
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0  
+
+vagrant@vagrant:~$ ip route
+default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100
+8.8.3.0/24 via 10.0.10.1 dev dummy0
+8.8.4.0/24 via 10.1.10.1 dev dummy1
+10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15
+10.0.2.2 dev eth0 proto dhcp scope link src 10.0.2.15 metric 100
+10.0.10.0/24 dev dummy0 proto kernel scope link src 10.0.10.1
+10.1.10.0/24 dev dummy1 proto kernel scope link src 10.1.10.1
+
 
 
 ### 3. Проверьте открытые TCP порты в Ubuntu, какие протоколы и приложения используют эти порты? Приведите несколько примеров.
