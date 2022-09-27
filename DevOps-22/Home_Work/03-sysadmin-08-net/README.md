@@ -230,7 +230,7 @@ netdata    607         netdata   19u  IPv4  27264      0t0  UDP localhost:8125
 
 ![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-08-net/Home_Net.png)
 
-### 6. Установите Nginx, настройте в режиме балансировщика TCP или UDP. (взято из примера для понимания)
+### 6*. Установите Nginx, настройте в режиме балансировщика TCP или UDP. (взято из примера для понимания)
 
 Создаем 4 VM (клиент, балансировщик, 2 веб-сервера)
 
