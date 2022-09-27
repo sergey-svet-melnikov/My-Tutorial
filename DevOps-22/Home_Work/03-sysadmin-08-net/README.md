@@ -228,4 +228,4 @@ netdata    607         netdata   19u  IPv4  27264      0t0  UDP localhost:8125
 
 Схема домашней сети:
 
-![https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-08-net/Home_Net.png]
+![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-08-net/Home_Net.png)
