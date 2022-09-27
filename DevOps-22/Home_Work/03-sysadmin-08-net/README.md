@@ -189,43 +189,43 @@ sshd      1170            root    4u  IPv4  27692      0t0  TCP vagrant:22->_gat
 sshd      1195         vagrant    4u  IPv4  27692      0t0  TCP vagrant:22->_gateway:50827 (ESTABLISHED)  
 node_expo 1415            root    3u  IPv6  29304      0t0  TCP *:9100 (LISTEN)  
  
-19999 - HTTP (netdata web monitoring)
-22 - SSH
-53 - DNS 
-9100 - JetDirect (HP Print Services - из wiki)
+19999 - HTTP (netdata web monitoring порт заменен с 80 на 19999)  
+22 - SSH  
+53 - DNS   
+9100 - JetDirect (HP Print Services - из wiki) 
 
 ### 4.  Проверьте используемые UDP сокеты в Ubuntu, какие протоколы и приложения используют эти порты?
 
-vagrant@vagrant:~$ sudo netstat -ualpn
-Active Internet connections (servers and established)
-Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
-udp        0      0 127.0.0.1:8125          0.0.0.0:*                           607/netdata
-udp        0      0 127.0.0.53:53           0.0.0.0:*                           583/systemd-resolve
-udp        0      0 10.0.2.15:68            0.0.0.0:*                           581/systemd-network
+vagrant@vagrant:~$ sudo netstat -ualpn  
+Active Internet connections (servers and established)  
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name  
+udp        0      0 127.0.0.1:8125          0.0.0.0:*                           607/netdata  
+udp        0      0 127.0.0.53:53           0.0.0.0:*                           583/systemd-resolve  
+udp        0      0 10.0.2.15:68            0.0.0.0:*                           581/systemd-network  
 
-vagrant@vagrant:~$ sudo ss -ulp
-State    Recv-Q   Send-Q      Local Address:Port       Peer Address:Port   Process
-UNCONN   0        0               127.0.0.1:8125            0.0.0.0:*       users:(("netdata",pid=607,fd=19))
-UNCONN   0        0           127.0.0.53%lo:domain          0.0.0.0:*       users:(("systemd-resolve",pid=583,fd=12))
-UNCONN   0        0          10.0.2.15%eth0:bootpc          0.0.0.0:*       users:(("systemd-network",pid=581,fd=19))
+vagrant@vagrant:~$ sudo ss -ulp  
+State    Recv-Q   Send-Q      Local Address:Port       Peer Address:Port   Process  
+UNCONN   0        0               127.0.0.1:8125            0.0.0.0:*       users:(("netdata",pid=607,fd=19))  
+UNCONN   0        0           127.0.0.53%lo:domain          0.0.0.0:*       users:(("systemd-resolve",pid=583,fd=12))  
+UNCONN   0        0          10.0.2.15%eth0:bootpc          0.0.0.0:*       users:(("systemd-network",pid=581,fd=19))  
 
-vagrant@vagrant:~$ sudo ss -ulpn
-State    Recv-Q   Send-Q      Local Address:Port       Peer Address:Port   Process
-UNCONN   0        0               127.0.0.1:8125            0.0.0.0:*       users:(("netdata",pid=607,fd=19))
-UNCONN   0        0           127.0.0.53%lo:53              0.0.0.0:*       users:(("systemd-resolve",pid=583,fd=12))
-UNCONN   0        0          10.0.2.15%eth0:68              0.0.0.0:*       users:(("systemd-network",pid=581,fd=19))
+vagrant@vagrant:~$ sudo ss -ulpn  
+State    Recv-Q   Send-Q      Local Address:Port       Peer Address:Port   Process  
+UNCONN   0        0               127.0.0.1:8125            0.0.0.0:*       users:(("netdata",pid=607,fd=19))  
+UNCONN   0        0           127.0.0.53%lo:53              0.0.0.0:*       users:(("systemd-resolve",pid=583,fd=12))  
+UNCONN   0        0          10.0.2.15%eth0:68              0.0.0.0:*       users:(("systemd-network",pid=581,fd=19))  
 
-vagrant@vagrant:~$ sudo lsof -i -P | grep UDP
-systemd-n  581 systemd-network   19u  IPv4  20444      0t0  UDP vagrant:68
-systemd-r  583 systemd-resolve   12u  IPv4  20468      0t0  UDP localhost:53
-netdata    607         netdata   19u  IPv4  27264      0t0  UDP localhost:8125
+vagrant@vagrant:~$ sudo lsof -i -P | grep UDP  
+systemd-n  581 systemd-network   19u  IPv4  20444      0t0  UDP vagrant:68  
+systemd-r  583 systemd-resolve   12u  IPv4  20468      0t0  UDP localhost:53  
+netdata    607         netdata   19u  IPv4  27264      0t0  UDP localhost:8125  
 
-53 - DNS
-68 - Bootstrap Protocol Client
-8125 - приложение netdata web monitoring
+53 - DNS  
+68 - Bootstrap Protocol Client  
+8125 - приложение netdata web monitoring  
 
 ### 5. Используя diagrams.net, создайте L3 диаграмму вашей домашней сети или любой другой сети, с которой вы работали.
 
-Схема домашней сети:
+Схема домашней сети:  
 
 ![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-08-net/Home_Net.png)
