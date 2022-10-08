@@ -10,6 +10,27 @@
 
 ### 3. Установите apache2, сгенерируйте самоподписанный сертификат, настройте тестовый сайт для работы по HTTPS.
 
+vagrant@vagrant:~$ sudo apt update 
+
+vagrant@vagrant:~$ sudo apt install apache2  
+
+vagrant@vagrant:~$ sudo ufw app list
+Available applications:
+  Apache
+  Apache Full
+  Apache Secure
+  OpenSSH
+
+vagrant@vagrant:~$ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.k
+
+vagrant@vagrant:/$ sudo a2enmod ssl  
+
+vagrant@vagrant:/$ sudo a2ensite default-ssl  
+
+vagrant@vagrant:/etc/apache2/conf-available$ sudo a2enconf ssl-params
+
+vagrant@vagrant:/etc/apache2/sites-enabled$ sudo systemctl restart apache2
+
 
 
 ### 4.  Проверьте на TLS уязвимости произвольный сайт в интернете (кроме сайтов МВД, ФСБ, МинОбр, НацБанк, РосКосмос, РосАтом, РосНАНО и любых госкомпаний, объектов КИИ, ВПК ... и тому подобное).
