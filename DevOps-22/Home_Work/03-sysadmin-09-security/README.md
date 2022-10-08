@@ -139,8 +139,45 @@ vagrant@vagrant:~$
 
 ### 6. Переименуйте файлы ключей из задания 5. Настройте файл конфигурации SSH клиента, так чтобы вход на удаленный сервер осуществлялся по имени сервера.
 
+vagrant.* => => vag.*  
+
+PS C:\users\sam\.ssh> ls  
+
+  Каталог: C:\users\sam\.ssh  
+
+Mode                 LastWriteTime         Length Name  
+----                 -------------         ------ ----  
+-a----        08.10.2022     20:31             86 config  
+-a----        08.10.2022     20:05            271 known_hosts  
+-a----        08.10.2022     20:29           2602 vag  
+-a----        08.10.2022     20:29            566 vag.pub  
+
+PS C:\users\sam\.ssh> type config  
+Host vag  
+  User vagrant  
+  HostName 127.0.0.1  
+  Port 2222  
+  IdentityFile ~/.ssh/vag    
+
+PS C:\users\sam\.ssh> ssh vag  
+Welcome to Ubuntu 20.04.4 LTS (GNU/Linux 5.4.0-110-generic x86_64)  
+
+ * Documentation:  https://help.ubuntu.com  
+ * Management:     https://landscape.canonical.com  
+ * Support:        https://ubuntu.com/advantage  
+ 
+  System information as of Sat 08 Oct 2022 03:32:11 PM UTC  
+
+  System load:  0.12               Processes:             123  
+  Usage of /:   12.2% of 30.63GB   Users logged in:       1  
+  Memory usage: 21%                IPv4 address for eth0: 10.0.2.15  
+  Swap usage:   0%  
 
 
+This system is built by the Bento project by Chef Software  
+More information can be found at https://github.com/chef/bento  
+Last login: Sat Oct  8 15:30:25 2022 from 10.0.2.2  
+ 
 ### 7. Соберите дамп трафика утилитой tcpdump в формате pcap, 100 пакетов. Откройте файл pcap в Wireshark.
 
 
