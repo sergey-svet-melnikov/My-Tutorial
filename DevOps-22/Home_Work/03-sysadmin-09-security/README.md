@@ -180,11 +180,7 @@ Last login: Sat Oct  8 15:30:25 2022 from 10.0.2.2
  
 ### 7. Соберите дамп трафика утилитой tcpdump в формате pcap, 100 пакетов. Откройте файл pcap в Wireshark.
 
-
+![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-09-security/tcpdump.jpg)
 
 ### 8*. Просканируйте хост scanme.nmap.org. Какие сервисы запущены?
-
-
-
-### 9*.Установите и настройте фаервол ufw на web-сервер из задания 3. Откройте доступ снаружи только к портам 22,80,443
 
