@@ -31,7 +31,7 @@ vagrant@vagrant:/etc/apache2/conf-available$ sudo a2enconf ssl-params
 
 vagrant@vagrant:/etc/apache2/sites-enabled$ sudo systemctl restart apache2  
 
-
+![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/03-sysadmin-09-security/Apache_HTTPS.jpg)
 
 ### 4.  Проверьте на TLS уязвимости произвольный сайт в интернете (кроме сайтов МВД, ФСБ, МинОбр, НацБанк, РосКосмос, РосАтом, РосНАНО и любых госкомпаний, объектов КИИ, ВПК ... и тому подобное).
 
