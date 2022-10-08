@@ -14,13 +14,13 @@ vagrant@vagrant:~$ sudo apt update
 
 vagrant@vagrant:~$ sudo apt install apache2  
 
-vagrant@vagrant:~$ sudo ufw app list
-Available applications:
-  Apache
-  Apache Full
-  Apache Secure
-  OpenSSH
-
+vagrant@vagrant:~$ sudo ufw app list  
+Available applications:  
+  Apache  
+  Apache Full  
+  Apache Secure  
+  OpenSSH  
+  
 vagrant@vagrant:~$ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.k
 
 vagrant@vagrant:/$ sudo a2enmod ssl    
