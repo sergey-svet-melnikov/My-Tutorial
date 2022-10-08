@@ -23,13 +23,13 @@ Available applications:
 
 vagrant@vagrant:~$ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.k
 
-vagrant@vagrant:/$ sudo a2enmod ssl  
+vagrant@vagrant:/$ sudo a2enmod ssl    
 
-vagrant@vagrant:/$ sudo a2ensite default-ssl  
+vagrant@vagrant:/$ sudo a2ensite default-ssl    
 
-vagrant@vagrant:/etc/apache2/conf-available$ sudo a2enconf ssl-params
+vagrant@vagrant:/etc/apache2/conf-available$ sudo a2enconf ssl-params  
 
-vagrant@vagrant:/etc/apache2/sites-enabled$ sudo systemctl restart apache2
+vagrant@vagrant:/etc/apache2/sites-enabled$ sudo systemctl restart apache2  
 
 
 
