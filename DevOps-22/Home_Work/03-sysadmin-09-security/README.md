@@ -184,3 +184,27 @@ Last login: Sat Oct  8 15:30:25 2022 from 10.0.2.2
 
 ### 8*. Просканируйте хост scanme.nmap.org. Какие сервисы запущены?
 
+vagrant@vagrant:~$ nmap localhost  
+Starting Nmap 7.80 ( https://nmap.org ) at 2022-10-08 16:23 UTC  
+Nmap scan report for localhost (127.0.0.1)  
+Host is up (0.00062s latency).  
+Not shown: 997 closed ports  
+PORT    STATE SERVICE  
+22/tcp  open  ssh  
+80/tcp  open  http  
+443/tcp open  https  
+
+vagrant@vagrant:~$ nmap scanme.nmap.org  
+Starting Nmap 7.80 ( https://nmap.org ) at 2022-10-08 16:23 UTC  
+Nmap scan report for scanme.nmap.org (45.33.32.156)  
+Host is up (0.21s latency).  
+Other addresses for scanme.nmap.org (not scanned): 2600:3c01::f03c:91ff:fe18:bb2f  
+Not shown: 996 filtered ports  
+PORT      STATE SERVICE   
+22/tcp    open  ssh  
+80/tcp    open  http  
+9929/tcp  open  nping-echo
+31337/tcp open  Elite   
+
+
+Все открытые порты описаны выше... что тут добавить! 
