@@ -43,18 +43,18 @@ $(($a+$b)) будет выдан результат "0" - ноль, так ка�
 	    fi
     done
 
-ОТВЕТ:
+ОТВЕТ:   
 
-while ((1==1))
-    do
-            curl https://localhost:4757
-            if (($?!=0))
-            then
-                 date >> curl.log
-            else
-                 exit 0
-            fi
-    done
+while ((1==1))   
+    do  
+            curl https://localhost:4757  
+            if (($?!=0))  
+            then  
+                 date >> curl.log  
+            else  
+                 exit 0  
+            fi  
+    done  
 
 ### 3. 
 ### 4.  
