@@ -91,7 +91,51 @@ vagrant@vagrant:~/testssl.sh$ ./testssl.sh -U --sneaky localhost
 
 ### 5. Установите на Ubuntu ssh сервер, сгенерируйте новый приватный ключ. Скопируйте свой публичный ключ на другой сервер. Подключитесь к серверу по SSH-ключу.
 
+PS C:\Vagrant> ssh-keygen  
+Generating public/private rsa key pair.  
+Enter file in which to save the key (C:\Users\sam/.ssh/id_rsa): vagrant  
+Enter passphrase (empty for no passphrase):  
+Enter same passphrase again:  
+Your identification has been saved in vagrant.  
+Your public key has been saved in vagrant.pub.  
+The key fingerprint is:  
+SHA256:3PIYFyLifPfjjjsoh1v5XgLfZj2UJlJm2wAosDmu9Ss sam@samhome  
+The key's randomart image is:  
++---[RSA 3072]----+  
+|  ..   ..        |   
+|   o. .  .       |   
+|  + ... . *      |     
+| . + . o * = .   |  
+|  o o o S = =    |  
+| o . . = X =     |  
+|.   ..o.+ O o    |  
+|  E ooo..B . .   |  
+|   .o+ .=+o      |  
++----[SHA256]-----+  
+  
+C:\Vagrant>scp.exe -P 2222 vagrant.pub vagrant@127.0.0.1:~/.ssh/authorized_keys  
+vagrant@127.0.0.1's password:  
+vagrant.pub                                   100%  566   283.0KB/s   00:00  
 
+PS C:\Vagrant> ssh -p 2222 -i vagrant vagrant@127.0.0.1  
+Welcome to Ubuntu 20.04.4 LTS (GNU/Linux 5.4.0-110-generic x86_64)  
+  
+ * Documentation:  https://help.ubuntu.com  
+ * Management:     https://landscape.canonical.com  
+ * Support:        https://ubuntu.com/advantage  
+
+  System information as of Sat 08 Oct 2022 03:07:53 PM UTC  
+
+  System load:  0.04               Processes:             122  
+  Usage of /:   12.2% of 30.63GB   Users logged in:       1  
+  Memory usage: 21%                IPv4 address for eth0: 10.0.2.15  
+  Swap usage:   0%  
+
+
+This system is built by the Bento project by Chef Software  
+More information can be found at https://github.com/chef/bento  
+Last login: Sat Oct  8 14:08:12 2022 from 10.0.2.2  
+vagrant@vagrant:~$  
 
 ### 6. Переименуйте файлы ключей из задания 5. Настройте файл конфигурации SSH клиента, так чтобы вход на удаленный сервер осуществлялся по имени сервера.
 
