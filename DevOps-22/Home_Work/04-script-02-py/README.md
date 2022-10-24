@@ -36,8 +36,7 @@
             print(prepare_result)
             break
 
-   
-
+  
 
 ### 3. Обязательная задача 3
 
