@@ -73,14 +73,14 @@ File test1 is modyfied and located at:  C:\Git\devops-netology
 
 ### 3. Доработать скрипт выше так, чтобы он мог проверять не только локальный репозиторий в текущей директории, а также умел воспринимать путь к репозиторию, который мы передаём как входной параметр. Мы точно знаем, что начальство коварное и будет проверять работу этого скрипта в директориях, которые не являются локальными репозиториями.
 
-#python3
+    #python3
 
-import os
-import sys
+    import os
+    import sys
 
-path = os.getcwd()
-if len(sys.argv) > 1:
-    path = sys.argv[1]
+    path = os.getcwd()
+    if len(sys.argv) > 1:
+        path = sys.argv[1]
     bash_command = [f'cd '+path, 'git status 2>&1']
     result_os = os.popen(' && '.join(bash_command)).read()
     for result in result_os.split('\n'):
@@ -90,14 +90,34 @@ if len(sys.argv) > 1:
             prepare_result = result.replace('\tmodified:   ', '')
             print('File', prepare_result, 'is modyfied and located at: ', path)
 
-ВЫВОД:
 
-PS C:\Git> python3 C:\Git\My-Tutorial\DevOps-22\Home_Work\04-script-02-py\1-3.py C:\temp                
-Текущий или указанный каталог:  C:\temp - не являтся репозиторием!
+ВЫВОД:  
 
-знерщт 
+PS C:\Git> python3 C:\Git\My-Tutorial\DevOps-22\Home_Work\04-script-02-py\1-3.py        
+Текущий или указанный каталог:  C:\Git - не являтся репозиторием!  
+PS C:\Git> python3 C:\Git\My-Tutorial\DevOps-22\Home_Work\04-script-02-py\1-3.py C:\temp  
+Текущий или указанный каталог:  C:\temp - не являтся репозиторием!  
+PS C:\Git> python3 C:\Git\My-Tutorial\DevOps-22\Home_Work\04-script-02-py\1-3.py C:\Git\devops-netology\  
+File README.md is modyfied and located at:  C:\Git\devops-netology\  
+File test1 is modyfied and located at:  C:\Git\devops-netology\  
 
+### 4.  Наша команда разрабатывает несколько веб-сервисов, доступных по http. Мы точно знаем, что на их стенде нет никакой балансировки, кластеризации, за DNS прячется конкретный IP сервера, где установлен сервис. Проблема в том, что отдел, занимающийся нашей инфраструктурой очень часто меняет нам сервера, поэтому IP меняются примерно раз в неделю, при этом сервисы сохраняют за собой DNS имена. Это бы совсем никого не беспокоило, если бы несколько раз сервера не уезжали в такой сегмент сети нашей компании, который недоступен для разработчиков. Мы хотим написать скрипт, который опрашивает веб-сервисы, получает их IP, выводит информацию в стандартный вывод в виде: <URL сервиса> - <его IP>. Также, должна быть реализована возможность проверки текущего IP сервиса c его IP из предыдущей проверки. Если проверка будет провалена - оповестить об этом в стандартный вывод сообщением: [ERROR] <URL сервиса> IP mismatch: <старый IP> <Новый IP>. Будем считать, что наша разработка реализовала сервисы: drive.google.com, mail.google.com, google.com.
 
-### 4.  Обязательная задача 4
+    #python3
+    #1-4.py
+
+    import time
+    import socket
+
+    site = {'drive.google.com':'1.1.1.1', 'mail.google.com':'2.2.2.2', 'google.com':'3.3.3.3'}
+    while 1 == 1 :
+    for address in site :
+        ip = socket.gethostbyname(address)
+        if ip != site[address] :
+          print('[ERROR] ' + str(address) + ' IP mismatch: ' + site[address] + ' ' + ip)
+          site[address] = ip
+        else :
+            print(str(address) + ' ' + ip)
+        time.sleep(3)
 
 
