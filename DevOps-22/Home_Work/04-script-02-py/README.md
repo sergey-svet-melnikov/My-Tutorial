@@ -51,7 +51,7 @@ P.S. Так же скрипт адаптирован под выполнение
     for result in result_os.split('\n'):
         if result.find('modified') != -1:
             prepare_result = result.replace('\tmodified:   ', '')
-            print('file', prepare_result, 'is located at: ', os.getcwd())
+            print('File', prepare_result, 'is modyfied and located at: ', os.getcwd())
 
 РЕЗУЛЬТАТА ВЫВОДА РАБОТЫ СКРИПТА с проверкой:  
 
@@ -67,10 +67,9 @@ Changes not staged for commit:
 no changes added to commit (use "git add" and/or "git commit -a")  
 
 PS C:\Git\devops-netology> python3 C:\Git\My-Tutorial\DevOps-22\Home_Work\04-script-02-py\1-2.py
-file README.md is modyfies and located at:  C:\Git\devops-netology
-file test1 is modyfies and located at:  C:\Git\devops-netology
-
-    
+File README.md is modyfied and located at:  C:\Git\devops-netology
+File test1 is modyfied and located at:  C:\Git\devops-netology
+  
 
 ### 3. Доработать скрипт выше так, чтобы он мог проверять не только локальный репозиторий в текущей директории, а также умел воспринимать путь к репозиторию, который мы передаём как входной параметр. Мы точно знаем, что начальство коварное и будет проверять работу этого скрипта в директориях, которые не являются локальными репозиториями.
 
