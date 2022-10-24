@@ -36,6 +36,23 @@
             print(prepare_result)
             break
 
+
+ОТВЕТ:
+
+В скрипет лишняя переменная типа Boolean (is_changed), а так же прерывание цикла поиска файлов псле первого найденного файла (break), убираем их и получаем результат.
+
+ #!/usr/bin/env python3
+
+    import os
+
+    bash_command = ["cd ~/netology/sysadm-homeworks", "git status"]
+    result_os = os.popen(' && '.join(bash_command)).read()
+    is_change = False
+    for result in result_os.split('\n'):
+        if result.find('modified') != -1:
+            prepare_result = result.replace('\tmodified:   ', '')
+            print(prepare_result)
+            break
   
 
 ### 3. Обязательная задача 3
