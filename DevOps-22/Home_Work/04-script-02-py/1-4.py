@@ -4,13 +4,13 @@
 import time
 import socket
 
-site = {'mail.ru':'1.1.1.1', 'yandex.ru':'2.2.2.2', 'google.ru':'3.3.3.3'}
+site = {'drive.google.com':'1.1.1.1', 'mail.google.com':'2.2.2.2', 'google.com':'3.3.3.3'}
 while 1 == 1 :
   for address in site :
     ip = socket.gethostbyname(address)
     if ip != site[address] :
-      print(' Ошибка ' + str(address) +' несовпадение адреса узла: '+site[address]+' '+ip)
-      site[address]=ip
+      print('[ERROR]' + str(address) + 'IP mismatch:' + site[address] + '' + ip)
+      site[address] = ip
     else :
-        print(str(address) + ' ' + ip)
-    time.sleep(1)
+        print(str(address) + ip)
+    time.sleep(3)
