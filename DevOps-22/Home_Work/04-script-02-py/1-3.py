@@ -10,7 +10,7 @@ if len(sys.argv) != 1:
     result_os = os.popen(' && '.join(bash_command)).read()
     for result in result_os.split('\n'):
         if result.find('fatal') != -1:
-            print('Текущий или указанный каталог: ', path ,'' - не являтся репозиторием!'')
+            print('Текущий или указанный каталог: ', path ,' - не являтся репозиторием!')
             if result.find('modified') != -1:
                 print('File', prepare_result, 'is modyfied and located at: ', os.getcwd())
                 print(os.getcwd() ,'/' , prepare_result)
