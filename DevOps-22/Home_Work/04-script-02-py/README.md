@@ -40,18 +40,36 @@
 ОТВЕТ:
 
 В скрипет лишняя переменная типа Boolean (is_changed), а так же прерывание цикла поиска файлов псле первого найденного файла (break), убираем их и получаем результат.
+P.S. Так же скрипт адаптирован под выполнение на локальной системе, где выполняется задание.
 
- #!/usr/bin/env python3
+    #python3
+    #1-2.py
 
     import os
 
-    bash_command = ["cd ~/netology/sysadm-homeworks", "git status"]
+    bash_command = ["cd /Git/devops-netology/", "git status"]
     result_os = os.popen(' && '.join(bash_command)).read()
     for result in result_os.split('\n'):
         if result.find('modified') != -1:
             prepare_result = result.replace('\tmodified:   ', '')
-            print(prepare_result)
-  
+            print(prepare_result)   
+
+РЕЗУЛЬТАТА ВЫВОДА РАБОТЫ СКРИПТА с проверкой:  
+
+PS C:\Git\devops-netology> git status  
+On branch fix  
+
+Changes not staged for commit:  
+  (use "git add <file>..." to update what will be committed)  
+  (use "git restore <file>..." to discard changes in working directory)  
+        modified:   README.md  
+        modified:   test1  
+
+no changes added to commit (use "git add" and/or "git commit -a")  
+PS C:\Git\devops-netology> python3 C:\Git\My-Tutorial\DevOps-22\Home_Work\04-script-02-py\1-2.py  
+README.md  
+test1  
+    
 
 ### 3. Доработать скрипт выше так, чтобы он мог проверять не только локальный репозиторий в текущей директории, а также умел воспринимать путь к репозиторию, который мы передаём как входной параметр. Мы точно знаем, что начальство коварное и будет проверять работу этого скрипта в директориях, которые не являются локальными репозиториями.
 
