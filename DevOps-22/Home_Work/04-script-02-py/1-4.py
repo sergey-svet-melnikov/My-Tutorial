@@ -9,8 +9,8 @@ while 1 == 1 :
   for address in site :
     ip = socket.gethostbyname(address)
     if ip != site[address] :
-      print('[ERROR]' + str(address) + 'IP mismatch:' + site[address] + '' + ip)
+      print('[ERROR] ' + str(address) + ' IP mismatch: ' + site[address] + ' ' + ip)
       site[address] = ip
     else :
-        print(str(address) + ip)
+        print(str(address) + ' ' + ip)
     time.sleep(3)
