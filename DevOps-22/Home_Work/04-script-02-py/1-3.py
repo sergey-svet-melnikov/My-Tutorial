@@ -4,7 +4,7 @@ import os
 import sys
 
 path = os.getcwd()
-if len(sys.argv) != 1:
+if len(sys.argv) > 1:
     path = sys.argv[1]
 bash_command = [f'cd '+path, 'git status 2>&1']
 result_os = os.popen(' && '.join(bash_command)).read()
