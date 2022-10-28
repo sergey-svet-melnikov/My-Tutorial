@@ -56,6 +56,18 @@ PS C:\Git\devops-netology> python3 C:\Git\My-Tutorial\DevOps-22\Home_Work\04-scr
 File README.md is modyfied and located at:  C:\Git\devops-netology
 File test1 is modyfied and located at:  C:\Git\devops-netology
 
+PS C:\Git\devops-netology> git status
+On branch fix
+Your branch is up to date with 'origin/fix'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   README.md
+        modified:   test1
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
 ```
 
 ## Обязательная задача 3
