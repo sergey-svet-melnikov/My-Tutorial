@@ -84,7 +84,8 @@ google.com IP is: 216.58.211.14
 ```
 
 ### json-файл(ы), который(е) записал ваш скрипт:
-```json
+```
+
 PS C:\Git\My-Tutorial\DevOps-22\Home_Work\04-script-03-yaml> ls *json
 
     Каталог: C:\Git\My-Tutorial\DevOps-22\Home_Work\04-script-03-yaml
@@ -103,7 +104,8 @@ PS C:\Git\My-Tutorial\DevOps-22\Home_Work\04-script-03-yaml> cat *.json
 ```
 
 ### yml-файл(ы), который(е) записал ваш скрипт:
-```yaml
+```
+
 PS C:\Git\My-Tutorial\DevOps-22\Home_Work\04-script-03-yaml> ls *yaml   
 
     Каталог: C:\Git\My-Tutorial\DevOps-22\Home_Work\04-script-03-yaml
