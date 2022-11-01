@@ -73,13 +73,13 @@ while 1 == 1 :
 
 ### Вывод скрипта при запуске при тестировании:
 ```
-PS C:\Git\My-Tutorial\DevOps-22\Home_Work\04-script-03-yaml> python3 jy.py
-[ERROR] drive.google.com IP mismatch: 1.1.1.1 new IP is: 173.194.222.194
+PS C:\Git\My-Tutorial\DevOps-22\Home_Work\04-script-03-yaml> python3 jy.py                        
+[ERROR] drive.google.com IP mismatch: 1.1.1.1 new IP is: 64.233.162.194
 [ERROR] mail.google.com IP mismatch: 2.2.2.2 new IP is: 172.217.21.165
 [ERROR] google.com IP mismatch: 3.3.3.3 new IP is: 216.58.211.14
-drive.google.com address is: 173.194.222.194
-mail.google.com address is: 172.217.21.165
-google.com address is: 216.58.211.14
+drive.google.com IP is: 64.233.162.194
+mail.google.com IP is: 172.217.21.165
+google.com IP is: 216.58.211.14
 
 ```
 
