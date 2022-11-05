@@ -22,12 +22,45 @@
 
 ОТВЕТ:
 
-1. Ansible отличается своим методом работы с конфигурацией, 
+1. Ansible отличается своим методом работы с конфигурацией:
+- быстро осваивается, достаточно поверхностного понимания синтаксиса yaml
+- нет необходимости устанавливать специальное ПО на хосты, нужен только SSH и python
+- подробная и наглядная документация
+- большое количество модулей
+- позволяет реализовать принцип идемпотентности в управлении состояниями хостов
+
+2. Метод pull конечно немного надежнее, так мы можем быть уверенными в том, что отпраитель и получатель работают и доставлено будет точно все необходимо до получателя, 
+но в свете методов работы Ansible (push), простоты, скорости, пусть и в угоду меньшей надежности (хотя о чем тоже можно посмотрить и вполне сказать, что надежность ни чем не уступает)/
+Мой ответ - push не менее надежен, а то и лучше в организацонных моментах, чем pull.
   
 ### 3.  Обязательная задача 3
 
+    Установить на личный компьютер:
+
+    * VirtualBox
+    * Vagrant
+    * Ansible
+    
+    Приложить вывод команд установленных версий каждой из программ, оформленный в markdown.
+    
+ОТВЕТ:
+
+    PS C:\Program Files\Oracle\VirtualBox> .\VBoxSVC.exe --version
+    6.1.34r.150636
+
+    PS C:\vagrant> vagrant --version
+    Vagrant 2.3.0
+
+    vagrant@vagrant:/etc/ansible$ ansible --version
+    ansible 2.9.6
+    config file = /etc/ansible/ansible.cfg
+    configured module search path = ['/home/vagrant/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+    ansible python module location = /usr/lib/python3/dist-packages/ansible
+    executable location = /usr/bin/ansible
+    python version = 3.8.10 (default, Mar 15 2022, 12:22:08) [GCC 9.4.0]
 
 
-### 4.  Обязательная задача 4
 
+
+    
  
