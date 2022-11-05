@@ -21,7 +21,7 @@
 
 
 ОТВЕТ:
-```
+```json
     { "info" : "Sample JSON output from our service",
         "elements" : [
             { 
