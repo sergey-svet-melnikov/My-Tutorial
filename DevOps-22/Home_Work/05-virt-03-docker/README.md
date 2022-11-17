@@ -93,14 +93,34 @@
 
 ОТВЕТ:
 
-vagrant@server1:~$ sudo docker run  -v /data:/data  --name centos -d centos  
 
-vagrant@server1:~$ sudo docker run  -v /data:/data  --name debian -d debian
 
-vagrant@server1:/data$ sudo mkdir /data
-vagrant@server1:/data$ sudo chmod 777 /data
-vagrant@server1:/data$ echo 123 > file_host
-vagrant@server1:/data$ ls
-file_host
+HOST:
 
+    vagrant@server1:/data$ sudo mkdir /data
+    vagrant@server1:/data$ sudo chmod 777 /data
+    vagrant@server1:/data$ echo 123 > file_host
+    vagrant@server1:/data$ ls
+    file_host
+
+CentOS:
+
+    vagrant@server1:/data$ sudo docker run -it -v /data:/data --name centos centos
+    root@e0fb219fd487 /# ls
+    bin  data  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+    root@e0fb219fd487 /# cd data
+    root@e0fb219fd487 data# ls
+    file_host
+    root@e0fb219fd487 data# echo 123 > file_centos
+    root@e0fb219fd487 data# ls
+    file_centos  file_host
+
+Debian:
+
+    vagrant@server1:/data$ sudo docker run -it -v /data:/data --name debian debian
+    root@f2304dc481c8:/# ls
+    bin  boot  data  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+    root@f2304dc481c8:/# cd data
+    root@f2304dc481c8:/data# ls
+    file_centos  file_host
 
