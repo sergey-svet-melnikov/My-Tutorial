@@ -8,6 +8,7 @@
     выберете любой образ, который содержит веб-сервер Nginx;
     создайте свой fork образа;
     реализуйте функциональность: запуск веб-сервера в фоне с индекс-страницей, содержащей HTML-код ниже:
+    
     <html>
     <head>
     Hey, Netology
@@ -21,6 +22,20 @@
 
 ОТВЕТ:
 
+        vagrant@server1:~/docker/nginx_netology$ sudo docker run -d -p 8080:80 sergeysvetmelnikov/nginx_netology:v3  
+
+        
+        vagrant@server1:~/docker/nginx_netology$ curl localhost:8080  
+        <html>  
+        <head>  
+        <title>Hey, Netology</title>  
+        </head>  
+        <body>  
+        <h1>I’m DevOps Engineer!</h1>  
+        </body>  
+        </html>  
+
+https://hub.docker.com/repository/docker/sergeysvetmelnikov/nginx_netology 
 
 ### 2. Обязательная задача 2
   
