@@ -24,7 +24,7 @@
 
         vagrant@server1:~/docker/nginx_netology$ sudo docker run -d -p 8080:80 sergeysvetmelnikov/nginx_netology:v3  
 
-        
+```html
         vagrant@server1:~/docker/nginx_netology$ curl localhost:8080  
         <html>  
         <head>  
@@ -34,9 +34,11 @@
         <h1>I’m DevOps Engineer!</h1>  
         </body>  
         </html>  
-
-https://hub.docker.com/repository/docker/sergeysvetmelnikov/nginx_netology 
+```
+![](https://hub.docker.com/repository/docker/sergeysvetmelnikov/nginx_netology) 
 
 ### 2. Обязательная задача 2
+
+
   
 ### 3.  Обязательная задача 3
