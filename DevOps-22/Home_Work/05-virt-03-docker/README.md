@@ -143,4 +143,4 @@ https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Wor
 
 В результате получился образ:
 
-![]() 
+![](https://hub.docker.com/repository/docker/sergeysvetmelnikov/ansible_netology) 
