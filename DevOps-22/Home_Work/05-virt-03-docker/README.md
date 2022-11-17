@@ -21,8 +21,24 @@
     Опубликуйте созданный форк в своем репозитории и предоставьте ответ в виде ссылки на https://hub.docker.com/username_repo.
 
 ОТВЕТ:
+        
+        vagrant@server1:~/docker/nginx_netology$ cat Dockerfile
+        FROM nginx
+        COPY index.html /usr/share/nginx/html/
+        
+        vagrant@server1:~/docker/nginx_netology$ cat index.html
+        <html>
+        <head>
+        <title>Hey, Netology</title>
+        </head>
+        <body>
+        <h1>I’m DevOps Engineer!</h1>
+        </body>
+        </html>
 
-        vagrant@server1:~/docker/nginx_netology$ sudo docker run -d -p 8080:80 sergeysvetmelnikov/nginx_netology:v3  
+        vagrant@server1:~/docker/nginx_netology$ sudo docker tag sergeysvetmelnikov/nginx_netology sergeysvetmelnikov/nginx_netology:v1
+        vagrant@server1:~/docker/nginx_netology$ sudo docker push sergeysvetmelnikov/nginx_netology:v1
+        vagrant@server1:~/docker/nginx_netology$ sudo docker run -it -p 8080:80 sergeysvetmelnikov/nginx_netology:v1
 
 ```html
         vagrant@server1:~/docker/nginx_netology$ curl localhost:8080  
@@ -134,14 +150,14 @@ Debian:
 
 ОТВЕТ:
 
-Собрали docker образ:
+    Собрали docker образ:
 
-vagrant@server1:~/docker/ansible_netology$ sudo docker build -t sergeysvetmelnikov/ansible_netology:v1 .
+    vagrant@server1:~/docker/ansible_netology$ sudo docker build -t sergeysvetmelnikov/ansible_netology:v1 .
 
-Для сборки использовали Dockerfile:
+    Для сборки использовали Dockerfile:
 
-https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/05-virt-03-docker/Dockerfile.txt
+    https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/05-virt-03-docker/Dockerfile.txt
 
-В результате получился образ:
+    В результате получился образ:
 
 https://hub.docker.com/repository/docker/sergeysvetmelnikov/ansible_netology
