@@ -85,4 +85,22 @@
   
 ### 3.  Обязательная задача 3
 
-    
+    Запустите первый контейнер из образа centos c любым тэгом в фоновом режиме, подключив папку /data из текущей рабочей директории на хостовой машине в /data контейнера;
+    Запустите второй контейнер из образа debian в фоновом режиме, подключив папку /data из текущей рабочей директории на хостовой машине в /data контейнера;
+    Подключитесь к первому контейнеру с помощью docker exec и создайте текстовый файл любого содержания в /data;
+    Добавьте еще один файл в папку /data на хостовой машине;
+    Подключитесь во второй контейнер и отобразите листинг и содержание файлов в /data контейнера.
+
+ОТВЕТ:
+
+vagrant@server1:~$ sudo docker run  -v /data:/data  --name centos -d centos  
+
+vagrant@server1:~$ sudo docker run  -v /data:/data  --name debian -d debian
+
+vagrant@server1:/data$ sudo mkdir /data
+vagrant@server1:/data$ sudo chmod 777 /data
+vagrant@server1:/data$ echo 123 > file_host
+vagrant@server1:/data$ ls
+file_host
+
+
