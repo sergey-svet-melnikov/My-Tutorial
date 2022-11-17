@@ -137,6 +137,10 @@ Debian:
 
 vagrant@server1:~/docker/ansible_netology$ sudo docker build -t sergeysvetmelnikov/ansible_netology:v1 .
 
+Для сборки использовали Dockerfile:
 
+https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/05-virt-03-docker/Dockerfile.txt
+
+В результате получился образ:
 
 ![]() 
