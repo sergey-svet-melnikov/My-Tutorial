@@ -124,3 +124,19 @@ Debian:
     root@f2304dc481c8:/data# ls
     file_centos  file_host
 
+### 4.  Задача 4 (*)
+
+    Воспроизвести практическую часть лекции самостоятельно.
+
+    Соберите Docker образ с Ansible, загрузите на Docker Hub и пришлите ссылку 
+    вместе с остальными ответами к задачам.
+
+ОТВЕТ:
+
+Собрали docker образ:
+
+vagrant@server1:~/docker/ansible_netology$ sudo docker build -t sergeysvetmelnikov/ansible_netology:v1 .
+
+
+
+![]() 
