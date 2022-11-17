@@ -35,7 +35,8 @@
         </body>  
         </html>  
 ```
-![](https://hub.docker.com/repository/docker/sergeysvetmelnikov/nginx_netology) 
+
+![ссылка](https://hub.docker.com/repository/docker/sergeysvetmelnikov/nginx_netology) 
 
 ### 2. Обязательная задача 2
 
@@ -143,4 +144,4 @@ https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Wor
 
 В результате получился образ:
 
-![](https://hub.docker.com/repository/docker/sergeysvetmelnikov/ansible_netology) 
+![ссылка](https://hub.docker.com/repository/docker/sergeysvetmelnikov/ansible_netology) 
