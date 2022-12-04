@@ -81,18 +81,155 @@ db_test=#
         фамилия (string)
         страна проживания (string, index)
         заказ (foreign key orders)
+
+ОТВЕТ: 
+
+```sql
+CREATE USER "test-admin-user";
+CREATE DATABASE db_test;
+CREATE TABLE orders (
+    id SERIAL,
+    наименование VARCHAR,
+    цена INTEGER,
+    PRIMARY KEY (id)
+);
+CREATE TABLE clients (
+    id SERIAL,
+    фамилия VARCHAR,
+    "страна проживания" VARCHAR,
+    заказ INTEGER,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_заказ
+      FOREIGN KEY(заказ)
+            REFERENCES orders(id)
+);
+CREATE INDEX ON clients("страна проживания");
+GRANT ALL ON TABLE orders, clients TO "test-admin-user";
+CREATE USER "test-simple-user" WITH PASSWORD 'netology';
+GRANT CONNECT ON DATABASE db_test TO "test-simple-user";
+GRANT USAGE ON SCHEMA public TO "test-simple-user";
+GRANT SELECT, INSERT, UPDATE, DELETE ON orders, clients TO "test-simple-user";
+```
+
         Приведите:
 
         итоговый список БД после выполнения пунктов выше,
+
+db_test=# \l
+                                             List of databases
+   Name    |      Owner      | Encoding |  Collate   |   Ctype    |            Access privileges
+-----------+-----------------+----------+------------+------------+-----------------------------------------
+ db_test   | test-admin-user | UTF8     | en_US.utf8 | en_US.utf8 | =Tc/"test-admin-user"                  +
+           |                 |          |            |            | "test-admin-user"=CTc/"test-admin-user"+
+           |                 |          |            |            | "test-simple-user"=c/"test-admin-user"
+ postgres  | test-admin-user | UTF8     | en_US.utf8 | en_US.utf8 |
+ template0 | test-admin-user | UTF8     | en_US.utf8 | en_US.utf8 | =c/"test-admin-user"                   +
+           |                 |          |            |            | "test-admin-user"=CTc/"test-admin-user"
+ template1 | test-admin-user | UTF8     | en_US.utf8 | en_US.utf8 | =c/"test-admin-user"                   +
+           |                 |          |            |            | "test-admin-user"=CTc/"test-admin-user"
+(4 rows)
+
         описание таблиц (describe)
+
+db_test=# \d+ clients
+                                                           Table "public.clients"
+      Column       |       Type        | Collation | Nullable |               Default               | Storage  | Stats t
+arget | Description
+-------------------+-------------------+-----------+----------+-------------------------------------+----------+--------
+------+-------------
+ id                | integer           |           | not null | nextval('clients_id_seq'::regclass) | plain    |
+      |
+ фамилия           | character varying |           |          |                                     | extended |
+      |
+ страна проживания | character varying |           |          |                                     | extended |
+      |
+ заказ             | integer           |           |          |                                     | plain    |
+      |
+Indexes:
+    "clients_pkey" PRIMARY KEY, btree (id)
+    "clients_страна проживания_idx" btree ("страна проживания")
+Foreign-key constraints:
+    "fk_заказ" FOREIGN KEY ("заказ") REFERENCES orders(id)
+Access method: heap
+
+db_test=# \d+ orders
+                                                        Table "public.orders"
+    Column    |       Type        | Collation | Nullable |              Default               | Storage  | Stats target
+| Description
+--------------+-------------------+-----------+----------+------------------------------------+----------+--------------
++-------------
+ id           | integer           |           | not null | nextval('orders_id_seq'::regclass) | plain    |
+|
+ наименование | character varying |           |          |                                    | extended |
+|
+ цена         | integer           |           |          |                                    | plain    |
+|
+Indexes:
+    "orders_pkey" PRIMARY KEY, btree (id)
+Referenced by:
+    TABLE "clients" CONSTRAINT "fk_заказ" FOREIGN KEY ("заказ") REFERENCES orders(id)
+Access method: heap
+
         SQL-запрос для выдачи списка пользователей с правами над таблицами test_db
+
+SELECT 
+    grantee, table_name, privilege_type 
+FROM 
+    information_schema.table_privileges 
+WHERE 
+    grantee in ('test-admin-user','test-simple-user')
+    and table_name in ('clients','orders')
+order by 
+    1,2,3;
+
+
         список пользователей с правами над таблицами test_db
 
+
+db_test=# SELECT
+    grantee, table_name, privilege_type
+FROM
+    information_schema.table_privileges
+WHERE
+    grantee in ('test-admin-user','test-simple-user')
+    and table_name in ('clients','orders')
+order by
+    1,2,3;
+     grantee      | table_name | privilege_type
+------------------+------------+----------------
+ test-admin-user  | clients    | DELETE
+ test-admin-user  | clients    | INSERT
+ test-admin-user  | clients    | REFERENCES
+ test-admin-user  | clients    | SELECT
+ test-admin-user  | clients    | TRIGGER
+ test-admin-user  | clients    | TRUNCATE
+ test-admin-user  | clients    | UPDATE
+ test-admin-user  | orders     | DELETE
+ test-admin-user  | orders     | INSERT
+ test-admin-user  | orders     | REFERENCES
+ test-admin-user  | orders     | SELECT
+ test-admin-user  | orders     | TRIGGER
+ test-admin-user  | orders     | TRUNCATE
+ test-admin-user  | orders     | UPDATE
+ test-simple-user | clients    | DELETE
+ test-simple-user | clients    | INSERT
+ test-simple-user | clients    | SELECT
+ test-simple-user | clients    | UPDATE
+ test-simple-user | orders     | DELETE
+ test-simple-user | orders     | INSERT
+ test-simple-user | orders     | SELECT
+ test-simple-user | orders     | UPDATE
+(22 rows)
   
 ### 3.  Обязательная задача 3
 
 
 
-### 4.  Задача 4 (*)
+### 4.  Обязательная задача 4 
 
   
+
+### 5.  Обязательная задача 5
+
+
+### 6.  Обязательная задача 6
