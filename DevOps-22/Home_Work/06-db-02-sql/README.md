@@ -337,3 +337,41 @@ Ritchie Blackmore	Russia
 
 ### 6.  Обязательная задача 6
 
+Создайте бэкап БД test_db и поместите его в volume, предназначенный для бэкапов (см. Задачу 1).
+
+    vagrant@server1:~$ sudo docker exec -it psql bash
+    root@7fb2bd53c232:/# psql -h localhost -U test-admin-user db_test
+    psql (12.13 (Debian 12.13-1.pgdg110+1))
+    T ype "help" for help.
+    db_test=# \q
+    root@7fb2bd53c232:/# pg_dump -U test-admin-user db_test > /opt/backup/db_test.dump
+    root@7fb2bd53c232:/# ls /opt/backup
+    db_test.dupm
+    root@7fb2bd53c232:/# exit
+    exit
+
+Остановите контейнер с PostgreSQL (но не удаляйте volumes).
+
+    vagrant@server1:~/docker-composer$ sudo docker-compose stop
+    Stopping psql ... done
+
+    vagrant@server1:~/docker-composer$ sudo docker ps -a
+    CONTAINER ID   IMAGE                                  COMMAND                  CREATED        STATUS   PORTS                       NAMES
+    7fb2bd53c232   postgres:12                            "docker-entrypoint.s…"   41 hours ago   Exited (0) 47 seconds ago             psql
+
+Поднимите новый пустой контейнер с PostgreSQL.
+
+    vagrant@server1:~/docker-composer$ sudo docker run --rm -d -e POSTGRES_USER=test-admin-user -e POSTGRES_PASSWORD=netology -e POSTGRES_DB=db_test -v backup:/opt/backup --name psql_new postgres:12
+
+    vagrant@server1:~/docker-composer$ sudo docker ps -a
+    CONTAINER ID   IMAGE         COMMAND                  CREATED              STATUS                      PORTS      NAMES
+    43abb21d688e   postgres:12   "docker-entrypoint.s…"   About a minute ago   Up About a minute           5432/tcp   psql_new
+    7fb2bd53c232   postgres:12   "docker-entrypoint.s…"   43 hours ago         Exited (0) 41 minutes ago              psql
+    
+
+Восстановите БД test_db в новом контейнере.
+
+
+
+Приведите список операций, который вы применяли для бэкапа данных и восстановления.
+
