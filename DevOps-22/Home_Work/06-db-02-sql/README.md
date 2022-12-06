@@ -1,13 +1,13 @@
 ## Домашнее задание к занятию "6.2. SQL"
 
-        Введение
-        Перед выполнением задания вы можете ознакомиться с дополнительными материалами. https://github.com/netology-code/virt-homeworks/blob/virt-11/additional/README.md
+Введение
+Перед выполнением задания вы можете ознакомиться с дополнительными материалами. https://github.com/netology-code/virt-homeworks/blob/virt-11/additional/README.md
 
 ### 1. Обязательная задача 1
 
-        Используя docker поднимите инстанс PostgreSQL (версию 12) c 2 volume, в который будут складываться данные БД и бэкапы.
+Используя docker поднимите инстанс PostgreSQL (версию 12) c 2 volume, в который будут складываться данные БД и бэкапы.
 
-        Приведите получившуюся команду или docker-compose манифест.
+Приведите получившуюся команду или docker-compose манифест.
 
 ОТВЕТ:
 
@@ -35,30 +35,30 @@ services:
     restart: always
 ```
 
-vagrant@server1:~/docker-composer$ sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose   
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current 
-                                 Dload  Upload   Total   Spent    Left  Speed   
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  
-100 11.6M  100 11.6M    0     0  5309k      0  0:00:02  0:00:02 --:--:-- 6738k  
+    vagrant@server1:~/docker-composer$ sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose   
+    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current 
+                                     Dload  Upload   Total   Spent    Left  Speed   
+    0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  
+    100 11.6M  100 11.6M    0     0  5309k      0  0:00:02  0:00:02 --:--:-- 6738k  
+        
+    vagrant@server1:~/docker-composer$ sudo chmod +x /usr/local/bin/docker-compose  
+        
+    vagrant@server1:~/docker-composer$ docker-compose --version 
+    docker-compose version 1.26.0, build d4451659   
     
-vagrant@server1:~/docker-composer$ sudo chmod +x /usr/local/bin/docker-compose  
-    
-vagrant@server1:~/docker-composer$ docker-compose --version 
-docker-compose version 1.26.0, build d4451659   
+    vagrant@server1:~/docker-composer$ sudo docker-compose up -d    
+    Creating network "docker-composer_default" with the default driver  
+    Creating volume "docker-composer_db" with default driver    
+    Creating volume "docker-composer_backup" with default driver    
+    Creating psql ... done      
 
-vagrant@server1:~/docker-composer$ sudo docker-compose up -d    
-Creating network "docker-composer_default" with the default driver  
-Creating volume "docker-composer_db" with default driver    
-Creating volume "docker-composer_backup" with default driver    
-Creating psql ... done      
+    vagrant@server1:~/docker-composer$ sudo docker exec -it psql bash  
 
-vagrant@server1:~/docker-composer$ sudo docker exec -it psql bash  
+    root@7fb2bd53c232:/#  psql -h localhost -U test-admin-user db_test  
+    psql (12.13 (Debian 12.13-1.pgdg110+1)) 
+    Type "help" for help.   
 
-root@7fb2bd53c232:/#  psql -h localhost -U test-admin-user db_test  
-psql (12.13 (Debian 12.13-1.pgdg110+1)) 
-Type "help" for help.   
-
-db_test=#   
+    db_test=#   
 
 
 ### 2. Обязательная задача 2
@@ -136,13 +136,10 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON orders, clients TO "test-simple-user";
       Column       |       Type        | Collation | Nullable |               Default               | Storage  | Stats target | Description
     -------------------+-------------------+-----------+----------+-------------------------------------+----------+--------------+-------------
     id                | integer           |           | not null | nextval('clients_id_seq'::regclass) | plain    |
-      |
     фамилия           | character varying |           |          |                                     | extended |
-          |
     страна проживания | character varying |           |          |                                     | extended |
-          |
     заказ             | integer           |           |          |                                     | plain    |
-          |
+    
     Indexes:
         "clients_pkey" PRIMARY KEY, btree (id)
         "clients_страна проживания_idx" btree ("страна проживания")
@@ -154,14 +151,11 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON orders, clients TO "test-simple-user";
                                                         Table "public.orders"
     Column    |       Type        | Collation | Nullable |              Default               | Storage  | Stats target
     | Description
-    --------------+-------------------+-----------+----------+------------------------------------+----------+--------------
-    +-------------
+    --------------+-------------------+-----------+----------+------------------------------------+----------+--------------+-------------
     id           | integer           |           | not null | nextval('orders_id_seq'::regclass) | plain    |
-    |
-     наименование | character varying |           |          |                                    | extended |
-|   
+    наименование | character varying |           |          |                                    | extended |
     цена         | integer           |           |          |                                    | plain    |
-|
+    
     Indexes:
         "orders_pkey" PRIMARY KEY, btree (id)
     Referenced by:
