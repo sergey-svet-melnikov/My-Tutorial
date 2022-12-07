@@ -27,7 +27,7 @@ services:
       - "0.0.0.0:5432:5432"
     volumes:
       - db:/var/lib/postgresql/data
-      - backup:/opt/backup
+      - /opt/backup:/opt/backup 
     environment:
       POSTGRES_USER: "test-admin-user"
       POSTGRES_PASSWORD: "netology"
@@ -354,24 +354,57 @@ Ritchie Blackmore	Russia
 
     vagrant@server1:~/docker-composer$ sudo docker-compose stop
     Stopping psql ... done
-
+    
     vagrant@server1:~/docker-composer$ sudo docker ps -a
-    CONTAINER ID   IMAGE                                  COMMAND                  CREATED        STATUS   PORTS                       NAMES
-    7fb2bd53c232   postgres:12                            "docker-entrypoint.s…"   41 hours ago   Exited (0) 47 seconds ago             psql
+    CONTAINER ID   IMAGE         COMMAND                  CREATED         STATUS                      PORTS     NAMES
+    236924d69ca8   postgres:12   "docker-entrypoint.s…"   9 minutes ago   Exited (0) 13 seconds ago             psql
 
 Поднимите новый пустой контейнер с PostgreSQL.
 
     vagrant@server1:~/docker-composer$ sudo docker run --rm -d -e POSTGRES_USER=test-admin-user -e POSTGRES_PASSWORD=netology -e POSTGRES_DB=db_test -v backup:/opt/backup --name psql_new postgres:12
 
+    vagrant@server1:~/docker-composer$ sudo docker run --rm -d -e POSTGRES_USER=test-admin-user -e POSTGRES_PASSWORD=netology -e POSTGRES_DB=db_test -v /opt/backup:/opt/backup --name psql_new postgres:12
+    c4fbb4605ff4013d55b579d1127ce5d2208e8969227234f70a869b9918b3bbe3
+
     vagrant@server1:~/docker-composer$ sudo docker ps -a
-    CONTAINER ID   IMAGE         COMMAND                  CREATED              STATUS                      PORTS      NAMES
-    43abb21d688e   postgres:12   "docker-entrypoint.s…"   About a minute ago   Up About a minute           5432/tcp   psql_new
-    7fb2bd53c232   postgres:12   "docker-entrypoint.s…"   43 hours ago         Exited (0) 41 minutes ago              psql
+    CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS                          PORTS      NAMES
+    c4fbb4605ff4   postgres:12   "docker-entrypoint.s…"   14 seconds ago   Up 12 seconds                   5432/tcp   psql_new
+    236924d69ca8   postgres:12   "docker-entrypoint.s…"   10 minutes ago   Exited (0) About a minute ago              psql
     
+    vagrant@server1:~/docker-composer$ sudo docker exec -it psql_new bash
+    root@c4fbb4605ff4:/#
 
 Восстановите БД test_db в новом контейнере.
 
+    root@c4fbb4605ff4:/# ls /opt/backup
+    db_test.dump
 
+    root@c4fbb4605ff4:/# psql -h localhost -U test-admin-user -f /opt/backup/db_test.dump db_test
+    psql (12.13 (Debian 12.13-1.pgdg110+1))
+    Type "help" for help.
+
+    db_test=# select * from orders;
+    id | наименование | цена
+    ----+--------------+------
+    1 | Шоколад      |   10
+    2 | Принтер      | 3000
+    3 | Книга        |  500
+    4 | Монитор      | 7000
+    5 | Гитара       | 4000
+    (5 rows)
+
+    
+    db_test=# select * from clients;
+    id |       фамилия        | страна проживания | заказ
+    ----+----------------------+-------------------+-------
+    4 | Ронни Джеймс Дио     | Russia            |
+    5 | Ritchie Blackmore    | Russia            |
+    1 | Иванов Иван Иванович | USA               |     3
+    2 | Петров Петр Петрович | Canada            |     4
+    3 | Иоганн Себастьян Бах | Japan             |     5
+    (5 rows)
+
+    db_test=#
 
 Приведите список операций, который вы применяли для бэкапа данных и восстановления.
 
