@@ -159,19 +159,20 @@
 - количество попыток авторизации - 3 
 - максимальное количество запросов в час - 100
 - аттрибуты пользователя:
-- Фамилия "Pretty"
-- Имя "James"
+  - Фамилия "Pretty"
+  - Имя "James"
 
 
-    mysql> CREATE USER 'test'@'localhost'  
-    N_ATTEMPTS 3 PASSWORD_LOCK_TIME 2  
-    ATTRIBUTE '{"first_name":    ->     IDENTIFIED WITH mysql_native_password BY 'test-pass'  
-    ->     WITH MAX_CONNECTIONS_PER_HOUR 100  
-    ->     PASSWORD EXPIRE INTERVAL 180 DAY  
-    ->     FAILED_LOGIN_ATTEMPTS 3 PASSWORD_LOCK_TIME 2  
-    ->     ATTRIBUTE '{"first_name":"James", "last_name":"Pretty"}';  
-    Query OK, 0 rows affected (0.02 sec)  
+      mysql> CREATE USER 'test'@'localhost'  
+      N_ATTEMPTS 3 PASSWORD_LOCK_TIME 2  
+      ATTRIBUTE '{"first_name":    ->     IDENTIFIED WITH mysql_native_password BY 'test-pass'  
+      ->     WITH MAX_CONNECTIONS_PER_HOUR 100  
+      ->     PASSWORD EXPIRE INTERVAL 180 DAY  
+      ->     FAILED_LOGIN_ATTEMPTS 3 PASSWORD_LOCK_TIME 2  
+      ->     ATTRIBUTE '{"first_name":"James", "last_name":"Pretty"}';  
+      Query OK, 0 rows affected (0.02 sec)  
   
+
 Предоставьте привелегии пользователю `test` на операции SELECT базы `test_db`.
 
     mysql> GRANT SELECT ON mydb.* TO test@localhost;
