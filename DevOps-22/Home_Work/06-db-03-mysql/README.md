@@ -205,45 +205,44 @@ CREATE USER 'test'@'localhost'
     1 row in set (0.01 sec)
 
 Измените `engine` и **приведите время выполнения и запрос на изменения из профайлера в ответе**:
-- на `MyISAM`
-- на `InnoDB`
+на `MyISAM`
+на `InnoDB`
 
-
-    mysql> SHOW PROFILES;
-    Empty set, 1 warning (0.00 sec)
-
-    mysql> SET profiling = 1;
-    Query OK, 0 rows affected, 1 warning (0.00 sec)
-
-    mysql> ALTER TABLE orders ENGINE = MyISAM;
-    Query OK, 5 rows affected (0.04 sec)
-    Records: 5  Duplicates: 0  Warnings: 0
-
-    mysql> ALTER TABLE orders ENGINE = InnoDB;
-    Query OK, 5 rows affected (0.05 sec)
-    Records: 5  Duplicates: 0  Warnings: 0
-
-    mysql> SHOW PROFILES;
-    +----------+------------+------------------------------------+
-    | Query_ID | Duration   | Query                              |
-    +----------+------------+------------------------------------+
-    |        1 | 0.04635875 | ALTER TABLE orders ENGINE = MyISAM |
-    |        2 | 0.05535875 | ALTER TABLE orders ENGINE = InnoDB |
-    +----------+------------+------------------------------------+
-    2 rows in set, 1 warning (0.00 sec)
-
-    mysql> SET profiling = 1;
-    Query OK, 0 rows affected, 1 warning (0.00 sec)
-
-    mysql> SHOW PROFILES;
-    +----------+------------+------------------------------------+
-    | Query_ID | Duration   | Query                              |
-    +----------+------------+------------------------------------+
-    |        1 | 0.04635875 | ALTER TABLE orders ENGINE = MyISAM |
-    |        2 | 0.05535875 | ALTER TABLE orders ENGINE = InnoDB |
-    |        3 | 0.00026300 | SET profiling = 1                  |
-    +----------+------------+------------------------------------+
-    3 rows in set, 1 warning (0.00 sec)
+      mysql> SHOW PROFILES;    
+      Empty set, 1 warning (0.00 sec)    
+  
+      mysql> SET profiling = 1;  
+      Query OK, 0 rows affected, 1 warning (0.00 sec)  
+    
+      mysql> ALTER TABLE orders ENGINE = MyISAM;  
+      Query OK, 5 rows affected (0.04 sec)  
+      Records: 5  Duplicates: 0  Warnings: 0  
+    
+      mysql> ALTER TABLE orders ENGINE = InnoDB;  
+      Query OK, 5 rows affected (0.05 sec)  
+      Records: 5  Duplicates: 0  Warnings: 0  
+    
+      mysql> SHOW PROFILES;  
+      +----------+------------+------------------------------------+  
+      | Query_ID | Duration   | Query                              |  
+      +----------+------------+------------------------------------+  
+      |        1 | 0.04635875 | ALTER TABLE orders ENGINE = MyISAM |  
+      |        2 | 0.05535875 | ALTER TABLE orders ENGINE = InnoDB |    
+      +----------+------------+------------------------------------+  
+      2 rows in set, 1 warning (0.00 sec)  
+  
+      mysql> SET profiling = 1;  
+      Query OK, 0 rows affected, 1 warning (0.00 sec)  
+  
+      mysql> SHOW PROFILES;  
+      +----------+------------+------------------------------------+  
+      | Query_ID | Duration   | Query                              |  
+      +----------+------------+------------------------------------+  
+      |        1 | 0.04635875 | ALTER TABLE orders ENGINE = MyISAM |  
+      |        2 | 0.05535875 | ALTER TABLE orders ENGINE = InnoDB |
+      |        3 | 0.00026300 | SET profiling = 1                  |
+      +----------+------------+------------------------------------+
+      3 rows in set, 1 warning (0.00 sec)
     
 
 ## Задача 4 
