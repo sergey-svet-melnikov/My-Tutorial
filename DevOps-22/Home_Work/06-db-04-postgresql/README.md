@@ -377,7 +377,13 @@
 
 Используя утилиту `pg_dump` создайте бекап БД `test_database`.
 
+        root@ab59cb405acf:/# pg_dump -h localhost -U postgres test_database > /opt/backup/test_database_backup.dump
+        root@ab59cb405acf:/# ls /opt/backup
+        db_test.dump  test_database_backup.dump  test_database.dump  test.dump
+
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?
+
+        
 
 ---
 
