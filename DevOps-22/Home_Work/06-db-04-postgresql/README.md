@@ -383,7 +383,15 @@
 
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?
 
+        root@ab59cb405acf:/# psql -U postgres
+        psql (13.9 (Debian 13.9-1.pgdg110+1))
+        Type "help" for help.
         
+        postgres-#  \c test_database
+        You are now connected to database "test_database" as user "postgres".
+        
+        test_database=# CREATE INDEX ON orders ((lower(title)));
+        CREATE INDEX
 
 ---
 
