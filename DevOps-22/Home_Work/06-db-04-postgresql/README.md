@@ -4,25 +4,11 @@
 
 Используя docker поднимите инстанс PostgreSQL (версию 13). Данные БД сохраните в volume.
 
-        vagrant@server1:/$ sudo docker run --rm --name postgresql13 -e POSTGRES_PASSWORD=netology -v /var/lib/postgersql13/data:/var/lib/postgresql13/data -p 5432:5432 -d postgres:13
-        Unable to find image 'postgres:13' locally
-        13: Pulling from library/postgres
-        025c56f98b67: Pull complete
-        26dc25c16f4e: Pull complete
-        a032d8a894de: Pull complete
-        40dba7d35750: Pull complete
-        8ebb44a56070: Pull complete
-        813fd6cf203b: Pull complete
-        7024f61bf8f5: Pull complete
-        23f986b322e8: Pull complete
-        946700296c28: Pull complete
-        f71725be6659: Pull complete
-        d4ca28c644eb: Pull complete
-        337909ee7a07: Pull complete
-        3c8a44dcc354: Pull complete
-        Digest: sha256:5fec4106f03419cb92dd604a8dd2ae85e724c640af743ba3d24ea2198f762250
-        Status: Downloaded newer image for postgres:13
-        495dee48f92935672a584feecd81afdd0492e84dee57a0d32cc293fa775c832e   
+        vagrant@server1:/$ sudo docker run --rm --name postgresql13 -e POSTGRES_PASSWORD=netology -v /var/lib/postgersql13/data:/var/lib/postgresql13/data -v /opt/backup:/opt/backup -p 5432:5432 -d postgres:13
+        
+        vagrant@server1:/opt/backup$ sudo docker ps -a
+        CONTAINER ID   IMAGE         COMMAND                  CREATED         STATUS                  PORTS      NAMES
+        ab59cb405acf   postgres:13   "docker-entrypoint.s…"   8 seconds ago   Up 6 seconds            0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   postgresql13
 
 Подключитесь к БД PostgreSQL используя `psql`.
 
@@ -154,7 +140,7 @@
          pg_catalog | pg_default_acl                  | table | postgres | permanent   | 8192 bytes |
          pg_catalog | pg_depend                       | table | postgres | permanent   | 488 kB     |
          pg_catalog | pg_description                  | table | postgres | permanent   | 376 kB     |
-         ppg_catalog | pg_enum                         | table | postgres | permanent   | 0 bytes    |
+         pg_catalog | pg_enum                         | table | postgres | permanent   | 0 bytes    |
          pg_catalog | pg_event_trigger                | table | postgres | permanent   | 8192 bytes |
          pg_catalog | pg_extension                    | table | postgres | permanent   | 48 kB      |
          pg_catalog | pg_file_settings                | view  | postgres | permanent   | 0 bytes    |
@@ -265,19 +251,68 @@
 
 - выхода из psql
 
-        
+      postgres-# \q
+      root@495dee48f929:/#   
     
 ## Задача 2
 
 Используя `psql` создайте БД `test_database`.
 
+        root@495dee48f929:/# psql -U postgres
+        psql (13.9 (Debian 13.9-1.pgdg110+1))
+        Type "help" for help.
+        postgres=# CREATE DATABASE test_database;
+        CREATE DATABASE
+
 Изучите [бэкап БД](https://github.com/netology-code/virt-homeworks/tree/virt-11/06-db-04-postgresql/test_data).
 
 Восстановите бэкап БД в `test_database`.
 
+        vagrant@server1:~$ sudo docker exec -it postgresql13 bash
+        root@ab59cb405acf:/# ls /opt/backup
+        db_test.dump  test_database.dump  test.dump
+        root@ab59cb405acf:/# psql -U postgres -f /opt/backup/test_database.dump  test_database
+        SET
+        SET
+        SET
+        SET
+        SET
+        set_config
+        ------------
+        
+        (1 row)
+        
+        SET
+        SET
+        SET
+        SET
+        SET
+        SET
+        CREATE TABLE
+        ALTER TABLE
+        CREATE SEQUENCE
+        ALTER TABLE
+        ALTER SEQUENCE
+        ALTER TABLE
+        COPY 8
+        setval
+        --------
+            8
+        (1 row)
+        
+        ALTER TABLE
+
 Перейдите в управляющую консоль `psql` внутри контейнера.
 
+        root@ab59cb405acf:/# psql -U postgres
+        psql (13.9 (Debian 13.9-1.pgdg110+1))
+        Type "help" for help.
+
+        postgres=#
+
 Подключитесь к восстановленной БД и проведите операцию ANALYZE для сбора статистики по таблице.
+
+        
 
 Используя таблицу [pg_stats](https://postgrespro.ru/docs/postgresql/12/view-pg-stats), найдите столбец таблицы `orders` 
 с наибольшим средним значением размера элементов в байтах.
