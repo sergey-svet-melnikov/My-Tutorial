@@ -4,17 +4,269 @@
 
 Используя docker поднимите инстанс PostgreSQL (версию 13). Данные БД сохраните в volume.
 
+        vagrant@server1:/$ sudo docker run --rm --name postgresql13 -e POSTGRES_PASSWORD=netology -v /var/lib/postgersql13/data:/var/lib/postgresql13/data -p 5432:5432 -d postgres:13
+        Unable to find image 'postgres:13' locally
+        13: Pulling from library/postgres
+        025c56f98b67: Pull complete
+        26dc25c16f4e: Pull complete
+        a032d8a894de: Pull complete
+        40dba7d35750: Pull complete
+        8ebb44a56070: Pull complete
+        813fd6cf203b: Pull complete
+        7024f61bf8f5: Pull complete
+        23f986b322e8: Pull complete
+        946700296c28: Pull complete
+        f71725be6659: Pull complete
+        d4ca28c644eb: Pull complete
+        337909ee7a07: Pull complete
+        3c8a44dcc354: Pull complete
+        Digest: sha256:5fec4106f03419cb92dd604a8dd2ae85e724c640af743ba3d24ea2198f762250
+        Status: Downloaded newer image for postgres:13
+        495dee48f92935672a584feecd81afdd0492e84dee57a0d32cc293fa775c832e   
+
 Подключитесь к БД PostgreSQL используя `psql`.
+
+        vagrant@server1:/$ sudo docker exec -it postgresql13 bash
+        
+        root@495dee48f929:/#  psql -U postgres
+        psql (13.9 (Debian 13.9-1.pgdg110+1))
+        Type "help" for help.
+
+        postgres=#
 
 Воспользуйтесь командой `\?` для вывода подсказки по имеющимся в `psql` управляющим командам.
 
+        
 **Найдите и приведите** управляющие команды для:
 - вывода списка БД
+
+        postgres=# \l+
+                                                                   List of databases
+            Name    |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges   |  Size   | Tablespace |  Description
+         -----------+----------+----------+------------+------------+-----------------------+---------+------------+--------------------------------------------
+          postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 |                       | 7901 kB | pg_default | default administrative connection database
+          template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +| 7753 kB | pg_default | unmodifiableempty database
+                    |          |          |            |            | postgres=CTc/postgres |         |            |
+          template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +| 7753 kB | pg_default | default template for new databases
+                    |          |          |            |            | postgres=CTc/postgres |         |            |
+        (3 rows)
+
 - подключения к БД
+
+        postgres=# \conninfo
+        You are connected to database "postgres" as user "postgres" via socket in "/var/run/postgresql" at port "5432".
+ 
 - вывода списка таблиц
+
+        postgres=# \dtS
+                    List of relations
+          Schema   |          Name           | Type  |  Owner
+       ------------+-------------------------+-------+----------
+        pg_catalog | pg_aggregate            | table | postgres
+        pg_catalog | pg_am                   | table | postgres
+        pg_catalog | pg_amop                 | table | postgres
+        pg_catalog | pg_amproc               | table | postgres
+        pg_catalog | pg_attrdef              | table | postgres
+        pg_catalog | pg_attribute            | table | postgres
+        pg_catalog | pg_auth_members         | table | postgres
+        pg_catalog | pg_authid               | table | postgres
+        pg_catalog | pg_cast                 | table | postgres
+        pg_catalog | pg_class                | table | postgres
+        pg_catalog | pg_collation            | table | postgres
+        pg_catalog | pg_constraint           | table | postgres
+        pg_catalog | pg_conversion           | table | postgres
+        pg_catalog | pg_database             | table | postgres
+        pg_catalog | pg_db_role_setting      | table | postgres
+        pg_catalog | pg_default_acl          | table | postgres
+        pg_catalog | pg_depend               | table | postgres
+        pg_catalog | pg_description          | table | postgres
+        pg_catalog | pg_enum                 | table | postgres
+        pg_catalog | pg_event_trigger        | table | postgres
+        pg_catalog | pg_extension            | table | postgres
+        pg_catalog | pg_foreign_data_wrapper | table | postgres
+        pg_catalog | pg_foreign_server       | table | postgres
+        pg_catalog | pg_foreign_table        | table | postgres
+        pg_catalog | pg_index                | table | postgres
+        pg_catalog | pg_inherits             | table | postgres
+        pg_catalog | pg_init_privs           | table | postgres
+        pg_catalog | pg_language             | table | postgres
+        pg_catalog | pg_largeobject          | table | postgres
+        pg_catalog | pg_largeobject_metadata | table | postgres
+        pg_catalog | pg_namespace            | table | postgres
+        pg_catalog | pg_opclass              | table | postgres
+        pg_catalog | pg_operator             | table | postgres
+        pg_catalog | pg_opfamily             | table | postgres
+        pg_catalog | pg_partitioned_table    | table | postgres
+        pg_catalog | pg_policy               | table | postgres
+        pg_catalog | pg_proc                 | table | postgres
+        pg_catalog | pg_publication          | table | postgres
+        pg_catalog | pg_publication_rel      | table | postgres
+        pg_catalog | pg_range                | table | postgres
+        pg_catalog | pg_replication_origin   | table | postgres
+        pg_catalog | pg_rewrite              | table | postgres
+        pg_catalog | pg_seclabel             | table | postgres
+        pg_catalog | pg_sequence             | table | postgres
+        pg_catalog | pg_shdepend             | table | postgres
+        pg_catalog | pg_shdescription        | table | postgres
+        pg_catalog | pg_shseclabel           | table | postgres
+        pg_catalog | pg_statistic            | table | postgres
+        pg_catalog | pg_statistic_ext        | table | postgres
+        pg_catalog | pg_statistic_ext_data   | table | postgres
+        pg_catalog | pg_subscription         | table | postgres
+        pg_catalog | pg_subscription_rel     | table | postgres
+        pg_catalog | pg_tablespace           | table | postgres
+        pg_catalog | pg_transform            | table | postgres
+        pg_catalog | pg_trigger              | table | postgres
+        pg_catalog | pg_ts_config            | table | postgres
+        pg_catalog | pg_ts_config_map        | table | postgres
+        pg_catalog | pg_ts_dict              | table | postgres
+        pg_catalog | pg_ts_parser            | table | postgres
+        pg_catalog | pg_ts_template          | table | postgres
+        pg_catalog | pg_type                 | table | postgres
+        pg_catalog | pg_user_mapping         | table | postgres
+        (62 rows)  
+      
 - вывода описания содержимого таблиц
+
+        postgres=# postgres=# \dS+
+                                            List of relations
+   Schema   |              Name               | Type  |  Owner   | Persistence |    Size    | Description
+------------+---------------------------------+-------+----------+-------------+------------+-------------
+ pg_catalog | pg_aggregate                    | table | postgres | permanent   | 56 kB      |
+ pg_catalog | pg_am                           | table | postgres | permanent   | 40 kB      |
+ pg_catalog | pg_amop                         | table | postgres | permanent   | 80 kB      |
+ pg_catalog | pg_amproc                       | table | postgres | permanent   | 64 kB      |
+ pg_catalog | pg_attrdef                      | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_attribute                    | table | postgres | permanent   | 456 kB     |
+ pg_catalog | pg_auth_members                 | table | postgres | permanent   | 40 kB      |
+ pg_catalog | pg_authid                       | table | postgres | permanent   | 48 kB      |
+ pg_catalog | pg_available_extension_versions | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_available_extensions         | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_cast                         | table | postgres | permanent   | 48 kB      |
+ pg_catalog | pg_class                        | table | postgres | permanent   | 136 kB     |
+ pg_catalog | pg_collation                    | table | postgres | permanent   | 240 kB     |
+ pg_catalog | pg_config                       | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_constraint                   | table | postgres | permanent   | 48 kB      |
+ pg_catalog | pg_conversion                   | table | postgres | permanent   | 48 kB      |
+ pg_catalog | pg_cursors                      | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_database                     | table | postgres | permanent   | 48 kB      |
+ pg_catalog | pg_db_role_setting              | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_default_acl                  | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_depend                       | table | postgres | permanent   | 488 kB     |
+ pg_catalog | pg_description                  | table | postgres | permanent   | 376 kB     |
+ pg_catalog | pg_enum                         | table | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_event_trigger                | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_extension                    | table | postgres | permanent   | 48 kB      |
+ pg_catalog | pg_file_settings                | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_foreign_data_wrapper         | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_foreign_server               | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_foreign_table                | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_group                        | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_hba_file_rules               | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_index                        | table | postgres | permanent   | 64 kB      |
+ pg_catalog | pg_indexes                      | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_inherits                     | table | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_init_privs                   | table | postgres | permanent   | 56 kB      |
+ pg_catalog | pg_language                     | table | postgres | permanent   | 48 kB      |
+ pg_catalog | pg_largeobject                  | table | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_largeobject_metadata         | table | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_locks                        | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_matviews                     | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_namespace                    | table | postgres | permanent   | 48 kB      |
+ pg_catalog | pg_opclass                      | table | postgres | permanent   | 48 kB      |
+ pg_catalog | pg_operator                     | table | postgres | permanent   | 144 kB     |
+ pg_catalog | pg_opfamily                     | table | postgres | permanent   | 48 kB      |
+ pg_catalog | pg_partitioned_table            | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_policies                     | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_policy                       | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_prepared_statements          | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_prepared_xacts               | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_proc                         | table | postgres | permanent   | 688 kB     |
+ pg_catalog | pg_publication                  | table | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_publication_rel              | table | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_publication_tables           | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_range                        | table | postgres | permanent   | 40 kB      |
+ pg_catalog | pg_replication_origin           | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_replication_origin_status    | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_replication_slots            | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_rewrite                      | table | postgres | permanent   | 656 kB     |
+ pg_catalog | pg_roles                        | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_rules                        | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_seclabel                     | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_seclabels                    | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_sequence                     | table | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_sequences                    | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_settings                     | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_shadow                       | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_shdepend                     | table | postgres | permanent   | 40 kB      |
+ pg_catalog | pg_shdescription                | table | postgres | permanent   | 48 kB      |
+ pg_catalog | pg_shmem_allocations            | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_shseclabel                   | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_stat_activity                | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_all_indexes             | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_all_tables              | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_archiver                | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_bgwriter                | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_database                | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_database_conflicts      | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_gssapi                  | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_progress_analyze        | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_progress_basebackup     | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_progress_cluster        | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_progress_create_index   | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_progress_vacuum         | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_replication             | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_slru                    | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_ssl                     | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_subscription            | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_sys_indexes             | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_sys_tables              | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_user_functions          | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_user_indexes            | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_user_tables             | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_wal_receiver            | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_xact_all_tables         | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_xact_sys_tables         | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_xact_user_functions     | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stat_xact_user_tables        | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_statio_all_indexes           | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_statio_all_sequences         | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_statio_all_tables            | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_statio_sys_indexes           | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_statio_sys_sequences         | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_statio_sys_tables            | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_statio_user_indexes          | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_statio_user_sequences        | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_statio_user_tables           | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_statistic                    | table | postgres | permanent   | 248 kB     |
+ pg_catalog | pg_statistic_ext                | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_statistic_ext_data           | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_stats                        | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_stats_ext                    | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_subscription                 | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_subscription_rel             | table | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_tables                       | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_tablespace                   | table | postgres | permanent   | 48 kB      |
+ pg_catalog | pg_timezone_abbrevs             | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_timezone_names               | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_transform                    | table | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_trigger                      | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_ts_config                    | table | postgres | permanent   | 40 kB      |
+ pg_catalog | pg_ts_config_map                | table | postgres | permanent   | 56 kB      |
+ pg_catalog | pg_ts_dict                      | table | postgres | permanent   | 48 kB      |
+ pg_catalog | pg_ts_parser                    | table | postgres | permanent   | 40 kB      |
+ pg_catalog | pg_ts_template                  | table | postgres | permanent   | 40 kB      |
+ pg_catalog | pg_type                         | table | postgres | permanent   | 120 kB     |
+ pg_catalog | pg_user                         | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_user_mapping                 | table | postgres | permanent   | 8192 bytes |
+ pg_catalog | pg_user_mappings                | view  | postgres | permanent   | 0 bytes    |
+ pg_catalog | pg_views                        | view  | postgres | permanent   | 0 bytes    |
+(129 rows)        
+
 - выхода из psql
 
+        
+    
 ## Задача 2
 
 Используя `psql` создайте БД `test_database`.
