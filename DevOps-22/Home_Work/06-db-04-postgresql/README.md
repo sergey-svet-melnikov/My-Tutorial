@@ -340,9 +340,7 @@
 
 
 **Приведите в ответе** команду, которую вы использовали для вычисления и полученный результат.
-
-        
-
+  
 ## Задача 3
 
 Архитектор и администратор БД выяснили, что ваша таблица orders разрослась до невиданных размеров и
@@ -351,7 +349,29 @@
 
 Предложите SQL-транзакцию для проведения данной операции.
 
+        test_database=# CREATE TABLE orders_1 (CHECK (price > 499)) INHERITS (orders);
+        CREATE TABLE
+        test_database=# CREATE TABLE orders_2 (CHECK (price <= 499)) INHERITS (orders);
+        CREATE TABLE
+        test_database=# INSERT INTO orders_1 SELECT * FROM orders WHERE price > 499;
+        INSERT 0 3
+        test_database=# INSERT INTO orders_2 SELECT * FROM orders WHERE price <= 499;
+        INSERT 0 5
+        test_database=#  \dt
+                  List of relations
+        Schema |   Name   | Type  |  Owner
+        --------+----------+-------+----------
+        public | orders   | table | postgres
+        public | orders_1 | table | postgres
+        public | orders_2 | table | postgres
+        (3 rows)  
+
 Можно ли было изначально исключить "ручное" разбиение при проектировании таблицы orders?
+
+        ДА!
+
+        CREATE RULE orders_1_rule AS ON INSERT TO orders WHERE ( price > 499 ) DO INSTEAD INSERT INTO orders_1 VALUES (NEW.*);
+        CREATE RULE orders_2_rule AS ON INSERT TO orders WHERE ( price <= 499 ) DO INSTEAD INSERT INTO orders_2 VALUES (NEW.*);
 
 ## Задача 4
 
