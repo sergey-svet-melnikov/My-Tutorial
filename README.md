@@ -5,4 +5,4 @@ GitHub Desktop tutorial repository
 
 https://gitlab.com/k11s-os/infrastructure-as-code
 
-
+https://github.com/devinotelecom/prometheus-vmware-exporter
