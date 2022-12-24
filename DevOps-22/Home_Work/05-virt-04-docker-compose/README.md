@@ -523,7 +523,7 @@ Build 'yandex' finished after 3 minutes 55 seconds.
 | fhm................. | my-yc-instance | ru-central1-a | RUNNING | 51.250.**.***| 10.1.2.27   |
 +----------------------+----------------+---------------+---------+--------------+-------------+
 ```        
-
+![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/05-virt-04-docker-compose/yc_vm_list.png)
 
 
 ## Задача 3
