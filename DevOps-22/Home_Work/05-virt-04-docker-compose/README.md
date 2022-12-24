@@ -478,50 +478,60 @@ Build 'yandex' finished after 3 minutes 55 seconds.
 
 ```bash
 
-  vagrant@server1:~/.ssh$ yc compute instance create --name my-yc-instance --network-interface subnet-name=my-yc-subnet-a, nat-ip-version=ipv4 --zone ru-central1-a --ssh-key ~/.ssh/yc.pub
-    done (20s)
-  id: fhm..................
-  folder_id: b1g...................
-  created_at: "2022-12-24T09:58:22Z"
-  name: my-yc-instance
-  zone_id: ru-central1-a
-  platform_id: standard-v2
-  resources:
-    memory: "2147483648"
-    cores: "2"
-    core_fraction: "100"
-  status: RUNNING
-  metadata_options:
-    gce_http_endpoint: ENABLED
-    aws_v1_http_endpoint: ENABLED
-    gce_http_token: ENABLED
-    aws_v1_http_token: ENABLED
-  boot_disk:
-    mode: READ_WRITE
-    device_name: fhm...........
-    auto_delete: true
-    disk_id: fhmv..............
-  network_interfaces:
-    - index: "0"
-      mac_address: d0:0d:79:*:*:*
-      subnet_id: e9b.....................
-      primary_v4_address:
-        address: 10.1.2.27
-        one_to_one_nat:
-          address: 51.250.*.*
-          ip_version: IPV4
-  fqdn: ******.auto.internal
-  scheduling_policy: {}
-  network_settings:
-    type: STANDARD
-  placement_policy: {}
-  
-  vagrant@server1:~/.ssh$ yc compute instance list
+  vagrant@server1:~/.ssh$ yc compute instance create \
+-name my-yc-instance \
+  --network-interface subnet-name=my-yc-subnet-a,nat-ip-v>   --name my-yc-instance \
+>   --network-interface subnet-name=my-yc-subnet-a,nat-ip-version=ipv4 \
+l1-a \
+ >   --zone ru-central1-a \
+>   --ssh-key ~/.ssh/yc.pub \
+> --service-account-name sam
+
+done (18s)
+id: fhmog4poatdsu79ja62o
+folder_id: b1g3naro4vjh9i7bh6fj
+created_at: "2022-12-24T14:42:10Z"
+name: my-yc-instance
+zone_id: ru-central1-a
+platform_id: standard-v2
+resources:
+  memory: "2147483648"
+  cores: "2"
+  core_fraction: "100"
+status: RUNNING
+metadata_options:
+  gce_http_endpoint: ENABLED
+  aws_v1_http_endpoint: ENABLED
+  gce_http_token: ENABLED
+  aws_v1_http_token: ENABLED
+boot_disk:
+  mode: READ_WRITE
+  device_name: fhm1fkvbpttkmjbu3be9
+  auto_delete: true
+  disk_id: fhm1fkvbpttkmjbu3be9
+network_interfaces:
+  - index: "0"
+    mac_address: d0:0d:18:81:33:85
+    subnet_id: e9b0p0avhcjem7485as4
+    primary_v4_address:
+      address: 10.1.2.29
+      one_to_one_nat:
+        address: 51.250.2.101
+        ip_version: IPV4
+fqdn: fhmog4poatdsu79ja62o.auto.internal
+scheduling_policy: {}
+service_account_id: ajefheh5di96svpjto6m
+network_settings:
+  type: STANDARD
+placement_policy: {}
+
+
+vagrant@server1:~/.ssh$ yc compute instance list
 +----------------------+----------------+---------------+---------+--------------+-------------+
 |          ID          |      NAME      |    ZONE ID    | STATUS  | EXTERNAL IP  | INTERNAL IP |
 +----------------------+----------------+---------------+---------+--------------+-------------+
-| fhm................. | my-yc-instance | ru-central1-a | RUNNING | 51.250.**.***| 10.1.2.27   |
-+----------------------+----------------+---------------+---------+--------------+-------------+
+| fhmog4poatdsu79ja62o | my-yc-instance | ru-central1-a | RUNNING | 51.250.2.101 | 10.1.2.29   |
++----------------------+----------------+---------------+---------+--------------+-------------+  
 ```        
 ![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/05-virt-04-docker-compose/yc_vm_list.png)
 
