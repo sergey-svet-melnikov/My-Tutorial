@@ -464,7 +464,7 @@ Build 'yandex' finished after 3 minutes 55 seconds.
 +----------------------+---------------+--------+----------------------+--------+
 
 ```
-
+![](https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/05-virt-04-docker-compose/yc_centos8_image.png)
 
 ## Задача 2
 
