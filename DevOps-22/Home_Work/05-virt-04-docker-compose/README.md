@@ -39,8 +39,9 @@
 ```
         
     Разварачиваем на локальной машине средства управления виртуальными машинами и сервисами Yandex.Cloud
+
 ```bash
-    vagrant@server1: curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
+    vagrant@server1:~$ curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
     Downloading yc 0.99.0
       % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                      Dload  Upload   Total   Spent    Left  Speed
@@ -51,13 +52,13 @@
     Welcome! This command will take you through the configuration process.
     Please go to https://oauth.yandex.ru/authorize?response_type=token&client_id=1a6990aa636648e9b2ef855fa7bec2fb in order to obtain OAuth token.
     
-    Please enter OAuth token: !@#$$
-    You have one cloud available: 'sergey-svet-melnikov' (id = b1grs658dm7p15du2q25). It is going to be used by default.
+    Please enter OAuth token: y0_................................
+    You have one cloud available: 'sergey-svet-melnikov' (id = b1g...................). It is going to be used by default.
     Please choose folder to use:
-    [1] default (id = b1g3naro4vjh9i7bh6fj)
+    [1] default (id = b1g..........................)
     [2] Create a new folder
     Please enter your numeric choice: 1
-    Your current folder has been set to 'default' (id = b1g3naro4vjh9i7bh6fj).
+    Your current folder has been set to 'default' (id = b1g........................).
     Do you want to configure a default Compute zone? [Y/n] y
     Which zone do you want to use as a profile default?
     [1] ru-central1-a
@@ -66,8 +67,44 @@
     [4] Don't set default zone
     Please enter your numeric choice: 1
     Your profile default Compute zone has been set to 'ru-central1-a'.
+    vagrant@server1:~$ yc config list
+    token: y0_...........................
+    cloud-id: b1g........................
+    folder-id: b1g..........................
+    compute-default-zone: ru-central1-a
 ```
+    Создаем свою виртуальную сеть в облаке яндекса
 
+```bash
+    vagrant@server1:~/yc$ yc vpc network create --name my-yc-network --labels my-label=my-value --description "my first network via yc"
+    
+id: enp...................
+folder_id: b1g....................
+created_at: "2022-12-24T07:58:27Z"
+name: my-yc-network
+description: my first network via yc
+labels:
+  my-label: my-value
+  
+vagrant@server1:~/yc$ yc vpc subnet create --name my-yc-subnet-a --zone ru-central1-a --range 10.1.2.0/24 --network-name my-yc-network --description "my first subnet via yc"
+id: e9b................
+folder_id: b1g.....................
+created_at: "2022-12-24T08:56:12Z"
+name: my-yc-subnet-a
+description: my first subnet via yc
+network_id: enp....................
+zone_id: ru-central1-a
+v4_cidr_blocks:
+  - 10.1.2.0/24
+  
+  vagrant@server1:~/yc$ yc vpc network list
++----------------------+---------------+
+|          ID          |     NAME      |
++----------------------+---------------+
+| enp................. | my-yc-network |
++----------------------+---------------+
+
+```
     
 
 ## Задача 2
