@@ -131,14 +131,14 @@ vagrant@server1:~/yc$ yc vpc subnet list
   "builders": [
     {
       "disk_type": "network-hdd",
-      "folder_id": "b1g3naro4vjh9i7bh6fj",
+      "folder_id": "b1g..............",
       "image_description": "CentOS 7 by packer",
       "image_family": "centos",
       "image_name": "centos-7-base",
       "source_image_family": "centos-7",
       "ssh_username": "centos",
-      "subnet_id": "e9b0p0avhcjem7485as4",
-      "token": "y0_AgAAAABPRyPjAATuwQAAAADXnHIkZfqZ52IzSdKXBjw-VZUYJ26X4lU",
+      "subnet_id": "e9b..................",
+      "token": "y0_...............................",
       "type": "yandex",
       "use_ipv4_nat": true,
       "zone": "ru-central1-a"
