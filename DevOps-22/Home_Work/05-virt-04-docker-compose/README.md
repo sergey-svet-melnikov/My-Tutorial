@@ -472,8 +472,59 @@ Build 'yandex' finished after 3 minutes 55 seconds.
 
 Для получения зачета, вам необходимо предоставить cкриншот страницы свойств созданной ВМ из личного кабинета YandexCloud.
 
+ОТВЕТ:
 
-        
+    Создаем виртуальную машину с заранее подготовленными параметрами 
+
+```bash
+
+  vagrant@server1:~/.ssh$ yc compute instance create --name my-yc-instance --network-interface subnet-name=my-yc-subnet-a, nat-ip-version=ipv4 --zone ru-central1-a --ssh-key ~/.ssh/yc.pub
+    done (20s)
+  id: fhm..................
+  folder_id: b1g...................
+  created_at: "2022-12-24T09:58:22Z"
+  name: my-yc-instance
+  zone_id: ru-central1-a
+  platform_id: standard-v2
+  resources:
+    memory: "2147483648"
+    cores: "2"
+    core_fraction: "100"
+  status: RUNNING
+  metadata_options:
+    gce_http_endpoint: ENABLED
+    aws_v1_http_endpoint: ENABLED
+    gce_http_token: ENABLED
+    aws_v1_http_token: ENABLED
+  boot_disk:
+    mode: READ_WRITE
+    device_name: fhm...........
+    auto_delete: true
+    disk_id: fhmv..............
+  network_interfaces:
+    - index: "0"
+      mac_address: d0:0d:79:*:*:*
+      subnet_id: e9b.....................
+      primary_v4_address:
+        address: 10.1.2.27
+        one_to_one_nat:
+          address: 51.250.*.*
+          ip_version: IPV4
+  fqdn: ******.auto.internal
+  scheduling_policy: {}
+  network_settings:
+    type: STANDARD
+  placement_policy: {}
+  
+  vagrant@server1:~/.ssh$ yc compute instance list
++----------------------+----------------+---------------+---------+--------------+-------------+
+|          ID          |      NAME      |    ZONE ID    | STATUS  | EXTERNAL IP  | INTERNAL IP |
++----------------------+----------------+---------------+---------+--------------+-------------+
+| fhm................. | my-yc-instance | ru-central1-a | RUNNING | 51.250.**.***| 10.1.2.27   |
++----------------------+----------------+---------------+---------+--------------+-------------+
+```        
+
+
 
 ## Задача 3
 
