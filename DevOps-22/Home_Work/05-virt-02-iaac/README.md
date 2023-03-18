@@ -59,6 +59,10 @@
     executable location = /usr/bin/ansible
     python version = 3.8.10 (default, Mar 15 2022, 12:22:08) [GCC 9.4.0]
 
+    PS C:\Teraform> .\terraform.exe -version
+    Terraform v1.4.2
+    on windows_amd64
+
 
 
 
