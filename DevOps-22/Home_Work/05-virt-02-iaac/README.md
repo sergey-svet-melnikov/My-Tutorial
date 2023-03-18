@@ -46,13 +46,13 @@
     
 ОТВЕТ:
 
-    PS C:\Program Files\Oracle\VirtualBox> .\VBoxSVC.exe --version
+PS C:\Program Files\Oracle\VirtualBox> .\VBoxSVC.exe --version
     6.1.34r.150636
 
-    PS C:\vagrant> vagrant --version
+PS C:\vagrant> vagrant --version
     Vagrant 2.3.0
 
-    vagrant@vagrant:/etc/ansible$ ansible --version
+vagrant@vagrant:/etc/ansible$ ansible --version
     ansible 2.9.6
     config file = /etc/ansible/ansible.cfg
     configured module search path = ['/home/vagrant/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
@@ -60,7 +60,7 @@
     executable location = /usr/bin/ansible
     python version = 3.8.10 (default, Mar 15 2022, 12:22:08) [GCC 9.4.0]
 
-    PS C:\Teraform> .\terraform.exe -version
+PS C:\Teraform> .\terraform.exe -version
     Terraform v1.4.2
     on windows_amd64
 
