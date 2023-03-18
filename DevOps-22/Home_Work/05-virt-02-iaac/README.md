@@ -86,6 +86,8 @@ PS C:\Teraform> .\terraform.exe -version
 ОТВЕТ:
 
 vagrant@server1:/$ sudo docker ps
-CONTAINER ID   IMAGE         COMMAND                  CREATED        STATUS        PORTS                    NAMES
-236924d69ca8   postgres:12   "docker-entrypoint.s…"   3 months ago   Up 2 months   0.0.0.0:5432->5432/tcp   psql
+    CONTAINER ID   IMAGE         COMMAND                  CREATED        STATUS        PORTS                    NAMES
+    236924d69ca8   postgres:12   "docker-entrypoint.s…"   3 months ago   Up 2 months   0.0.0.0:5432->5432/tcp   psql
  
+vagrant@server1:/$ uname -a
+    Linux server1 5.4.0-110-generic #124-Ubuntu SMP Thu Apr 14 19:46:19 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
