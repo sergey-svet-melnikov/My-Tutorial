@@ -64,8 +64,28 @@
     Terraform v1.4.2
     on windows_amd64
 
+### 4.  Обязательная задача 4    
 
+    Воспроизведите практическую часть лекции самостоятельно.
 
-
+    Создайте виртуальную машину.
+    Зайдите внутрь ВМ, убедитесь, что Docker установлен с помощью команды
+        docker ps,
     
+    Vagrantfile из лекции и код ansible находятся в папке.
+
+    Примечание. Если Vagrant выдаёт ошибку:
+
+    URL: ["https://vagrantcloud.com/bento/ubuntu-20.04"]     
+    Error: The requested URL returned error: 404:
+    выполните следующие действия:
+
+    Скачайте с сайта файл-образ "bento/ubuntu-20.04".
+    Добавьте его в список образов Vagrant: "vagrant box add bento/ubuntu-20.04 <путь к файлу>".
+
+ОТВЕТ:
+
+vagrant@server1:/$ sudo docker ps
+CONTAINER ID   IMAGE         COMMAND                  CREATED        STATUS        PORTS                    NAMES
+236924d69ca8   postgres:12   "docker-entrypoint.s…"   3 months ago   Up 2 months   0.0.0.0:5432->5432/tcp   psql
  
