@@ -115,7 +115,7 @@ https://hub.docker.com/repository/docker/sergeysvetmelnikov/nginx_netology
 HOST:
 
     vagrant@server1:/data$ sudo mkdir /data
-    vagrant@server1:/data$ sudo chmod 777 /data
+    vagrant@server1:/data$ sudo chmod 644 /data
     vagrant@server1:/data$ echo 123 > file_host
     vagrant@server1:/data$ ls
     file_host
