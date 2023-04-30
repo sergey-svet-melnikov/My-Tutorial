@@ -156,7 +156,7 @@ Debian:
 
     Для сборки использовали Dockerfile:
 
-    https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/05-virt-03-docker/Dockerfile.txt
+    https://github.com/sergey-svet-melnikov/My-Tutorial/blob/main/DevOps-22/Home_Work/05-virt-03-docker/Dockerfile
 
     В результате получился образ:
 
